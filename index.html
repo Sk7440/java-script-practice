@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Fundamentals Workbook</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.7;
+        max-width: 1000px;
+        margin: auto;
+        padding: 30px;
+        background: #f5f5f5;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #222;
+      }
+
+      section {
+        background: white;
+        padding: 25px;
+        margin: 20px 0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+      }
+
+      code {
+        background: #eee;
+        padding: 2px 5px;
+        border-radius: 4px;
+      }
+
+      pre {
+        background: #272822;
+        color: white;
+        padding: 15px;
+        overflow-x: auto;
+        border-radius: 8px;
+      }
+
+      .practice {
+        background: #fff8d6;
+        padding: 15px;
+        border-left: 5px solid orange;
+      }
+
+      .challenge {
+        background: #e9f7ef;
+        padding: 15px;
+        border-left: 5px solid green;
+      }
+
+      .note {
+        background: #e8f0ff;
+        padding: 15px;
+        border-left: 5px solid royalblue;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>JavaScript Fundamentals Workbook</h1>
+
+    <p>
+      Welcome! This workbook is designed for students learning JavaScript for
+      the first time. Use it during lectures and revisit it later for revision.
+    </p>
+
+    <section>
+      <h2>Before We Begin</h2>
+
+      <h3>What is JavaScript?</h3>
+
+      <p>
+        JavaScript is a programming language used to make websites interactive.
+        It allows websites to respond to user actions, perform calculations,
+        validate forms, fetch data, build games, and much more.
+      </p>
+
+      <h3>How to Open the Browser Console</h3>
+
+      <ul>
+        <li>Press F12</li>
+        <li>Go to the Console tab</li>
+        <li>Type JavaScript code there</li>
+      </ul>
+
+      <pre>
+console.log("Hello JavaScript!");
+</pre
+      >
+    </section>
+
+    <section>
+      <h2>DAY 1 — Variables & Data Types</h2>
+
+      <h3>1. console.log()</h3>
+
+      <p>Used to display output inside the console.</p>
+
+      <pre>
+console.log("Hello World");
+
+console.log(100);
+
+console.log(true);
+</pre
+      >
+
+      <div class="practice">
+        <strong>Practice:</strong>
+
+        Write 3 console.log statements of your own.
+      </div>
+    </section>
+
+    <section>
+      <h3>2. Variables</h3>
+
+      <p>Variables are containers used to store data.</p>
+
+      <pre>
+let name = "Ali";
+
+let age = 20;
+
+console.log(name);
+console.log(age);
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>3. Variable Naming Rules</h3>
+
+      <p>Valid:</p>
+
+      <pre>
+let firstName;
+let age1;
+let _score;
+let $price;
+</pre
+      >
+
+      <p>Invalid:</p>
+
+      <pre>
+let 1name;
+let user-name;
+let let;
+</pre
+      >
+
+      <div class="note">
+        Use camelCase naming:
+
+        <pre>
+let totalMarks;
+let userAge;
+let phoneNumber;
+</pre
+        >
+      </div>
+    </section>
+
+    <section>
+      <h3>4. var vs let vs const</h3>
+
+      <h4>var</h4>
+
+      <pre>
+var city = "Lahore";
+</pre
+      >
+
+      <p>Old way. Avoid in modern JavaScript.</p>
+
+      <h4>let</h4>
+
+      <pre>
+let age = 20;
+
+age = 21;
+</pre
+      >
+
+      <p>Use when value can change.</p>
+
+      <h4>const</h4>
+
+      <pre>
+const pi = 3.14159;
+</pre
+      >
+
+      <p>Use when value should not change.</p>
+
+      <div class="note">
+        Modern Recommendation:
+
+        <ul>
+          <li>Prefer const by default.</li>
+          <li>Use let if reassignment is needed.</li>
+          <li>Avoid var.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h3>5. Data Types</h3>
+
+      <h4>Number</h4>
+
+      <pre>
+let age = 20;
+</pre
+      >
+
+      <h4>String</h4>
+
+      <pre>
+let name = "Ali";
+</pre
+      >
+
+      <h4>Boolean</h4>
+
+      <pre>
+let isStudent = true;
+</pre
+      >
+
+      <h4>Undefined</h4>
+
+      <pre>
+let score;
+</pre
+      >
+
+      <h4>Null</h4>
+
+      <pre>
+let data = null;
+</pre
+      >
+
+      <h4>Object</h4>
+
+      <pre>
+let person = {
+    name: "Ali",
+    age: 20
+};
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>6. typeof Operator</h3>
+
+      <pre>
+typeof 20;
+
+typeof "Ali";
+
+typeof true;
+
+typeof undefined;
+
+typeof null;
+
+typeof {};
+</pre
+      >
+
+      <div class="practice">
+        Open console and check the result of each typeof. Write your
+        observations.
+      </div>
+
+      <div class="note">
+        Interesting Fact:
+
+        <pre>
+typeof null
+</pre
+        >
+
+        returns:
+
+        <pre>
+"object"
+</pre
+        >
+
+        This is a historical JavaScript bug.
+      </div>
+    </section>
+
+    <section>
+      <h3>7. Arithmetic Operations</h3>
+
+      <pre>
+10 + 5;
+
+10 - 5;
+
+10 * 5;
+
+10 / 5;
+
+10 % 3;
+</pre
+      >
+
+      <div class="practice">Find: 15 + 10 50 - 18 7 * 8 81 / 9 25 % 4</div>
+    </section>
+
+    <section>
+      <h3>8. String Concatenation</h3>
+
+      <pre>
+let name = "Ali";
+
+console.log("Hello " + name);
+</pre
+      >
+
+      <h3>Template Literals</h3>
+
+      <pre>
+console.log(`Hello ${name}`);
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>9. NaN</h3>
+
+      <pre>
+"hello" * 2;
+</pre
+      >
+
+      <p>Output:</p>
+
+      <pre>
+NaN
+</pre
+      >
+
+      <p>NaN means "Not a Number".</p>
+    </section>
+
+    <section>
+      <h2>DAY 1 Practice</h2>
+
+      <div class="challenge">
+        1. Create variables for your name, age, and city. 2. Display them using
+        console.log. 3. Check their data types. 4. Calculate your age after 5
+        years. 5. Display: Hello, my name is _____ and I live in _____.
+      </div>
+    </section>
+
+    <section>
+      <h2>DAY 2 — Operators & Conditionals</h2>
+
+      <h3>1. Arithmetic Operators</h3>
+
+      <pre>
++
+-
+*
+/
+%
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>2. Comparison Operators</h3>
+
+      <pre>
+5 > 2
+
+5 < 2
+
+5 >= 5
+
+5 <= 4
+
+5 == "5"
+
+5 === "5"
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>3. == vs ===</h3>
+
+      <pre>
+5 == "5";   // true
+
+5 === "5";  // false
+</pre
+      >
+
+      <div class="note">
+        == checks value. === checks value and data type. Professionals usually
+        prefer ===.
+      </div>
+    </section>
+
+    <section>
+      <h3>4. Logical Operators</h3>
+
+      <h4>AND (&&)</h4>
+
+      <pre>
+true && true;
+</pre
+      >
+
+      <h4>OR (||)</h4>
+
+      <pre>
+true || false;
+</pre
+      >
+
+      <h4>NOT (!)</h4>
+
+      <pre>
+!true;
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>5. if Statement</h3>
+
+      <pre>
+let age = 18;
+
+if(age >= 18){
+    console.log("Adult");
+}
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>6. if...else</h3>
+
+      <pre>
+if(age >= 18){
+    console.log("Adult");
+}
+else{
+    console.log("Minor");
+}
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>7. else if</h3>
+
+      <pre>
+let marks = 85;
+
+if(marks >= 90){
+    console.log("A+");
+}
+else if(marks >= 80){
+    console.log("A");
+}
+else{
+    console.log("Needs Improvement");
+}
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>8. Truthy and Falsy Values</h3>
+
+      <p>Falsy Values:</p>
+
+      <pre>
+false
+0
+""
+null
+undefined
+NaN
+</pre
+      >
+
+      <div class="practice">
+        Predict the output before running:
+
+        <pre>
+if("") {
+    console.log("Runs");
+}
+else{
+    console.log("Doesn't run");
+}
+</pre
+        >
+      </div>
+    </section>
+
+    <section>
+      <h3>9. switch Statement</h3>
+
+      <pre>
+let day = 2;
+
+switch(day){
+
+    case 1:
+        console.log("Monday");
+        break;
+
+    case 2:
+        console.log("Tuesday");
+        break;
+
+    default:
+        console.log("Invalid Day");
+}
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>10. Ternary Operator</h3>
+
+      <pre>
+let age = 20;
+
+let result = age >= 18
+    ? "Adult"
+    : "Minor";
+
+console.log(result);
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>11. prompt()</h3>
+
+      <pre>
+let name = prompt("Enter your name");
+
+console.log(name);
+</pre
+      >
+
+      <div class="note">Important: prompt() always returns a STRING.</div>
+
+      <pre>
+typeof prompt("Enter Age");
+</pre
+      >
+    </section>
+
+    <section>
+      <h3>12. Number()</h3>
+
+      <pre>
+let age = Number(prompt("Enter age"));
+
+console.log(typeof age);
+</pre
+      >
+    </section>
+
+    <section>
+      <h2>Mini Project — Console Choice Game</h2>
+
+      <pre>
+let choice = prompt(
+"Choose:\n1. Tea\n2. Coffee\n3. Juice"
+);
+
+if(choice === "1"){
+    console.log("You chose Tea.");
+}
+else if(choice === "2"){
+    console.log("You chose Coffee.");
+}
+else if(choice === "3"){
+    console.log("You chose Juice.");
+}
+else{
+    console.log("Invalid Choice.");
+}
+</pre
+      >
+    </section>
+
+    <section>
+      <h2>DAY 2 Practice</h2>
+
+      <div class="challenge">
+        1. Compare: 10 == "10" 10 === "10" 2. Ask user for age. Display Adult or
+        Minor. 3. Ask user for marks. Show grade using if...else if. 4. Create a
+        switch statement for weekdays. 5. Build your own choice game with at
+        least 3 options.
+      </div>
+    </section>
+
+    <section>
+      <h2>Final Challenge</h2>
+
+      <div class="challenge">
+        Build a Student Eligibility Checker. Ask the user: - Name - Age - Marks
+        Rules: Marks >= 50 AND Age >= 18 Display: "Congratulations, you are
+        eligible." Otherwise display: "Sorry, you are not eligible." Use: ✔
+        Variables ✔ prompt() ✔ Number() ✔ if/else ✔ Logical Operators ✔
+        console.log()
+      </div>
+    </section>
+
+    <section>
+      <h2>Advice for Students</h2>
+
+      <ul>
+        <li>Do not memorize. Practice.</li>
+        <li>Type every example yourself.</li>
+        <li>Break code and observe errors.</li>
+        <li>Use console daily.</li>
+        <li>Programming is learned by doing.</li>
+      </ul>
+
+      <p>Congratulations! You have completed your first JavaScript workbook.</p>
+    </section>
+
+    <script>
+            // console.log("hello world")
+            // var, let , const
+            // var name = 'ali'
+            // // console.log(name);
+
+            // var name = "ahmad"
+
+            // console.log(name);
+
+            // var name = declration
+            // name  = "ahmad" = initiallization
+
+            // let name ="ali"
+            // name = "ahmad"
+            // console.log(name);
+
+            // const name = "ali"
+            // name = "ahmad"
+
+            // 2 main types of data in js
+            // primitive: number, string, boolean, null, undefined
+            // non-primitive: arrays , objects
+
+            // let data = ["ali", "ahmad", "sultan", 'abdullah']
+            // console.log(data[1]);
+
+            // let obj = {
+            //     name: 'ali',
+            //     age: 20,
+            //     adress: 'lahore',
+            //     name: 'ahmed',
+            //     age: 18,
+            //     adress: 'lahore'
+            // }
+            // console.log(typeof);
+            // let number = 3 % 2
+            // console.log(number);
+
+            // let name = 'ali'
+            // // console.log("hello " + name);
+            // console.log(`hello ${ name * 6}`); // template literals
+
+            //   let name = " my name is Sultan";
+            //   let age = 20;
+            //   let city = "lahore";
+            //   let age1 = 25;
+            //   console.log(name);
+            //   console.log(age);
+            //   console.log(city);
+            // //   concatination
+            //   console.log(" my age after 5 years is " +  age1 );
+            //   console.log("Hello, " + name + " and i live in " + city );
+
+            //   var age = 20;
+            //   var age = 21;
+            //   console.log(age);
+            //   let age = 25;
+            //   let age1 =21;
+            //   age = 89
+            //   console.log(age);
+            //   const age = 20;
+            //   const age =30;
+            //   console.log(age);
+
+            // ///////////////////////////////
+            // OPERATORS
+            // = assignment op.
+            // == loose comparison / value compare not type
+            // === strict comp / it checks for both value and type
+            // console.log(5 === "5");
+
+            //     if
+            // if else
+            // if else if
+
+            // if (condition) {
+
+            // }
+
+            // let age = prompt("enter your age")
+            // // if (age < 18) {
+            // //     console.log('not allowed');
+
+            // // }
+
+            // if (age < 18) {
+            //     console.log('not allowed');
+
+            // }
+            // else{
+            //     console.log('allowed');
+
+            // }
+
+            // let today = prompt("enter day today")
+            // let num = Number(prompt("enter day num"))
+
+            // if (today == "mon") {
+            //     console.log('today is monday');
+
+            // }
+            // else if (today == 'tue'){
+            //     console.log('today is tuesday');
+
+            // }
+            // else{
+            //     console.log('enter correct day');
+            //     alert("ENTER CORRECT DAY")
+
+            // }
+
+            // if (today == 'mon' && num == 1) {
+            //     alert("today is monday")
+            // }
+            // if (today == 'mon' || num == 1) {
+            //     alert("today is monday")
+            // }
+            //     if (!today == 'mon' || !num == 1) {
+            //         alert("today is monday")
+            //     }
+            // console.log(!num == 1);
+
+            // student result checker
+            // let name = prompt("Enter your Name");
+            // let age = Number(prompt("Enter your age"));
+            // let Marks = Number(prompt("Enter your Marks"));
+            // console.log(name);
+            // console.log(age);
+            // console.log(Marks);
+            // console.log(typeof name);
+            // console.log(typeof age);
+            // console.log(typeof Marks);
+            // let isAdult;
+            // let grade;
+
+            // if (Marks >= 40 && Marks >= 90 && Marks <= 100) {
+            //   console.log("passed");
+            //   console.log("A+");
+            //   grade = "A+";
+            // } else if (Marks >= 80 && Marks <= 89) {
+            //   console.log("A");
+            //   grade = "A";
+            // } else if (Marks >= 70 && Marks <= 79) {
+            //   grade = "B";
+            //   console.log("B");
+            // } else if (Marks >= 60 && Marks <= 69) {
+            //   console.log("C");
+            //   grade = "C";
+            // } else if (Marks <= 40) {
+            //   grade = "FAIL";
+            //   console.log("FAIL");
+            // } else {
+            //   console.log("FAIL");
+            // }
+
+            // if (age >= 18) {
+            //   isAdult = "adult";
+            // } else {
+            //   isAdult = "minor";
+            // }
+            // alert(
+            //   " Name  " +
+            //     name +
+            //     " : " +
+            //     " Age " +
+            //     age +
+            //     " : " +
+            //     " Marks  " +
+            //     Marks +
+            //     " : " +
+            //     " Student  " +
+            //     isAdult +
+            //     " : " +
+            //     " Grade  " +
+            //     grade +
+            //     " : ",
+            // );
+            // university Admission Checker
+            // let name = prompt("Enter your Name");
+            // let Marks = prompt("Enter your Marks");
+            // let Age = prompt("Enter your Age");
+            // let Docs = prompt("docs are submitted true or false");
+            // if (Marks >= 80 && Age <= 22 && Docs == "true") {
+            //   console.log("Egligible");
+            //   alert("Egligible");
+            // } else {
+            //   console.log(" Not Egligible ");
+            //   alert(" Not Egligible ");
+            // }
+            // login System
+      //       let User=(prompt("Username"))
+      //       let pass=(prompt("Password"))
+      //       if( User == "admin" && pass == 12345){
+      //         alert("login Succesful")
+      //       }
+      //       else{
+
+      //         alert("Invalid Credentials")
+      // }
+      // Shopping Discount Calculator
+      // let Customer = prompt("enter your name")
+      // let Amount = Number(prompt("enter Total Bill"))
+      // if (Amount>=5000 ){
+      //   console.log(Customer);
+      //   console.log("Total bill is " + Amount);
+      //   console.log("20% Discount");
+      //   alert("20% Discount");
+      //   console.log("Amount to be paid after discount is " + Amount * 0.2);
+
+      // }
+      // else if( Amount<=3000){
+      //   console.log(Customer);
+      //   console.log( "Total Bill is " + Amount);
+      //   console.log("10% Discount");
+      //   alert("10% Discount");
+      //   console.log("Amount to be paid after discount is " + Amount * 0.3);
+
+
+      // }
+      // else{
+      //   console.log("no discount");
+      //   alert("no discount");
+
+      // }
+      // Even or Odd number Checker
+      // let num = Number( prompt("enter the number"))
+      // console.log(num);
+      // alert(num);
+      // console.log(typeof num);
+
+      // if (num % 2 == 0) {
+      //     alert("The number is even.");
+      // } else {
+      //     alert("The number is odd.");
+      // }
+
+      // Simple Calculator
+      // let num1 = Number(prompt("enter 1st digit"))
+      // let num2 = Number(prompt("enter 2nd digit"))
+      // let opt = prompt("chose your operator", "+","-","/","*")
+      // if( opt == "+"){
+      //   console.log(num1+num2);
+
+      // }
+      // else if(opt == "-"){
+
+      //   console.log(num1-num2);
+      // }
+      // else if(opt == "*"){
+
+      //   console.log(num1*num2);
+      // }
+      // else if (opt == "/"){
+
+      //   console.log(num1/num2);
+      // }
+      // else{
+      //   console.log(Error);
+
+      // }
+      // Final mega challenge
+      let name = prompt("Enter your name")
+      let age = Number( prompt("Enter your age"))
+      let city = prompt("Enter your city Name")
+      let Marks = Number( prompt("Enter your marks"))
+      let Att = Number(prompt("Enter your Attendance Percentage"))
+      let fee = prompt("Enter your fee status true or false")
+      let isAdult;
+      let exam;
+      let grade;
+      console.log(name);
+      console.log(age);
+      console.log(Marks);
+      console.log(Att);
+      console.log(fee);
+      console.log(typeof name);
+      console.log(typeof age);
+      console.log(typeof Marks);
+      console.log(typeof Att);
+      console.log(typeof fee);
+
+
+            if (Marks >= 40 && Marks >= 90 && Marks <= 100) {
+              console.log("passed");
+              console.log("A+");
+              grade = "A+";
+            } else if (Marks >= 80 && Marks <= 89) {
+              console.log("A");
+              grade = "A";
+            } else if (Marks >= 70 && Marks <= 79) {
+              grade = "B";
+              console.log("B");
+            } else if (Marks >= 60 && Marks <= 69) {
+              console.log("C");
+              grade = "C";
+            } else if (Marks <= 40) {
+              grade = "FAIL";
+              console.log("FAIL");
+            } else {
+              console.log("FAIL");
+            }
+
+            if (age >= 18) {
+              isAdult = "adult";
+            } else {
+              isAdult = "minor";
+            }
+            if(Att>=75 && fee== "true"){
+              console.log("eligible");
+              alert("eligible");
+              exam= "eligible"
+
+            }
+            else{
+
+              console.log("not eligible");
+              alert("not eligible");
+              exam= "not eligible"
+            }
+            alert(
+              " Name  " +
+                name +
+
+                " : " +
+              " City  " +
+                city +
+
+                " : "
+
+                +
+                " Age " +
+                age +
+                " : " +
+                " Marks  " +
+                Marks +
+                " : " +
+                " Exam Eligiblity " +
+                exam +
+                " : " +
+                " Student  " +
+                isAdult +
+                " : " +
+                " Grade  " +
+                grade +
+                " : ",
+            );
+    </script>
+  </body>
+</html>
