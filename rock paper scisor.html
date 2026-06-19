@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Document</title>
+    <style>
+      button:hover {
+        box-shadow: 10px 10px 10px 0px;
+      }
+    </style>
+  </head>
+  <body style="display: flex">
+    <div
+      style="
+        height: 500px;
+        width: 50%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+        background-color: rgba(220, 180, 100, 0.95);
+      "
+    >
+      <h1>User</h1>
+      <button
+        onclick="user('rock')"
+        style="
+          transition: 0.6s;
+          border-radius: 20px;
+          border: 2px solid seagreen;
+          font-weight: 800;
+          font-size: 24px;
+          color: red;
+          padding: 15px 50px;
+        "
+      >
+        Rock
+      </button>
+      <button
+        onclick="user('paper')"
+        style="
+          border-radius: 20px;
+          color: seagreen;
+          border: 2px solid crimson;
+          transition: 0.6s;
+          font-weight: 800;
+          font-size: 24px;
+          padding: 15px 50px;
+        "
+      >
+        paper
+      </button>
+      <button
+        onclick="user('scissor')"
+        style="
+          border-radius: 20px;
+          border: 2px solid darkmagenta;
+          color: lightcoral;
+          font-weight: 800;
+          transition: 0.6s;
+          font-size: 24px;
+          padding: 15px 50px;
+        "
+      >
+        scissor
+      </button>
+
+      <h2 id="user-choice">rock</h2>
+    </div>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 30px;
+        height: 500px;
+        width: 50%;
+        background-color: rgba(150, 115, 80, 0.45);
+      "
+    >
+      <h1>Computer</h1>
+      <button
+        style="
+          transition: 0.6s;
+          border-radius: 20px;
+          border: 2px solid seagreen;
+          font-weight: 800;
+          font-size: 24px;
+          color: red;
+          padding: 15px 50px;
+        "
+      >
+        Rock
+      </button>
+      <button
+        style="
+          border-radius: 20px;
+          color: seagreen;
+          border: 2px solid crimson;
+          transition: 0.6s;
+          font-weight: 800;
+          font-size: 24px;
+          padding: 15px 50px;
+        "
+      >
+        paper
+      </button>
+      <button
+        style="
+          border-radius: 20px;
+          border: 2px solid darkmagenta;
+          color: lightcoral;
+          font-weight: 800;
+          transition: 0.6s;
+          font-size: 24px;
+          padding: 15px 50px;
+        "
+      >
+        scissor
+      </button>
+
+      <h2 id="com-choice">rock</h2>
+    </div>
+
+    <script>
+    //   let userChoiceHead = document.getElementById("user-choice");
+    //   function user(choose) {
+    //     userChoiceHead.textContent = choose;
+
+    //     let comchoicehead = document.getElementById("com-choice");
+    //     let computer = ["paper", "rock", "scissor"];
+
+    //     let random = Math.floor(Math.random() * 3);
+    //     comchoicehead.textContent = computer[random];
+    //     if (choose == computer[random]) {
+    //       alert("draw");
+    //     } else if (choose == "rock" && computer[random] == "scissor")
+    //       alert("you win");
+    //     else if (choose == "paper" && computer[random] == "rock")
+    //       alert(" you win");
+    //     else if (choose == "scissor" && computer[random] == "paper")
+    //       alert("you win");
+    //     else {
+    //       alert("you lose");
+    //     }
+    //   }
+
+      //   if (1 == 1) {
+      //       let age = 18;
+      //       console.log(age);
+      //     }
+      //     var age=56
+      //   console.log(age);
+
+      ///////////////////SCOPE
+      // scope IS DEFINED AS IN WHICH AREA VARIABLE IS ACCESABLE.
+      ////////////////3 type of scopes in js
+
+      // global
+      // function e.g var
+      // block E.G LET AND CONST
+    </script>
+  </body>
+</html>
