@@ -1,4 +1,4 @@
-// java script practice module
+// java script if else practice module
 
             // student result checker
             let name = prompt("Enter your Name");
