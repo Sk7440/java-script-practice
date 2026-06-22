@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .main-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        height: 300px;
+        flex-direction: column;
+        perspective: 1000px;
+        position: relative;
+      }
+      .front {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        background-color: red;
+        position: absolute;
+        border-radius: 50%;
+        top: 0;
+        left: 0;
+        backface-visibility: hidden;
+      }
+
+      .back {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+
+        background-color: blue;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: rotateY(-180deg);
+      }
+
+      .box {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        transition: 0.3s;
+        animation: rotate 0.5s infinite;
+        animation-play-state: paused;
+        transform-style: preserve-3d;
+      }
+      @keyframes rotate {
+        from {
+          transform: rotateY(0deg);
+        }
+        to {
+          transform: rotateY(180deg);
+        }
+      }
+      .tails {
+        transform: rotateY(0deg);
+      }
+      .heads {
+        transform: rotateY(180deg);
+      }
+    </style>
+  </head>
+  <body
+    style="display: flex; align-items: center; justify-content: space-around"
+  >
+  <div
+  style="
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+    <h1>user choice</h1>
+    <button
+    onclick="user('Heads')"
+        style="
+          border-radius: 20px;
+          background-color: lightseagreen;
+          color: palegreen;
+          font-size: 30px;
+          border: hidden;
+          padding: 20px;
+        "
+      >
+        Heads
+      </button>
+      <button
+        onclick="user('Tails')"
+        style="
+          border-radius: 20px;
+          background-color: hotpink;
+          color: yellow;
+          font-size: 40px;
+          border: hidden;
+          padding: 20px;
+          "
+      >
+      Tails
+    </button>
+    <h2 id="user-choice"></h2>
+  </div>
+  <div class="main-box">
+    <div id="box" class="box">
+      <div class="back">
+          <h1>Heads</h1>
+        </div>
+        <div class="front">
+          <h1>Tails</h1>
+        </div>
+      </div>
+      <h2 id="com-choice"></h2>
+    </div>
+    <button
+    id="tryagain"
+    onclick="aga('Relaoding....')"
+      style="
+        border-radius: 20px;
+        background-color: moccasin;
+        color: rgb(185, 19, 19);
+        font-size: 20px;
+        border: hidden;
+        padding: 20px;
+      "
+    >
+      Try Again
+    </button>
+
+    <script>
+      let box = document.getElementById("box");
+      let userChoiceHead = document.getElementById("user-choice");
+      let again = document.getElementById("tryagain")
+
+      function user(choose) {
+        box.style.animationPlayState = "running";
+        userChoiceHead.textContent = choose;
+
+        setTimeout(() => {
+          let comchoicehead = document.getElementById("com-choice");
+          let computer = ["Heads", "Tails"];
+
+          let random = Math.floor(Math.random() * 2);
+          comchoicehead.textContent = computer[random];
+          box.style.animation = "none";
+
+          //   box.style.transform = "rotateY(0deg)";
+
+          if (computer[random] == "Heads" && choose == "Tails") {
+            box.classList.add("heads");
+            alert("loss");
+          } else if (computer[random] == "Tails" && choose == "Heads") {
+            alert("loss");
+          } else if (computer[random] == "Heads" && choose == "Heads") {
+            box.classList.add("heads");
+            alert("win");
+          } else if (computer[random] == "Tails" && choose == "Tails") {
+            alert("win");
+          }
+
+        }, 2000);
+        
+      }
+      function aga(reload){
+        again.textContent=reload
+        
+        
+        setTimeout(() => {
+          window.location.reload()
+          
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
