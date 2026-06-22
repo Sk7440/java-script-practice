@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .active {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+    <button class="btn">text</button>
+
+    <script>
+      let btn = document.getElementsByClassName("btn");
+
+      for (let i = 0; i < btn.length; i++) {
+        
+
+
+
+        btn[i].addEventListener("click", function () {
+
+
+
+
+          if (btn[i].classList.contains("active")) {
+
+
+
+            btn[i].classList.remove("active");
+
+
+          } else {
+
+
+
+            for (let j = 0; j < btn.length; j++) {
+              if (btn[j].classList.contains("active")) {
+                btn[j].classList.remove("active");
+              }
+            }
+
+
+
+            btn[i].classList.add("active");
+          }
+
+
+        });
+      }
+    </script>
+  </body>
+</html>

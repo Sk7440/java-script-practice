@@ -72,8 +72,8 @@
   <body
     style="display: flex; align-items: center; justify-content: space-around"
   >
-  <div
-  style="
+    <div
+      style="
         display: flex;
         flex-direction: column;
         gap: 30px;
@@ -81,9 +81,9 @@
         justify-content: center;
       "
     >
-    <h1>user choice</h1>
-    <button
-    onclick="user('Heads')"
+      <h1>user choice</h1>
+      <button
+        onclick="user('Heads')"
         style="
           border-radius: 20px;
           background-color: lightseagreen;
@@ -104,15 +104,15 @@
           font-size: 40px;
           border: hidden;
           padding: 20px;
-          "
+        "
       >
-      Tails
-    </button>
-    <h2 id="user-choice"></h2>
-  </div>
-  <div class="main-box">
-    <div id="box" class="box">
-      <div class="back">
+        Tails
+      </button>
+      <h2 id="user-choice"></h2>
+    </div>
+    <div class="main-box">
+      <div id="box" class="box">
+        <div class="back">
           <h1>Heads</h1>
         </div>
         <div class="front">
@@ -122,8 +122,8 @@
       <h2 id="com-choice"></h2>
     </div>
     <button
-    id="tryagain"
-    onclick="aga('Relaoding....')"
+      id="tryagain"
+      onclick="aga('Relaoding....')"
       style="
         border-radius: 20px;
         background-color: moccasin;
@@ -139,7 +139,7 @@
     <script>
       let box = document.getElementById("box");
       let userChoiceHead = document.getElementById("user-choice");
-      let again = document.getElementById("tryagain")
+      let again = document.getElementById("tryagain");
 
       function user(choose) {
         box.style.animationPlayState = "running";
@@ -166,17 +166,13 @@
           } else if (computer[random] == "Tails" && choose == "Tails") {
             alert("win");
           }
-
         }, 2000);
-        
       }
-      function aga(reload){
-        again.textContent=reload
-        
-        
+      function aga(reload) {
+        again.textContent = reload;
+
         setTimeout(() => {
-          window.location.reload()
-          
+          window.location.reload();
         }, 1000);
       }
     </script>
