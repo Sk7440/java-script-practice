@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: #987;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      body h1 {
+        color: #238;
+      }
+      body input {
+        border-radius: 30px;
+        border: hidden;
+        padding: 10px 60px;
+      }
+      select {
+        border-radius: 30px;
+        border: hidden;
+        padding: 10px 60px;
+
+        background-color: #773;
+      }
+      body p {
+        color: #346;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Tempurature Calculator</h1>
+    <input type="number" placeholder="enter tempurature" />
+    <select>
+      <option value="" hidden selected>select scale</option>
+      <option value="K to C">kelvin TO celcius</option>
+      <option value="K to F">kelvin TO Farnhieght</option>
+      <option value="C to F">celcius to Farnhieght</option>
+      <option value="C to K">celcius to kelvin</option>
+      <option value="F to C">Farnhieght to celcius</option>
+      <option value="F to K">Farnhieght to kelvin</option>
+    </select>
+    <p></p>
+
+    <script>
+      let inp = document.querySelector("input");
+      let select = document.querySelector("select");
+      let result = document.querySelector("p");
+
+      inp.addEventListener("change", function () {
+        calculate(select.value, inp.value);
+      });
+
+      select.addEventListener("change", function (e) {
+        calculate(e.target.value, inp.value);
+      });
+
+      function calculate(scale, inpValue) {
+        let resultValue;
+        switch (scale) {
+          case "C to F":
+            F = (inpValue * 9) / 5 + 32;
+
+            resultValue = F;
+            break;
+          case "C to K":
+            K = inpValue + 273.15;
+            resultValue = K;
+            break;
+          case "K to F":
+            F = ((inpValue - 273.15) * 9) / 5 + 32;
+            resultValue = F;
+            break;
+          case "K to C":
+            C = ((inpValue - 32) * 5) / 9;
+            resultValue = C;
+            break;
+
+          default:
+            K = ((inpValue - 32) * 5) / 9 + 273.15;
+            resultValue = K;
+            break;
+        }
+        result.textContent = resultValue;
+        // if (scale == "C to F") {
+        //   F = (inpValue * 9) / 5 + 32;
+        // } else if (scale == "C to K") {
+        //   K = inpValue + 273.15;
+        // } else if (scale == "K to F") {
+        //   F = ((inpValue - 273.15) * 9) / 5 + 32;
+        // } else if (scale == "K to c") {
+        //   C = ((inpValue - 32) * 5) / 9;
+        // } else {
+        //   K = ((inpValue - 32) * 5) / 9 + 273.15;
+        // }
+      }
+    </script>
+  </body>
+</html>
