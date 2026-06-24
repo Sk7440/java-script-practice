@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input  type="number" value="0" min="0" max="5"  >
+    <select name="" id="">
+        <option value="" hidden selected>
+            select tip percentage
+        </option>
+        <option value="10">
+            10%
+        </option>
+        <option value="20">
+            20%
+        </option>
+        <option value="30">
+            30%
+        </option>
+
+
+    </select>
+    <h1>
+
+    </h1>
+
+    <script>
+        let inp = document.querySelector('input')
+        // let inp = document.querySelector('.input')
+        // let inp = document.querySelector('#input')
+        let select = document.querySelector('select')
+
+        select.addEventListener('change', function (e) {
+            console.log(e.target.value);
+            calculate(e.target.value , inp.value)
+        })
+        
+        console.log(inp);
+        inp.addEventListener('change', function (){
+            console.log(inp.value , typeof inp.value)  ;
+            calculate(Number(select.value) , Number(inp.value))
+
+
+            
+        })
+
+        function calculate(dicountPercentage, billAmount) {
+            console.log(dicountPercentage);
+            
+            let finalAmount = billAmount * (dicountPercentage / 100)
+            console.log(finalAmount);
+            
+
+        }
+
+
+        
+    </script>
+
+</body>
+</html>

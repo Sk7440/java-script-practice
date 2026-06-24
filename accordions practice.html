@@ -352,6 +352,45 @@
           }
         });
       }
+
+      // setTimeout(() => {
+
+      // }, timeout); // to run logic one time after a specific time
+
+      let index = 0;
+      let id = setInterval(() => {
+        for (let j = 0; j < btn.length; j++) {
+          if (
+            btn[j].nextElementSibling.classList.contains("active") &&
+            btn[j].firstElementChild.classList.contains(
+              "ri-arrow-up-double-line",
+            )
+          ) {
+            btn[j].nextElementSibling.classList.remove("active");
+            btn[j].firstElementChild.classList.add("ri-arrow-down-double-fill");
+            btn[j].firstElementChild.classList.remove(
+              "ri-arrow-up-double-line",
+            );
+          }
+        }
+
+        btn[index].firstElementChild.classList.remove(
+          "ri-arrow-down-double-fill",
+        );
+        btn[index].firstElementChild.classList.add("ri-arrow-up-double-line");
+        btn[index].nextElementSibling.classList.add("active");
+        if (index == btn.length - 1) {
+          index = 0;
+        } else {
+          index++;
+        }
+        // console.log("hello");
+      }, 1000); // to run logic repeatedly after specific interval of time
+      console.log(id);
+
+      // setTimeout(() => {
+      //   window.location.reload();
+      // }, 11000);
     </script>
   </body>
 </html>
