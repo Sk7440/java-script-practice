@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JavaScript Stopwatch</title>
+    <style>
+      body {
+        text-align: center;
+        margin-top: 50px;
+      }
+      #display {
+        font-size: 30px;
+        margin: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="display">
+      <span id="Minutes"> 00 </span>
+      <span id="second"> 00 </span>
+      <span id="msec"> 00 </span>
+    </div>
+    <button id="start-btn">Start</button>
+    <button id="stop-btn">Stop</button>
+    <button id="reset-btn">Reset</button>
+
+    <script>
+      let startBtn = document.querySelector("#start-btn");
+      let stopBtn = document.querySelector("#stop-btn");
+      let resetBtn = document.querySelector("#reset-btn");
+      let centiSecEl = document.querySelector("#msec");
+      let secondEl = document.querySelector("#second");
+      let minuteEl = document.querySelector("#Minutes");
+
+      let centiSec = 0;
+      let minute = 0;
+      let second = 0;
+
+      // setTimeout = we use it to define function to run only one time after given specific time
+      // setinterval = we use it to define function to run repeatedly after given specific time
+      let id;
+
+      startBtn.addEventListener("click", function () {
+        if (!id) {
+
+          id = setInterval(() => {
+            centiSec++;
+            if (centiSec < 10) {
+              centiSecEl.textContent = " 0 " + centiSec;
+            } else {
+              centiSecEl.textContent = centiSec;
+            }
+            if (centiSec == 99) {
+              centiSec = "0" + 0;
+              centiSecEl.textContent = "00";
+              second++;
+              if (second < 10) {
+                secondEl.textContent = "0" + second;
+              } else {
+                secondEl.textContent = second;
+              }
+            } else if (second == 60) {
+              second = 0;
+              secondEl.textContent = "00";
+  
+              minute++;
+              if (minute < 10) {
+                minuteEl.textContent = "0" + minute;
+              } else {
+                minuteEl.textContent = minute;
+              }
+            }
+          }, 10);
+        }
+      });
+      stopBtn.addEventListener("click", function () {
+        clearInterval(id);
+        id = undefined
+      });
+      resetBtn.addEventListener("click", function () {
+        centisec = 0;
+        centiSecEl.textContent = "0" + 0;
+        second = 0;
+        secondEl.textContent = "0" + 0;
+        minute = 0;
+        minuteEl.textContent = "0" + 0;
+        clearInterval(id);
+        id = undefined
+
+      });
+      // stopbtn.addEventListener(
+      //   "eventName"
+      //   ,
+      //   function () {
+      // }
+      // );
+    </script>
+  </body>
+</html>

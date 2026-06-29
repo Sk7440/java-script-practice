@@ -63,8 +63,8 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAhFBMVEX///
     <div
       style="
         display: flex;
-        align-items: center;
-        justify-content: space-around;
+        align-items: flex-start;
+        justify-content: flex-start;
         gap: 20px;
         width: 300px;
       "
@@ -76,7 +76,7 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAhFBMVEX///
     <div
       style="
         display: flex;
-        gap: 20px;
+        gap: 10px;
         width: 300px;
         border: 2px solid crimson;
         justify-content: space-around;
@@ -86,6 +86,7 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAhFBMVEX///
       <p id="result"></p>
       <p id="result1"></p>
       <p id="result2"></p>
+      <p id="result3"></p>
     </div>
 
     <script>
@@ -99,6 +100,11 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAhFBMVEX///
         let minutes = date.getMinutes();
         let hours = date.getHours();
         // console.log(seconds);
+        if (hours > 12) {
+          result3.textContent = "PM";
+        } else {
+          result3.textContent = "AM";
+        }
         // console.log(minutes);
         if (hours > 12) {
           hours = hours - 12;
@@ -110,10 +116,12 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAhFBMVEX///
       }, 1000);
 
       ///////digital clock
+
       setInterval(() => {
         let result = document.getElementById("result");
         let result1 = document.getElementById("result1");
         let result2 = document.getElementById("result2");
+        let result3 = document.getElementById("result3");
         let minute = document.getElementById("minute");
         let second = document.getElementById("seconds");
         let hour = document.getElementById("hours");
@@ -126,9 +134,21 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOAAAADgCAMAAAAt85rTAAAAhFBMVEX///
         if (hours > 12) {
           hours = hours - 12;
         }
-        result2.textContent = seconds;
-        result1.textContent = minutes;
-        result.textContent = hours;
+        if (seconds < 10) {
+          result2.textContent = "0" + seconds;
+        } else {
+          result2.textContent = seconds;
+        }
+        if (minute < 10) {
+          result1.textContent = "0" + minutes;
+        } else {
+          result1.textContent = minutes;
+        }
+        if (hours < 10) {
+          result.textContent = "0" + hours;
+        } else {
+          result.textContent = hours;
+        }
         // minute.style.transform = `rotate(${minutes * 6}deg)`;
         // hour.style.transform = `rotate(${hours * 30}deg)`;
         // console.log(hours);

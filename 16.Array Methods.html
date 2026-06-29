@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+        .active{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    
+    <script>
+        let  fruitNames = ['apple', 'banana', 'grapes']
+
+        console.log(fruitNames.length);
+        console.log(fruitNames);
+
+        let numbers = [1,8,3,2,3]
+        let orders = [
+            {
+                name: 'bag',
+                price: 300
+            },
+            {
+                name: 'bottle',
+                price: 150
+            },
+            {
+                name: 'bag',
+                price: 200
+            },
+            {
+                name: 'bottle',
+                price: 100
+            }
+        ]
+        // let odd = numbers.map(
+        //     (ele,idx) =>{
+        //         if (ele % 2 == 1) {
+        //             return ele
+        //         }
+        //     }
+        // )
+
+        // let odd = numbers.filter(
+        //     (ele,idx) =>{
+        //         return idx <= 1
+        //     }
+        // )
+        // /////////for mutiple elment
+        // console.log(odd);
+
+        // let specialNumber = numbers.find(
+        //     (ele,idx)=>
+        //     {
+        //         return ele > 1
+        //     }
+        // )
+        // ///// fro one elemnet
+        // console.log(specialNumber);
+
+
+        // let total= orders.reduce(
+        //     (acc, ele, idx)=>{
+        //         return acc + ele.price
+        //     }
+        // , 0)
+        
+        // console.log(total);
+
+
+        let some = numbers.some(
+            (ele, idx)=>{
+                return ele < 4
+            }
+        )
+        console.log(some);
+        let all = numbers.every(
+            (ele, idx)=>{
+                return ele < 4
+            }
+        )
+        console.log(some);
+        // let all = numbers.every(
+        //     (ele, idx)=>{
+        //         return ele < 4
+        //     }
+        // )
+        // console.log(all);
+        
+        
+        // foreach = a loop which iterates on all elements of array and gives acccess to each element and index
+        // fruitNames.forEach(
+        //     function (ele , idx) {
+        //         console.log(ele, idx);
+        //         ele.ade
+                
+        //     }
+        // )
+
+        // let boxes = document.querySelectorAll('.box')
+        // boxes.forEach(
+        //     (ele,idx)=>{
+        //         ele.addEventListener('click', ()=>{
+
+        //             if (ele.classList.contains('active')) {
+        //                 ele.classList.remove('active')
+
+        //             }
+        //             else{
+
+        //                 boxes.forEach((ele1, idx1)=>{
+        //                     if (ele1.classList.contains('active')){
+        //                         ele1.classList.remove('active')
+        //                     }
+        //                 })
+        //                 ele.classList.add('active')
+        //             }
+
+
+        //         })
+        //     }
+        // )
+        
+    </script>
+</body>
+</html>
