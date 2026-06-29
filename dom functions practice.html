@@ -6,68 +6,45 @@
     <title>Document</title>
   </head>
   <body>
-        //////////////////dom or function////////////////
+    //////////////////dom or function//////////////// // let btn =
+    document.getElementById("btn") // let btn =
+    document.getElementsByTagName('button') // let btn =
+    document.getElementsByClassName("btn11") // console.log(btn[3]); //
+    btn[3].textContent = 'sultan' // btn[3].style.backgroundColor = 'red' //
+    btn[3].style.color = 'white' // btn[3].style.width = '500px' // function
+    functionName() { // } // function hello() { //
+    document.body.style.backgroundColor = 'blue' // } // hello() // function=
+    reusable block of code to execute any task
 
-        // let btn = document.getElementById("btn")
-        // let btn = document.getElementsByTagName('button')
-        // let btn = document.getElementsByClassName("btn11")
-
-        // console.log(btn[3]);
-        // btn[3].textContent = 'sultan'
-        // btn[3].style.backgroundColor = 'red'
-        // btn[3].style.color = 'white'
-        // btn[3].style.width = '500px'
-
-        // function functionName() {
-
-        // }
-
-        // function hello() {
-        //     document.body.style.backgroundColor = 'blue'
-            
-        // }
-
-
-        // hello()
-
-
-        // function= reusable block of code to execute any task
-   
-       <button onclick="red()">click me</button>
-    <button onclick="green()" >click me</button>
+    <button onclick="red()">click me</button>
+    <button onclick="green()">click me</button>
     <button onclick="blue()">click me</button>
     <button onclick="yellow()">click me</button>
     <button onclick="purple()">click me</button>
     <script>
-      let btn =document.getElementsByTagName('button')
+      let btn = document.getElementsByTagName("button");
       console.log(btn);
-      btn[0].textContent='red'
-      btn[1].textContent='green'
-      btn[2].textContent='blue'
-      btn[3].textContent='yellow'
-      btn[4].textContent='purple'
-  
+      btn[0].textContent = "red";
+      btn[1].textContent = "green";
+      btn[2].textContent = "blue";
+      btn[3].textContent = "yellow";
+      btn[4].textContent = "purple";
+
       function red() {
-            document.body.style.backgroundColor = 'red'
-            
-        }
+        document.body.style.backgroundColor = "red";
+      }
       function green() {
-            document.body.style.backgroundColor = 'green'
-            
-        }
+        document.body.style.backgroundColor = "green";
+      }
       function blue() {
-            document.body.style.backgroundColor = 'blue'
-            
-        }
+        document.body.style.backgroundColor = "blue";
+      }
       function yellow() {
-            document.body.style.backgroundColor = 'yellow'
-            
-        }
+        document.body.style.backgroundColor = "yellow";
+      }
       function purple() {
-            document.body.style.backgroundColor = 'purple'
-            
-        }
-  
-  </script>
+        document.body.style.backgroundColor = "purple";
+      }
+    </script>
   </body>
 </html>

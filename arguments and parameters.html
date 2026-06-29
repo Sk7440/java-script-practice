@@ -12,9 +12,7 @@
 
     <button onclick="change()">click</button>
 
-    <h1 >
-        text
-    </h1>
+    <h1>text</h1>
     <script>
       // arguments / parameters in functions
       //   let random = Math.floor(Math.random() * 3);
@@ -24,14 +22,13 @@
 
       //   console.log(random);
 
-      let heading = document.getElementsByTagName("h1")[0]
-    //   console.log(heading[0]);
-      
+      let heading = document.getElementsByTagName("h1")[0];
+      //   console.log(heading[0]);
 
       function Hello(sultan = "black", number) {
         console.log(sultan);
         console.log(number);
-        heading.textContent = sultan
+        heading.textContent = sultan;
 
         document.body.style.backgroundColor = sultan;
       }

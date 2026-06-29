@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body
+    style="
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+    "
+  >
+    <h1>Analog clock</h1>
+    <div style="position: relative; width: max-content; height: 500px">
+      <img
+        style="width: max-content; height: 400px"
+        src="
+data:image/png;base64,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"
+        alt=""
+      />
+      <div
+        id="minute"
+        style="
+          top: 70px;
+          transform-origin: bottom;
+          left: 199px;
+          width: 2px;
+          position: absolute;
+          height: 130px;
+          background-color: blue;
+        "
+      ></div>
+      <div
+        id="seconds"
+        style="
+          top: 102px;
+          left: 197px;
+          position: absolute;
+          width: 1px;
+          height: 100px;
+          background-color: seagreen;
+          transform-origin: bottom;
+        "
+      ></div>
+      <div
+        id="hours"
+        style="
+          position: absolute;
+          top: 125px;
+          transform-origin: bottom;
+          left: 198px;
+          width: 3px;
+          height: 70px;
+          background-color: red;
+        "
+      ></div>
+    </div>
+    <h1>Digital clock</h1>
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        gap: 20px;
+        width: 300px;
+      "
+    >
+      <h3>Hour</h3>
+      <h3>Minute</h3>
+      <h3>Second</h3>
+    </div>
+    <div
+      style="
+        display: flex;
+        gap: 20px;
+        width: 300px;
+        border: 2px solid crimson;
+        justify-content: space-around;
+        align-items: center;
+      "
+    >
+      <p id="result"></p>
+      <p id="result1"></p>
+      <p id="result2"></p>
+    </div>
+
+    <script>
+      //////analog clock
+      setInterval(() => {
+        let minute = document.getElementById("minute");
+        let second = document.getElementById("seconds");
+        let hour = document.getElementById("hours");
+        let date = new Date();
+        let seconds = date.getSeconds();
+        let minutes = date.getMinutes();
+        let hours = date.getHours();
+        // console.log(seconds);
+        // console.log(minutes);
+        if (hours > 12) {
+          hours = hours - 12;
+        }
+        second.style.transform = `rotate(${seconds * 6}deg)`;
+        minute.style.transform = `rotate(${minutes * 6}deg)`;
+        hour.style.transform = `rotate(${hours * 30}deg)`;
+        console.log(hours);
+      }, 1000);
+
+      ///////digital clock
+      setInterval(() => {
+        let result = document.getElementById("result");
+        let result1 = document.getElementById("result1");
+        let result2 = document.getElementById("result2");
+        let minute = document.getElementById("minute");
+        let second = document.getElementById("seconds");
+        let hour = document.getElementById("hours");
+        let date = new Date();
+        let seconds = date.getSeconds();
+        let minutes = date.getMinutes();
+        let hours = date.getHours();
+        // console.log(seconds);
+        // console.log(minutes);
+        if (hours > 12) {
+          hours = hours - 12;
+        }
+        result2.textContent = seconds;
+        result1.textContent = minutes;
+        result.textContent = hours;
+        // minute.style.transform = `rotate(${minutes * 6}deg)`;
+        // hour.style.transform = `rotate(${hours * 30}deg)`;
+        // console.log(hours);
+      }, 1000);
+    </script>
+  </body>
+</html>
