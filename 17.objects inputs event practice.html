@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      body input {
+        margin: 20px 0px;
+      }
+      .list {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+      }
+      .list button {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <input type="text" placeholder="Enter your name" id="input" />
+    <input type="text" placeholder="Enter your age" id="input-age" />
+    <input type="text" placeholder="Enter your class" id="input-class" />
+    <button id="btn">submit</button>
+    <h1>details:</h1>
+    <div class="output"></div>
+    <script>
+      let btn = document.querySelector("#btn");
+      let inp = document.getElementById("input");
+      let inpage = document.getElementById("input-age");
+      let inpclass = document.getElementById("input-class");
+      let output = document.querySelector(".output");
+
+      let students = [];
+      btn.addEventListener("click", () => {
+        if ((inp.value == "") | (inpage.value == "") | (inpclass.value == "")) {
+          alert("plesase enter your info");
+        } else {
+          students.push({
+            name: inp.value,
+            age: inpage.value,
+            class: inpclass.value,
+          });
+
+          output.innerHTML = "";
+          students.forEach((ele, idx) => {
+            output.innerHTML += `<div class="list">
+                    <h3> name: ${ele.name}</h3>
+                    <h3> age: ${ele.age}</h3>
+                    <h3> class: ${ele.class}</h3>
+                    <button onclick="Click(${idx})">  x  </button>
+                    </div>`;
+          });
+          inp.value = "";
+          inpage.value = "";
+          inpclass.value = "";
+        }
+      });
+      function Click(muzaffarbhai) {
+        console.log(muzaffarbhai);
+        students = students.filter((ele,idx) =>{
+          return idx !== muzaffarbhai
+        })
+        output.innerHTML = "";
+          students.forEach((ele, idx) => {
+            output.innerHTML += `<div class="list">
+                    <h3> name: ${ele.name}</h3>
+                    <h3> age: ${ele.age}</h3>
+                    <h3> class: ${ele.class}</h3>
+                    <button onclick="Click(${idx})">  x  </button>
+                    </div>`;
+          });
+      }
+    </script>
+  </body>
+</html>

@@ -1,140 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-        .box{
-            width: 200px;
-            height: 200px;
-            background-color: red;
-        }
-        .active{
-            background-color: blue;
-        }
+      .box {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+      }
+      .active {
+        background-color: blue;
+      }
+      .list {
+        display: flex;
+        gap: 30px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <input type="text" id="input" placeholder="Enter your name" />
+    <div class="output">
+      <h1>name:</h1>
+    </div>
 
-    <div class="box"></div>
-    <div class="box"></div>
-    <div class="box"></div>
-    <div class="box"></div>
-    
     <script>
-        let  fruitNames = ['apple', 'banana', 'grapes']
+      let inp = document.getElementById("input");
+      let output = document.querySelector(".output");
+      // let students = ["ali", 'sultan', "abdullah", 'dilpazeer']
+      let students = [{ name: "sultan", age: 20, class: 13 }];
+      inp.addEventListener("change", () => {
+        students.push({ name: inp.value });
 
-        console.log(fruitNames.length);
-        console.log(fruitNames);
+        output.innerHTML = "";
+        students.forEach((ele, idx) => {
+          output.innerHTML += `<div class="list">
+                    <h3> name: ${ele.name}</h3>
+                    <h3> age: ${ele.age}</h3>
+                    <h3> class: ${ele.class}</h3>
 
-        let numbers = [1,8,3,2,3]
-        let orders = [
-            {
-                name: 'bag',
-                price: 300
-            },
-            {
-                name: 'bottle',
-                price: 150
-            },
-            {
-                name: 'bag',
-                price: 200
-            },
-            {
-                name: 'bottle',
-                price: 100
-            }
-        ]
-        // let odd = numbers.map(
-        //     (ele,idx) =>{
-        //         if (ele % 2 == 1) {
-        //             return ele
-        //         }
-        //     }
-        // )
+                    </div>`;
+        });
+      });
 
-        // let odd = numbers.filter(
-        //     (ele,idx) =>{
-        //         return idx <= 1
-        //     }
-        // )
-        // /////////for mutiple elment
-        // console.log(odd);
+      let fruitNames = ["apple", "banana", "grapes"];
 
-        // let specialNumber = numbers.find(
-        //     (ele,idx)=>
-        //     {
-        //         return ele > 1
-        //     }
-        // )
-        // ///// fro one elemnet
-        // console.log(specialNumber);
+      console.log(fruitNames.length);
+      console.log(fruitNames);
 
+      let numbers = [1, 8, 3, 2, 3];
+      let orders = [
+        {
+          name: "bag",
+          price: 300,
+        },
+        {
+          name: "bottle",
+          price: 150,
+        },
+        {
+          name: "bag",
+          price: 200,
+        },
+        {
+          name: "bottle",
+          price: 100,
+        },
+      ];
+      // let odd = numbers.map(
+      //     (ele,idx) =>{
+      //         if (ele % 2 == 1) {
+      //             return ele
+      //         }
+      //     }
+      // )
 
-        // let total= orders.reduce(
-        //     (acc, ele, idx)=>{
-        //         return acc + ele.price
-        //     }
-        // , 0)
-        
-        // console.log(total);
+      // let odd = numbers.filter(
+      //     (ele,idx) =>{
+      //         return idx <= 1
+      //     }
+      // )
+      // /////////for mutiple elment
+      // console.log(odd);
 
+      // let specialNumber = numbers.find(
+      //     (ele,idx)=>
+      //     {
+      //         return ele > 1
+      //     }
+      // )
+      // ///// fro one elemnet
+      // console.log(specialNumber);
 
-        let some = numbers.some(
-            (ele, idx)=>{
-                return ele < 4
-            }
-        )
-        console.log(some);
-        let all = numbers.every(
-            (ele, idx)=>{
-                return ele < 4
-            }
-        )
-        console.log(some);
-        // let all = numbers.every(
-        //     (ele, idx)=>{
-        //         return ele < 4
-        //     }
-        // )
-        // console.log(all);
-        
-        
-        // foreach = a loop which iterates on all elements of array and gives acccess to each element and index
-        // fruitNames.forEach(
-        //     function (ele , idx) {
-        //         console.log(ele, idx);
-        //         ele.ade
-                
-        //     }
-        // )
+      // let total= orders.reduce(
+      //     (acc, ele, idx)=>{
+      //         return acc + ele.price
+      //     }
+      // , 0)
 
-        // let boxes = document.querySelectorAll('.box')
-        // boxes.forEach(
-        //     (ele,idx)=>{
-        //         ele.addEventListener('click', ()=>{
+      // console.log(total);
 
-        //             if (ele.classList.contains('active')) {
-        //                 ele.classList.remove('active')
+      let some = numbers.some((ele, idx) => {
+        return ele < 4;
+      });
+      console.log(some);
+      let all = numbers.every((ele, idx) => {
+        return ele < 4;
+      });
+      console.log(some);
+      // let all = numbers.every(
+      //     (ele, idx)=>{
+      //         return ele < 4
+      //     }
+      // )
+      // console.log(all);
 
-        //             }
-        //             else{
+      // foreach = a loop which iterates on all elements of array and gives acccess to each element and index
+      // fruitNames.forEach(
+      //     function (ele , idx) {
+      //         console.log(ele, idx);
+      //         ele.ade
 
-        //                 boxes.forEach((ele1, idx1)=>{
-        //                     if (ele1.classList.contains('active')){
-        //                         ele1.classList.remove('active')
-        //                     }
-        //                 })
-        //                 ele.classList.add('active')
-        //             }
+      //     }
+      // )
 
+      // let boxes = document.querySelectorAll('.box')
+      // boxes.forEach(
+      //     (ele,idx)=>{
+      //         ele.addEventListener('click', ()=>{
 
-        //         })
-        //     }
-        // )
-        
+      //             if (ele.classList.contains('active')) {
+      //                 ele.classList.remove('active')
+
+      //             }
+      //             else{
+
+      //                 boxes.forEach((ele1, idx1)=>{
+      //                     if (ele1.classList.contains('active')){
+      //                         ele1.classList.remove('active')
+      //                     }
+      //                 })
+      //                 ele.classList.add('active')
+      //             }
+
+      //         })
+      //     }
+      // )
     </script>
-</body>
+  </body>
 </html>
