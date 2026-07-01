@@ -4,15 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
-      body {
+      button {
+        margin: 0px 10px;
+        border-radius: 25px;
+        border: hidden;
+        background-color: #4789;
+        padding: 10px 20px;
+      }
+      .List {
+        background-color: lightsalmon;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
       }
       body input {
-        margin: 20px 0px;
+        border: hidden;
+        border-radius: 25px;
+        padding: 10px 20px;
+        margin: 20px 15px;
       }
       .list {
         display: flex;
@@ -21,26 +39,103 @@
         gap: 20px;
       }
       .list button {
+        font-size: 18px;
+        background-color: lightsalmon;
+        border: hidden;
         color: red;
+      }
+      .list .btn {
+        color: yellow;
+      }
+      body section {
+        width: 100%;
+        background-color: lightgoldenrodyellow;
       }
     </style>
   </head>
 
   <body>
-    <input type="text" placeholder="Enter your name" id="input" />
-    <input type="text" placeholder="Enter your age" id="input-age" />
-    <input type="text" placeholder="Enter your class" id="input-class" />
-    <button id="btn">submit</button>
-    <h1>details:</h1>
-    <div class="output"></div>
+    <section>
+      <input placeholder="search by name" class="find-by-name" type="text" />
+      <input placeholder="search by age" class="find-by-age" type="number" />
+      <input
+        placeholder="search by class"
+        class="find-by-class"
+        type="number"
+      />
+      <button id="btn1">search</button>
+      <div class="search-output">please enter something to search</div>
+    </section>
+    <div class="List">
+      <input type="text" placeholder="Enter your name" id="input" />
+      <input type="number" placeholder="Enter your age" id="input-age" />
+      <input type="number" placeholder="Enter your class" id="input-class" />
+      <button id="btn">submit</button>
+      <h1>Details:</h1>
+      <div class="output"></div>
+    </div>
     <script>
+      let searchByNameInp = document.querySelector(".find-by-name");
+      let searchByageInp = document.querySelector(".find-by-age");
+      let searchByclassInp = document.querySelector(".find-by-class");
+      let searchResult = document.querySelector(".search-output");
+
+      searchByNameInp.addEventListener("input", () => {
+        if (searchByNameInp.value == "") {
+          searchResult.innerHTML = "";
+        } else {
+          let newArray = students.filter((ele, idx) => {
+            return ele.name.includes(searchByNameInp.value);
+          });
+          Render(searchResult, newArray);
+        }
+      });
+
+      searchByageInp.addEventListener("input", () => {
+        if (searchByageInp.value == "") {
+          searchResult.innerHTML = "";
+        } else {
+          let newArray = students.filter((ele, idx) => {
+            return ele.age <= Number(searchByageInp.value);
+          });
+          Render(searchResult, newArray);
+        }
+      });
+
       let btn = document.querySelector("#btn");
       let inp = document.getElementById("input");
       let inpage = document.getElementById("input-age");
       let inpclass = document.getElementById("input-class");
       let output = document.querySelector(".output");
 
-      let students = [];
+      let students = [
+        {
+          name: "sultan",
+          age: 20,
+          class: 13,
+        },
+        {
+          name: "abdullah",
+          age: 22,
+          class: 15,
+        },
+      ];
+
+      Render(output, students);
+
+      function Render(outputEl, arrayToShow) {
+        outputEl.innerHTML = "";
+        arrayToShow.forEach((ele, idx) => {
+          outputEl.innerHTML += `<div class="list">
+                                               <h3> name: ${ele.name}</h3>
+                          <h3> age: ${ele.age}</h3>
+                          <h3> class: ${ele.class}</h3>
+                          <button onclick="Click(${idx})">  <i class="fa-solid fa-xmark"></i></button>
+                          <button class="btn">  <i class="fa-solid fa-pen"></i></button>
+                          </div>`;
+        });
+      }
+
       btn.addEventListener("click", () => {
         if ((inp.value == "") | (inpage.value == "") | (inpclass.value == "")) {
           alert("plesase enter your info");
@@ -50,35 +145,18 @@
             age: inpage.value,
             class: inpclass.value,
           });
-
-          output.innerHTML = "";
-          students.forEach((ele, idx) => {
-            output.innerHTML += `<div class="list">
-                    <h3> name: ${ele.name}</h3>
-                    <h3> age: ${ele.age}</h3>
-                    <h3> class: ${ele.class}</h3>
-                    <button onclick="Click(${idx})">  x  </button>
-                    </div>`;
-          });
+          Render(output, students);
           inp.value = "";
           inpage.value = "";
           inpclass.value = "";
         }
       });
       function Click(muzaffarbhai) {
-        console.log(muzaffarbhai);
-        students = students.filter((ele,idx) =>{
-          return idx !== muzaffarbhai
-        })
-        output.innerHTML = "";
-          students.forEach((ele, idx) => {
-            output.innerHTML += `<div class="list">
-                    <h3> name: ${ele.name}</h3>
-                    <h3> age: ${ele.age}</h3>
-                    <h3> class: ${ele.class}</h3>
-                    <button onclick="Click(${idx})">  x  </button>
-                    </div>`;
-          });
+        
+        Render(output, students);
+        students = students.filter((ele, idx) => {
+          return idx !== muzaffarbhai;
+        });
       }
     </script>
   </body>
