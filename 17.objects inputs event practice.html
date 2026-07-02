@@ -132,7 +132,7 @@
       ];
 
       let editindex = null;
-
+      
       Render(output, students);
 
       function Render(outputEl, arrayToShow) {
@@ -152,24 +152,26 @@
 
 
         if (editindex !== null){
-          let newArray = students.map(
+
+          students = students.map(
             (ele,idx)=>{
               if (idx == editindex) {
                 return {name: inp.value, age: inpage.value, class: inpclass.value}
               }
               return ele
-            }
+             }
           )
 
-          console.log(newArray);
-          Render(output, newArray)
+
+          Render(output, students)
           inp.value = "";
             inpage.value = "";
             inpclass.value = "";
           btn.textContent = 'submit'
 
+          editindex=null
           }
-        else{
+        else {
           if ((inp.value == "") | (inpage.value == "") | (inpclass.value == "")) {
             alert("plesase enter your info");
           } else {
@@ -209,8 +211,9 @@
           inp.value = data.name
           btn.textContent = 'update'
         }
-        editindex = editIdx
-
+    ///EDITINDIEX=NULL  
+      editindex = editIdx
+        
       }
     </script>
   </body>
