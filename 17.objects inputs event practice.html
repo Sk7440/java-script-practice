@@ -101,6 +101,16 @@
           Render(searchResult, newArray);
         }
       });
+      searchByclassInp.addEventListener("input", () => {
+        if (searchByclassInp.value == "") {
+          searchResult.innerHTML = "";
+        } else {
+          let newArray = students.filter((ele, idx) => {
+            return ele.class <= Number(searchByclassInp.value);
+          });
+          Render(searchResult, newArray);
+        }
+      });
 
       let btn = document.querySelector("#btn");
       let inp = document.getElementById("input");
@@ -121,6 +131,8 @@
         },
       ];
 
+      let editindex = null;
+
       Render(output, students);
 
       function Render(outputEl, arrayToShow) {
@@ -131,25 +143,49 @@
                           <h3> age: ${ele.age}</h3>
                           <h3> class: ${ele.class}</h3>
                           <button onclick="Click(${idx})">  <i class="fa-solid fa-xmark"></i></button>
-                          <button class="btn">  <i class="fa-solid fa-pen"></i></button>
+                          <button class="btn" onclick="Delete(${idx})" >  <i class="fa-solid fa-pen"></i></button>
                           </div>`;
         });
       }
 
       btn.addEventListener("click", () => {
-        if ((inp.value == "") | (inpage.value == "") | (inpclass.value == "")) {
-          alert("plesase enter your info");
-        } else {
-          students.push({
-            name: inp.value,
-            age: inpage.value,
-            class: inpclass.value,
-          });
-          Render(output, students);
+
+
+        if (editindex !== null){
+          let newArray = students.map(
+            (ele,idx)=>{
+              if (idx == editindex) {
+                return {name: inp.value, age: inpage.value, class: inpclass.value}
+              }
+              return ele
+            }
+          )
+
+          console.log(newArray);
+          Render(output, newArray)
           inp.value = "";
-          inpage.value = "";
-          inpclass.value = "";
+            inpage.value = "";
+            inpclass.value = "";
+          btn.textContent = 'submit'
+
+          }
+        else{
+          if ((inp.value == "") | (inpage.value == "") | (inpclass.value == "")) {
+            alert("plesase enter your info");
+          } else {
+            students.push({
+              name: inp.value,
+              age: inpage.value,
+              class: inpclass.value,
+            });
+            Render(output, students);
+            inp.value = "";
+            inpage.value = "";
+            inpclass.value = "";
+          }
+
         }
+
       });
       function Click(muzaffarbhai) {
         
@@ -157,6 +193,24 @@
         students = students.filter((ele, idx) => {
           return idx !== muzaffarbhai;
         });
+      }
+
+      function Delete(editIdx){
+        console.log(editIdx);
+        let data = students.find(
+          (ele ,idx)=>{
+            return idx == editIdx
+          }
+        )
+        console.log(data);
+        if (data){
+          inpage.value = data.age
+          inpclass.value = data.class
+          inp.value = data.name
+          btn.textContent = 'update'
+        }
+        editindex = editIdx
+
       }
     </script>
   </body>
