@@ -1,0 +1,134 @@
+<!-- <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>product</title>
+  </head>
+  <body>
+    <h1>product management system</h1>
+
+    <form class="add-prod-form">
+      <input type="text" placeholder="enter  name" id="input-name" />
+      <input type="text" placeholder="enter  category" id="input-tm" />
+      <input type="number" placeholder="enter price" id="input-om" />
+      <button type="submit">Submit</button>
+    </form>
+    <div class="output">
+        
+    </div>
+    <script>
+      let addProdForm = document.querySelector(".add-prod-form");
+
+      let inp = document.querySelector("#input-name");
+      let categoryInp = document.querySelector("#input-tm");
+      let priceInp = document.querySelector("#input-om");
+      let output = document.querySelector(".output");
+      let products = [];
+
+      addProdForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("form submitted");
+
+        products.push({
+          name: inp.value,
+          category: categoryInp.value,
+          price: priceInp.value,
+        });
+
+        Render(output, products)
+
+      });
+
+
+      function Render(outputEl, array) {
+        output.innerHTML = ''
+        array.forEach( (ele,idx) => {
+            output.innerHTML += `
+        <div>
+            <h1>
+                name: ${ele.name} 
+            </h1>
+            <h2>
+                category: ${ele.category}
+
+            </h2>
+            <h3>
+                price: ${ele.price}
+            </h3>
+        </div>    
+            `
+        });
+
+      }
+    </script>
+  </body>
+</html> -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- create read update and delete crud operations -->
+    <title>crud operations practice</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <form action="" class="add-form">
+      <input type="text" placeholder="enter product name" id="p-name" />
+      <select name="" id="p-category">
+        <option value="footwear">shoes</option>
+        <option value="material">ring</option>
+        <option value="electronics">mobile</option>
+        <option value="khana pena">andy wala burger</option>
+        <option value="pee ly bhai">pani wali bottle</option>
+        <option value="haye mazy">pepsi ki bottle</option>
+      </select>
+      <input type="text" placeholder="enter price" id="p-price" />
+      <button type="submit">submit</button>
+    </form>
+    <div class="output"></div>
+    <script>
+        let form = document.querySelector(".add-form");
+        let inp = document.querySelector("#p-name");
+        let inpCategory = document.querySelector("#p-category");
+        let inpPrice = document.querySelector("#p-price");
+        let output = document.querySelector(".output");
+        let product = [];
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          console.log("formSubmited");
+          product.push({
+            name: inp.value,
+            category: inpCategory.value,
+            price: inpPrice.value,
+          });
+
+          Render(output, product);
+
+      });
+        function Render(outputEl, array) {
+          output.innerHTML = "";
+          array.forEach((ele, idx) => {
+            outputEl.innerHTML = `
+          <h1>name:${ele.name}</h1>
+          <h2>category:${ele.category}</h2>
+          <h3>price:${ele.price}</h3>;
+          <button onclick="Delete(${idx})">  <i class="fa-solid fa-xmark"></i></button>`
+          });
+        }
+        function Delete(D) {
+                  Render(output,product);
+          product = product.filter((ele, idx) => {
+            return idx !== D;
+           });
+          }
+    </script>
+  </body>
+</html>
