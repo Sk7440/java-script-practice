@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        0
+    </h1>
+    <button>
+        increment
+    </button>
+    <button class="reset">
+        reset
+    </button>
+
+    <script>
+        let btn = document.querySelector('button')
+        let reset = document.querySelector('.reset')
+        let h1 = document.querySelector('h1')
+
+        let count = localStorage.getItem('countValue')
+        let array = JSON.parse(localStorage.getItem('array'))
+        console.log(array);
+        
+        h1.textContent = count
+
+
+
+        btn.addEventListener('click', ()=>{
+            count++
+            localStorage.setItem('countValue', count)
+            localStorage.setItem('array', JSON.stringify([0,1,2]))
+            h1.textContent = count
+
+        })
+        reset.addEventListener('click', ()=>{
+            localStorage.removeItem('countValue')
+
+            count = 0
+            h1.textContent = count 
+
+        })
+
+
+    </script>
+</body>
+</html>

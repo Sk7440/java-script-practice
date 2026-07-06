@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>0</h1>
+    <button>increment</button>
+    <button class="dec">decrement</button>
+    <button class="reset">reset</button>
+
+    <script>
+      let inc = document.querySelector("button");
+      let dec = document.querySelector(".dec");
+      let reset = document.querySelector(".reset");
+      let h1 = document.querySelector("h1");
+
+      let count = localStorage.getItem("countValue");
+
+      h1.textContent = count;
+      inc.addEventListener("click", () => {
+        if (count < 10) {
+          count++;
+          localStorage.setItem("countValue", count);
+          h1.textContent = count;
+        }
+      });
+
+      dec.addEventListener("click", () => {
+        if (count > 0) {
+          count--;
+          localStorage.setItem("countValue", count);
+          h1.textContent = count;
+        }
+      });
+
+      reset.addEventListener("click", () => {
+        localStorage.removeItem("countValue");
+
+        count = 0;
+        h1.textContent = count;
+      });
+    </script>
+  </body>
+</html>

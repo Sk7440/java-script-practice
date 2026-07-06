@@ -95,40 +95,41 @@
     </form>
     <div class="output"></div>
     <script>
-        let form = document.querySelector(".add-form");
-        let inp = document.querySelector("#p-name");
-        let inpCategory = document.querySelector("#p-category");
-        let inpPrice = document.querySelector("#p-price");
-        let output = document.querySelector(".output");
-        let product = [];
-        form.addEventListener("submit", (e) => {
-          e.preventDefault();
-          console.log("formSubmited");
-          product.push({
-            name: inp.value,
-            category: inpCategory.value,
-            price: inpPrice.value,
-          });
-
-          Render(output, product);
-
+      let form = document.querySelector(".add-form");
+      let inp = document.querySelector("#p-name");
+      let inpCategory = document.querySelector("#p-category");
+      let inpPrice = document.querySelector("#p-price");
+      let output = document.querySelector(".output");
+      let product = [];
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("formSubmited");
+        product.push({
+          name: inp.value,
+          category: inpCategory.value,
+          price: inpPrice.value,
+        });
+        Render(output, product);
+        inp.value = "";
+        inpCategory.value = "";
+        inpPrice.value = "";
       });
-        function Render(outputEl, array) {
+      function Render(outputEl, array) {
           output.innerHTML = "";
           array.forEach((ele, idx) => {
-            outputEl.innerHTML = `
-          <h1>name:${ele.name}</h1>
-          <h2>category:${ele.category}</h2>
-          <h3>price:${ele.price}</h3>;
-          <button onclick="Delete(${idx})">  <i class="fa-solid fa-xmark"></i></button>`
-          });
-        }
-        function Delete(D) {
-                  Render(output,product);
-          product = product.filter((ele, idx) => {
-            return idx !== D;
-           });
-          }
+              outputEl.innerHTML += `
+              <h1>name:${ele.name}</h1>
+              <h2>category:${ele.category}</h2>
+              <h3>price:${ele.price}</h3>;
+              <button onclick="Delete(${idx})">  <i class="fa-solid fa-xmark"></i></button>`;
+            });
+    }
+      function Delete(D) {
+        product = product.filter((ele, idx) => {
+          return idx !== D;
+        });
+        Render(output, product);
+      }
     </script>
   </body>
 </html>
