@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let objects = [
+        { name: "Ali", age: 13, marks: 99 },
+        { name: "ahmed", age: 11, marks: 89 },
+        { name: "imran", age: 16, marks: 79 },
+      ];
+
+      //   console.log(objects);
+      //   objects.forEach((ele, idx) => {
+      //     console.log(ele.name);
+      //     console.log(ele.age * 5);
+      //   });
+      //       let human = objects.map((ele, idx) => {
+      //         if(ele.age<15){
+      //             return true
+      //         }
+      //         else{
+      //             return false
+      //         }
+
+      //     });
+      //    let h1=objects.filter((ele,idx)=>{
+      //         return ele.marks<=90
+      //     })
+
+      //     console.log(h1);
+
+      //     let h2=objects.find((ele,idx)=>{
+      //         return ele.name.includes("d")
+
+      //     })
+      //     console.log(h2);
+
+      let h3 = objects.reduce((acc, ele, idx) => {
+        return acc + ele.marks;
+      }, 0);
+      console.log(" Totl Marks " + h3);
+      console.log(" Average " + h3 / 3);
+    
+    
+    
+    
+    
+    </script>
+  </body>
+</html>

@@ -12,6 +12,11 @@
       referrerpolicy="no-referrer"
     />
     <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
       button {
         margin: 0px 10px;
         border-radius: 25px;
@@ -48,14 +53,20 @@
         color: yellow;
       }
       body section {
-        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
         background-color: lightgoldenrodyellow;
+        width: 500px;
+        height: 540px;
       }
     </style>
   </head>
 
   <body>
     <section>
+      <h1>Search Student Info</h1>
       <input placeholder="search by name" class="find-by-name" type="text" />
       <input placeholder="search by age" class="find-by-age" type="number" />
       <input
@@ -63,10 +74,10 @@
         class="find-by-class"
         type="number"
       />
-      <button id="btn1">search</button>
       <div class="search-output">please enter something to search</div>
     </section>
     <div class="List">
+      <h1>Enter Student data</h1>
       <input type="text" placeholder="Enter your name" id="input" />
       <input type="number" placeholder="Enter your age" id="input-age" />
       <input type="number" placeholder="Enter your class" id="input-class" />
@@ -132,7 +143,7 @@
       ];
 
       let editindex = null;
-      
+
       Render(output, students);
 
       function Render(outputEl, arrayToShow) {
@@ -149,30 +160,31 @@
       }
 
       btn.addEventListener("click", () => {
+        if (editindex !== null) {
+          students = students.map((ele, idx) => {
+            if (idx == editindex) {
+              return {
+                name: inp.value,
+                age: inpage.value,
+                class: inpclass.value,
+              };
+            }
+            return ele;
+          });
 
-
-        if (editindex !== null){
-
-          students = students.map(
-            (ele,idx)=>{
-              if (idx == editindex) {
-                return {name: inp.value, age: inpage.value, class: inpclass.value}
-              }
-              return ele
-             }
-          )
-
-
-          Render(output, students)
+          Render(output, students);
           inp.value = "";
-            inpage.value = "";
-            inpclass.value = "";
-          btn.textContent = 'submit'
+          inpage.value = "";
+          inpclass.value = "";
+          btn.textContent = "submit";
 
-          editindex=null
-          }
-        else {
-          if ((inp.value == "") | (inpage.value == "") | (inpclass.value == "")) {
+          editindex = null;
+        } else {
+          if (
+            (inp.value == "") |
+            (inpage.value == "") |
+            (inpclass.value == "")
+          ) {
             alert("plesase enter your info");
           } else {
             students.push({
@@ -185,35 +197,29 @@
             inpage.value = "";
             inpclass.value = "";
           }
-
         }
-
       });
       function Click(muzaffarbhai) {
-        
         Render(output, students);
         students = students.filter((ele, idx) => {
           return idx !== muzaffarbhai;
         });
       }
 
-      function Delete(editIdx){
+      function Delete(editIdx) {
         console.log(editIdx);
-        let data = students.find(
-          (ele ,idx)=>{
-            return idx == editIdx
-          }
-        )
+        let data = students.find((ele, idx) => {
+          return idx == editIdx;
+        });
         console.log(data);
-        if (data){
-          inpage.value = data.age
-          inpclass.value = data.class
-          inp.value = data.name
-          btn.textContent = 'update'
+        if (data) {
+          inpage.value = data.age;
+          inpclass.value = data.class;
+          inp.value = data.name;
+          btn.textContent = "update";
         }
-    ///EDITINDIEX=NULL  
-      editindex = editIdx
-        
+        ///EDITINDIEX=NULL
+        editindex = editIdx;
       }
     </script>
   </body>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form action="" id="form">
+      <input type="text" name="" id="name" />
+      <input type="number" name="" id="price" />
+
+      <button type="submit" id="btn">submit</button>
+    </form>
+    <div id="output"></div>
+    <script>
+      let form = document.querySelector("#form");
+      let pName = document.querySelector("#name");
+      let pPrice = document.querySelector("#price");
+      let btn = document.querySelector("#btn");
+
+      let output = document.querySelector("#output");
+      let product = [];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("form submitted");
+        console.log(pName.value);
+        console.log(pPrice.value);
+
+        product.push({
+          name: pName.value,
+          price: pPrice.value,
+        });
+        output.innerHTML = "";
+        product.forEach((ele, idx) => {
+          output.innerHTML += `<div>
+                
+                <h1>name:${ele.name}</h1>
+                <h2>price:${ele.price}</h2>
+        <button onclick="Delete(${idx})">x</button>
+        <button>Edit</button>
+                </div>`;
+          pName.value = "";
+          pPrice.value = "";
+        });
+        console.log(product);
+      });
+      function Delete(del) {
+        console.log(del);
+
+        output.innerHTML = "";
+      }
+    </script>
+  </body>
+</html>
