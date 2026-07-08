@@ -17,7 +17,7 @@
       let reset = document.querySelector(".reset");
       let h1 = document.querySelector("h1");
 
-      let count = localStorage.getItem("countValue");
+      let count = localStorage.getItem("countValue") || 0;
 
       h1.textContent = count;
       inc.addEventListener("click", () => {

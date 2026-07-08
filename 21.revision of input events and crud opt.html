@@ -24,14 +24,29 @@
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("form submitted");
-        console.log(pName.value);
-        console.log(pPrice.value);
+        if (editingIndex !== null) {
+            product[editingIndex].price = pPrice.value
+            product[editingIndex].name = pName.value
+            editingIndex = null
+            Render()
+        btn.textContent="submit"
+        }
+        else{
+            console.log("form submitted");
+            console.log(pName.value);
+            console.log(pPrice.value);
+    
+            product.push({
+              name: pName.value,
+              price: pPrice.value,
+            });
+            Render();
+            console.log(product);
 
-        product.push({
-          name: pName.value,
-          price: pPrice.value,
-        });
+        }
+      });
+
+      function Render() {
         output.innerHTML = "";
         product.forEach((ele, idx) => {
           output.innerHTML += `<div>
@@ -39,17 +54,27 @@
                 <h1>name:${ele.name}</h1>
                 <h2>price:${ele.price}</h2>
         <button onclick="Delete(${idx})">x</button>
-        <button>Edit</button>
+        <button onclick="Edit(${idx})">Edit</button>
                 </div>`;
           pName.value = "";
           pPrice.value = "";
         });
-        console.log(product);
-      });
+      }
+      let editingIndex = null;
       function Delete(del) {
-        console.log(del);
-
-        output.innerHTML = "";
+        product = product.filter((ele, idx) => {
+          return idx !== del;
+        });
+        Render();
+      }
+      function Edit(edit) {
+        let idxedit = product.find((ele, idx) => {
+          return idx == edit;
+        });
+        pName.value = idxedit.name;
+        pPrice.value = idxedit.price;
+        btn.textContent = "UPDATE";
+        editingIndex = edit
       }
     </script>
   </body>
