@@ -20,29 +20,29 @@
       let btn = document.querySelector("#btn");
 
       let output = document.querySelector("#output");
-      let product = [];
-
+      let product = JSON.parse(localStorage.getItem("product")) || [];
+      Render();
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         if (editingIndex !== null) {
-            product[editingIndex].price = pPrice.value
-            product[editingIndex].name = pName.value
-            editingIndex = null
-            Render()
-        btn.textContent="submit"
-        }
-        else{
-            console.log("form submitted");
-            console.log(pName.value);
-            console.log(pPrice.value);
-    
-            product.push({
-              name: pName.value,
-              price: pPrice.value,
-            });
-            Render();
-            console.log(product);
+          product[editingIndex].price = pPrice.value;
+          product[editingIndex].name = pName.value;
+          localStorage.setItem("product", JSON.stringify(product));
+          editingIndex = null;
+          Render();
 
+          btn.textContent = "submit";
+        } else {
+
+          product.push({
+            name: pName.value,
+            price: pPrice.value,
+          });
+          Render();
+
+          localStorage.setItem("product", JSON.stringify(product));
+
+          console.log(product);
         }
       });
 
@@ -62,9 +62,12 @@
       }
       let editingIndex = null;
       function Delete(del) {
+        console.log(product);
+
         product = product.filter((ele, idx) => {
           return idx !== del;
         });
+        localStorage.setItem("product", JSON.stringify(product));
         Render();
       }
       function Edit(edit) {
@@ -73,8 +76,9 @@
         });
         pName.value = idxedit.name;
         pPrice.value = idxedit.price;
+
         btn.textContent = "UPDATE";
-        editingIndex = edit
+        editingIndex = edit;
       }
     </script>
   </body>

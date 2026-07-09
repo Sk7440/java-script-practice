@@ -15,8 +15,9 @@
       let dec = document.querySelector(".dec");
       let r = document.querySelector(".r");
       let h1 = document.querySelector("h1");
-      let count = document.querySelector("countValue")||0;
+      let count = localStorage.getItem("countValue") || 0;
       h1.textContent = count;
+
       inc.addEventListener("click", () => {
         count++;
         localStorage.setItem("countValue", count);
@@ -28,7 +29,7 @@
         h1.textContent = count;
       });
       r.addEventListener("click", () => {
-        localStorage.removeItem = "countValue";
+        localStorage.removeItem("countValue") ;
         count = 0;
         h1.textContent = 0;
       });

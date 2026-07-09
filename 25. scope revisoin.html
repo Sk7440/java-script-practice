@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+
+  <script>
+     // var , let , const
+
+    // three types of scopes in js
+    // Global 
+    // Function
+    // Block {}
+
+
+    // var is function scoped
+    // let and const are block scoped
+
+    // const count = 0
+    // var count = 0
+    // let count = 0
+    
+    function Check() {
+      // console.log(count);
+      if (true) {
+        const count = 0
+        // let count = 0
+        // var count = 0
+        console.log(count);
+        
+      }
+        console.log(count);
+    }
+
+    Check()
+
+
+
+  </script>
+</body>
+</html>
