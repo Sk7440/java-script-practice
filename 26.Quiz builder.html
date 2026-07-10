@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    form{
+   align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+    body {
+      background-color: #72352318;
+    }
+    div {
+   
+      width: 100%;
+      
+    }
+    div input {
+      margin: 10px;
+      padding: 16px 30px;
+      border-radius: 20px;
+      border: hidden;
+    }
+    h1 {
+      color: palevioletred;
+      text-align: center;
+    }
+    button {
+      margin: 20px;
+      padding: 16px;
+      border: hidden;
+      transition: 0.4s;
+      border-radius: 20px;
+      background-color: palevioletred;
+    }
+    button:hover {
+      background-color: #85896485;
+    }
+    .build-mode{
+      display: none;
+    }
+    .welcome{
+      display: none;
+    }
+    .play-mode.active{
+      display: flex;
+
+    }
+
+    .welcome.active{
+      display: flex;
+
+    }
+    .build-mode.active{
+      display: flex;
+
+    }
+    
+
+
+
+
+  </style>
+  <body>
+    <section class="welcome active" style="justify-items: center; align-items: center; flex-direction: column;font-size: 26px;">
+      <h1>Welcome to Dynamic Quiz Builder</h1>
+      <p>Select your Mode</p>
+<button style="font-size: 20px;" id="build-mode">Build mode</button>
+<button style="font-size: 20px;" id="play-mode">Play mode</button>
+    </section>
+    <section class="build-mode">
+
+      <h1>Dynamic quiz builder</h1>
+      
+      <div>
+        <form action="" id="form">
+
+            <input id="question" type="text" placeholder="Enter your question" />
+            <input id="opt1" type="text" placeholder="Enter your option" />
+      <input id="opt2" type="text" placeholder="Enter your option" />
+      <input id="opt3" type="text" placeholder="Enter your option" />
+      <input id="opt4" type="text" placeholder="Enter your option" />
+      <h3>select your correct option</h3>
+      <div style="display: flex; flex-direction: row; align-items: center; justify-content: center;" >
+          <label for="a">
+              <input  name="s" class="inp" id="a" value="0" type="radio" />
+          A
+        </label>
+        <label for="b">
+          <input name="s" class="inp" id="b" value="1" type="radio" />
+          B
+        </label>
+        <label for="c">
+          <input  name="s" class="inp" id="c" value="2" type="radio" />
+          C
+        </label>
+        <label for="d">
+            <input name="s" class="inp" id="d" value="3" type="radio" />
+            D
+        </label>
+    </div>
+    <button id="submit">Submit</button>
+</div>
+</form>
+</section>
+<script>
+        let question = document.querySelector("#question");
+        let welcome = document.querySelector('.welcome')
+       let form=document.querySelector("#form")
+        let opt1=document.querySelector("#opt1")
+        let opt2=document.querySelector("#opt2")
+        let opt3=document.querySelector("#opt3")
+        let opt4=document.querySelector("#opt4")
+        let btn=document.querySelector("#submit")
+       let inp = document.querySelector(".inp")
+       let buildMode= document.querySelector("#build-mode")
+       let bSection=document.querySelector(".build-mode")
+
+       let quiz=[]
+       
+       form.addEventListener("submit",(e)=>{
+        e.preventDefault()
+           let selectedInp = document.querySelectorAll("input[type='radio']")       
+
+           let checked;
+
+          //  console.log(selectedInp);
+           selectedInp.forEach((ele,idx)=>{
+            if(ele.checked == true){
+              checked=ele
+
+            }
+            localStorage.setItem("quiz",JSON.stringify(quiz))        
+        })
+        
+
+        quiz.push({
+            question:question.value,
+            options:[
+                opt1.value,
+                opt2.value,
+                opt3.value,
+                opt4.value,
+            ],
+            correct: checked.value
+
+        })
+        console.log(quiz);
+        
+        
+        })
+       buildMode.addEventListener("click",()=>{
+        bSection.classList.add('active')
+        welcome.classList.remove('active')
+       })
+       
+
+
+    </script>
+  </body>
+</html>
