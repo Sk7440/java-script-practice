@@ -6,8 +6,15 @@
     <title>Document</title>
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.0/css/all.min.css"
       integrity="sha512-F/yRpRY8sctKzP7exU5PLGejwg/QtjDX6CIy/41nApe7JqdZgCcCzJTNq9Rcp/XwbeeTGillGevBakruY15pxA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
@@ -36,23 +43,91 @@
       background-color: papayawhip;
       border-radius: 16px;
     }
+    .rating-box i {
+      font-size: 56px;
+    }
+
+    .rating-box i.active {
+      color: yellow;
+    }
   </style>
   <body>
     <section>
       <div class="rating-box">
-        <div>
-          <i class="fa-regular fa-star"></i>
-          <i class="fa-regular fa-star"></i>
-          <i class="fa-regular fa-star"></i>
-          <i class="fa-regular fa-star"></i>
-          <i class="fa-regular fa-star"></i>
+        <div class="star-box">
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
         </div>
-        <button>Submit your Rating</button>
-        <h4>Submitted rating: <span id="Submit-s">0</span></h4>
-        <h4>Average rating: <span id="Average-s">0</span></h4>
+        <button class="submit">Submit your Rating</button>
+        <h4>Submitted rating: <span id="submit-s">0</span></h4>
+        <h4>Average rating: <span id="average-s">0</span></h4>
         <h4>Total votes: <span id="votes-s">0</span></h4>
       </div>
     </section>
-    <script></script>
+    <script>
+      let submitS = document.querySelector("#submit-s");
+      let averageS = document.querySelector("#average-s");
+      let votesS = document.querySelector("#votes-s");
+      let starS = document.querySelectorAll(".ri-star-line");
+      let starBox = document.querySelector(".star-box");
+      let btn = document.querySelector(".submit");
+      let votep = [];
+
+      starBox.addEventListener("mouseleave", () => {
+        if (selectedValue !== 0) {
+          starS.forEach((ele, idx) => {
+            if (ele.starValue > selectedValue) {
+              ele.classList.remove("active");
+            }
+          });
+        }
+      });
+      starS.forEach((ele, idx) => {
+        ele.starValue = idx + 1;
+
+        ele.addEventListener("mouseenter", () => {
+          //   console.log(ele.starValue);
+
+          //   if (selectedValue !== 0) {
+          //     starS.forEach((ele, idx) => {
+          //       if (ele.starValue > selectedValue) {
+          //         ele.classList.remove("acxtive");
+          //       }
+          //     });
+          //   } else {
+          starS.forEach((elee, idxx) => {
+            if (elee.starValue <= ele.starValue) {
+              elee.classList.add("active");
+            } else {
+              elee.classList.remove("active");
+            }
+          });
+          //   }
+        });
+        ele.addEventListener("click", () => {
+          selectedValue = ele.starValue;
+          submitS.textContent = ele.starValue;
+        });
+      });
+      let submitedrating;
+      let selectedValue;
+      let rate = [];
+      
+      btn.addEventListener("click", () => {
+          votep.push(selectedValue);
+console.log(selectedValue);
+          
+        votesS.textContent = votep.length;
+        let v = votep.reduce((acc, ele, idx) => {
+          return acc + ele;
+        }, 0);
+        
+        averageS.textContent = (v / votep.length).toFixed(2);
+        //   console.log(votep);
+      });
+    </script>
   </body>
 </html>
