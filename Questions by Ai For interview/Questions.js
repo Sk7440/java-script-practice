@@ -1,6 +1,6 @@
 // Write a function that takes a string and returns an object containing the count of every character
-// Write a function to reverse a string
-// write a function to reveser a word in a sentence
+// Write a function to reverse a string done 
+// write a function to reveser a word in a sentence done
 // write a function to find first no repeating character
 // write a function to return count for non repeating characters
 // write a function to  find duplicate characters in string

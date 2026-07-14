@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.2.0/css/all.min.css"
+      integrity="sha512-F/yRpRY8sctKzP7exU5PLGejwg/QtjDX6CIy/41nApe7JqdZgCcCzJTNq9Rcp/XwbeeTGillGevBakruY15pxA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <style>
+    section {
+      display: flex;
+      align-items: center;
+      margin-top: 50px;
+      justify-content: center;
+    }
+    section .rating-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+      width: 400px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 10px 0px;
+    }
+    section .rating-box button {
+      border: hidden;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: papayawhip;
+      border-radius: 16px;
+    }
+  </style>
+  <body>
+    <section>
+      <div class="rating-box">
+        <div>
+          <i class="fa-regular fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
+        <button>Submit your Rating</button>
+        <h4>Submitted rating: <span id="Submit-s">0</span></h4>
+        <h4>Average rating: <span id="Average-s">0</span></h4>
+        <h4>Total votes: <span id="votes-s">0</span></h4>
+      </div>
+    </section>
+    <script></script>
+  </body>
+</html>

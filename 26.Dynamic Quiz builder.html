@@ -44,11 +44,17 @@
     .build-mode{
       display: none;
     }
+    .play-mode{
+      display: none;
+    }
     .welcome{
       display: none;
     }
     .play-mode.active{
       display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
 
     }
 
@@ -58,6 +64,7 @@
     }
     .build-mode.active{
       display: flex;
+      flex-direction: column;
 
     }
     
@@ -108,6 +115,16 @@
 </div>
 </form>
 </section>
+<section class="play-mode">
+  <h1>Play Mode Question</h1>
+  <button class="start-btn">Start Quiz</button>
+  <h3 class="ques-main"></h3>
+  <div class="ans-main"></div>
+  <button class="next"> Next </button>
+
+</section>
+
+
 <script>
         let question = document.querySelector("#question");
         let welcome = document.querySelector('.welcome')
@@ -119,9 +136,10 @@
         let btn=document.querySelector("#submit")
        let inp = document.querySelector(".inp")
        let buildMode= document.querySelector("#build-mode")
+      let playMode=document.querySelector("#play-mode")
        let bSection=document.querySelector(".build-mode")
-
-       let quiz=[]
+let pSection=document.querySelector(".play-mode")
+       let quiz=[];
        
        form.addEventListener("submit",(e)=>{
         e.preventDefault()
@@ -135,21 +153,21 @@
               checked=ele
 
             }
-            localStorage.setItem("quiz",JSON.stringify(quiz))        
-        })
-        
-
-        quiz.push({
+          })
+          
+          
+          quiz.push({
             question:question.value,
             options:[
-                opt1.value,
-                opt2.value,
-                opt3.value,
-                opt4.value,
+              opt1.value,
+              opt2.value,
+              opt3.value,
+              opt4.value,
             ],
             correct: checked.value
-
-        })
+            
+          })
+          localStorage.setItem("quiz",JSON.stringify(quiz))        
         console.log(quiz);
         
         
@@ -158,9 +176,76 @@
         bSection.classList.add('active')
         welcome.classList.remove('active')
        })
+       playMode.addEventListener("click",()=>{
+        pSection.classList.add('active')
+        welcome.classList.remove('active')
+       })
+       
+  let nextBtn = document.querySelector('.next')
+        let qHeading = document.querySelector('.ques-main')
+        let startBtn = document.querySelector('.start-btn')
+        let ansMain = document.querySelector('.ans-main')
+        let questions
+        let index =0
+        startBtn.addEventListener("click",()=>{
+
+          questions=JSON.parse(localStorage.getItem('quiz'))  
+          
+          Render()          
+        })
+        function Render() {
+          
+          
+          let oneQuestion= questions[index]
+          qHeading.textContent = oneQuestion.question
+          ansMain.innerHTML=""
+       oneQuestion.options.forEach((ele,idx)=>{
+  
+        ansMain.innerHTML += 
+  `<label for="${idx}">
+              <input class="ans-options"  name="s" id="${idx}" value="${idx}" type="radio" />
+          ${ele}
+        </label>
+  `
+      
+        
+       })
+       
        
 
 
+          // oneQuestion.options
+          // console.log(oneQuestion.options);
+        
+        }
+  let score = 0
+
+        nextBtn.addEventListener('click', function () {
+            let radioInputs = document.querySelectorAll('.ans-options')
+          console.log(radioInputs);
+          
+            let checkedInp;
+            radioInputs.forEach((ele, idx) => {
+                if (ele.checked == true) {
+                   checkedInp = ele
+                }
+            })
+            console.log(checkedInp.value);
+            if (questions[index].correct == checkedInp.value) {
+                score++
+            }
+            console.log(score);
+
+            if (index == questions.length - 1) {
+                alert('your score is: ' + score)
+            }
+            else {
+                index++
+                RenderQuestion()
+
+            }
+
+        })
     </script>
   </body>
 </html>
