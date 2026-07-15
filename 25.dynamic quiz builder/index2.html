@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .build-mode {
+      display: none;
+    }
+    .play-mode {
+      display: none;
+    }
+    .active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .nonactive {
+      display: none;
+    }
+  </style>
+  <body>
+    <section class="fm">
+      <h1>Welcome to synamic Quiz builder</h1>
+      <button class="bm">Build mode</button>
+      <button class="pm">paly mode</button>
+    </section>
+    <section class="build-mode">
+      <h1>Welcome to build Mode</h1>
+      <div>
+        <form action="" class="form">
+          <label for="">
+            <input
+              type="text"
+              id="question"
+              placeholder="enter your questions"
+            />
+          </label>
+          <label for="">
+            <input type="text" id="opt1" placeholder="enter your options" />
+          </label>
+          <label for="">
+            <input type="text" id="opt2" placeholder="enter your options" />
+          </label>
+          <label for="">
+            <input type="text" id="opt3" placeholder="enter your options" />
+          </label>
+          <label for="">
+            <input type="text" id="opt4" placeholder="enter your options" />
+          </label>
+        
+      </div>
+        <label for="a">
+          <input
+            type="radio"
+            value="0"
+            id="a"
+            name="s"
+            placeholder="enter your options"
+          />
+          A
+        </label>
+        <label for="b">
+          <input
+            type="radio"
+            value="1"
+            id="b"
+            name="s"
+            placeholder="enter your options"
+          />
+          B
+        </label>
+        <label for="c">
+          <input
+            type="radio"
+            value="2"
+            id="c"
+            name="s"
+            placeholder="enter your options"
+          />
+          C
+        </label>
+        <label for="d">
+          <input
+            type="radio"
+            value="3"
+            id="d"
+            name="s"
+            placeholder="enter your options"
+          />
+
+          D
+        </label>
+        <button type="submit">Submit</button>
+      </form>
+      <button>finish build mode</button>
+    </section>
+    <section class="play-mode">
+      <h1>Welcome to play mode</h1>
+      <button>Start quiz</button>
+      <button>next</button>
+    </section>
+    <script>
+      let buildM = document.querySelector(".bm");
+      let playM = document.querySelector(".pm");
+      let welcome = document.querySelector(".fm");
+      let bSection = document.querySelector(".build-mode");
+      let pSection = document.querySelector(".play-mode");
+
+      /////Welcome page click event on buttons
+      buildM.addEventListener("click", () => {
+        bSection.classList.add("active");
+        welcome.classList.add("nonactive");
+      });
+      playM.addEventListener("click", () => {
+        pSection.classList.add("active");
+        welcome.classList.add("nonactive");
+      });
+      //////build mode
+      /////form submission working
+      let form = document.querySelector(".form");
+      let question = document.querySelector("#question");
+      let opt1 = document.querySelector("#opt1");
+      let opt2 = document.querySelector("#opt2");
+      let opt3 = document.querySelector("#opt3");
+      let opt4 = document.querySelector("#opt4");
+      let quiz = [];
+
+      // {
+      //   question: '',
+      //   options: [
+
+      //   ],
+      //   correct:
+      // }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        quiz.push({
+          question: question.value,
+          options: [opt1.value, opt2.value, opt3.value, opt4.value],
+          correct:correct.value
+        });
+        console.log(quiz);
+      });
+      
+    </script>
+  </body>
+</html>
