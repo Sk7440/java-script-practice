@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let inp = String(
+        prompt("Enter yout word to get a vowel word"),
+      ).toLowerCase();
+
+      vowels();
+
+      function vowels() {
+        let vowel = ["a", "e", "i", "o", "u"];
+
+        let v = vowel.some((ele, idx) => {
+          return inp.includes(ele);
+        });
+
+        console.log(v);
+      }
+    </script>
+  </body>
+</html>

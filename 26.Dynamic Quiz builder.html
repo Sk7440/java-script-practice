@@ -62,14 +62,18 @@
       display: flex;
 
     }
+    
     .build-mode.active{
       display: flex;
       flex-direction: column;
 
     }
     
-
-
+.ans-main{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 
   </style>
@@ -121,7 +125,9 @@
   <h3 class="ques-main"></h3>
   <div class="ans-main"></div>
   <button class="next"> Next </button>
-
+<h3>Your Score is <span id="score">0</span></h3>
+<h3>Current Question <span id="cq">0</span></h3>
+<h3>Total Questions <span id="tq">0</span></h3>
 </section>
 
 
@@ -139,6 +145,9 @@
       let playMode=document.querySelector("#play-mode")
        let bSection=document.querySelector(".build-mode")
 let pSection=document.querySelector(".play-mode")
+let liveScore=document.querySelector("#score")
+let currentQ=document.querySelector("#cq")
+let totalQ=document.querySelector("#tq")
        let quiz=[];
        
        form.addEventListener("submit",(e)=>{
@@ -147,7 +156,6 @@ let pSection=document.querySelector(".play-mode")
 
            let checked;
 
-          //  console.log(selectedInp);
            selectedInp.forEach((ele,idx)=>{
             if(ele.checked == true){
               checked=ele
@@ -167,9 +175,17 @@ let pSection=document.querySelector(".play-mode")
             correct: checked.value
             
           })
-          localStorage.setItem("quiz",JSON.stringify(quiz))        
+          localStorage.setItem("quiz",JSON.stringify(quiz))   
+          question.value=""     
+          options:[
+              opt1.value="",
+              opt2.value="",
+              opt3.value="",
+              opt4.value="",
+            ],
+
         console.log(quiz);
-        
+            
         
         })
        buildMode.addEventListener("click",()=>{
@@ -188,10 +204,14 @@ let pSection=document.querySelector(".play-mode")
         let questions
         let index =0
         startBtn.addEventListener("click",()=>{
+      
 
-          questions=JSON.parse(localStorage.getItem('quiz'))  
-          
-          Render()          
+  questions=JSON.parse(localStorage.getItem('quiz'))  
+  
+  Render()  
+  currentQ.textContent=index +1
+  totalQ.textContent=questions.length       
+
         })
         function Render() {
           
@@ -219,9 +239,8 @@ let pSection=document.querySelector(".play-mode")
         
         }
   let score = 0
-
-        nextBtn.addEventListener('click', function () {
-            let radioInputs = document.querySelectorAll('.ans-options')
+  nextBtn.addEventListener('click', function () {
+    let radioInputs = document.querySelectorAll('.ans-options')
           console.log(radioInputs);
           
             let checkedInp;
@@ -233,17 +252,17 @@ let pSection=document.querySelector(".play-mode")
             console.log(checkedInp.value);
             if (questions[index].correct == checkedInp.value) {
                 score++
+                liveScore.textContent=score
             }
             console.log(score);
 
             if (index == questions.length - 1) {
-                alert('your score is: ' + score)
-            }
+            alert("Quiz are end please go to build mode")}
             else {
                 index++
-                RenderQuestion()
+                Render()
 
-            }
+              }
 
         })
     </script>
