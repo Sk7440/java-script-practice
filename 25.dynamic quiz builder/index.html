@@ -69,23 +69,23 @@
 
     }
     
-.ans-main{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .ans-main{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
 
-
-  </style>
+    </style>
   <body>
     <section class="welcome active" style="justify-items: center; align-items: center; flex-direction: column;font-size: 26px;">
       <h1>Welcome to Dynamic Quiz Builder</h1>
       <p>Select your Mode</p>
 <button style="font-size: 20px;" id="build-mode">Build mode</button>
 <button style="font-size: 20px;" id="play-mode">Play mode</button>
-    </section>
+</section>
     <section class="build-mode">
-
+      
       <h1>Dynamic quiz builder</h1>
       
       <div>
@@ -111,12 +111,13 @@
           C
         </label>
         <label for="d">
-            <input name="s" class="inp" id="d" value="3" type="radio" />
-            D
+          <input name="s" class="inp" id="d" value="3" type="radio" />
+          D
         </label>
+      </div>
+      <button id="submit">Submit</button>
+      <button style="font-size: 20px;" id="play-mode">finish build mode</button>
     </div>
-    <button id="submit">Submit</button>
-</div>
 </form>
 </section>
 <section class="play-mode">
