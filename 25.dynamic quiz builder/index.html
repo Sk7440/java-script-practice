@@ -81,9 +81,9 @@
     <section class="welcome active" style="justify-items: center; align-items: center; flex-direction: column;font-size: 26px;">
       <h1>Welcome to Dynamic Quiz Builder</h1>
       <p>Select your Mode</p>
-<button style="font-size: 20px;" id="build-mode">Build mode</button>
-<button style="font-size: 20px;" id="play-mode">Play mode</button>
-</section>
+      <button style="font-size: 20px;" id="build-mode">Build mode</button>
+      <button style="font-size: 20px;" id="play-mode">Play mode</button>
+    </section>
     <section class="build-mode">
       
       <h1>Dynamic quiz builder</h1>
@@ -116,7 +116,7 @@
         </label>
       </div>
       <button id="submit">Submit</button>
-      <button style="font-size: 20px;" id="play-mode">finish build mode</button>
+      <button style="font-size: 20px;" id="finish">finish build mode</button>
     </div>
 </form>
 </section>
@@ -129,12 +129,13 @@
 <h3>Your Score is <span id="score">0</span></h3>
 <h3>Current Question <span id="cq">0</span></h3>
 <h3>Total Questions <span id="tq">0</span></h3>
+<button id='return'>Build mode</button>
 </section>
 
 
 <script>
         let question = document.querySelector("#question");
-        let welcome = document.querySelector('.welcome')
+        let welcomeP = document.querySelector('.welcome')
        let form=document.querySelector("#form")
         let opt1=document.querySelector("#opt1")
         let opt2=document.querySelector("#opt2")
@@ -149,33 +150,56 @@ let pSection=document.querySelector(".play-mode")
 let liveScore=document.querySelector("#score")
 let currentQ=document.querySelector("#cq")
 let totalQ=document.querySelector("#tq")
-       let quiz=[];
-       
+let finishB=document.querySelector("#finish")
+let again = document.querySelector("#return")       
+let quiz=[];
+
+again.addEventListener('click',()=>{
+  pSection.classList.remove('active')
+  bSection.classList.add('active')
+  
+
+})
+       finishB.addEventListener("click",()=>{
+        bSection.classList.remove("active")
+        welcomeP.classList.add("active")
+       })
        form.addEventListener("submit",(e)=>{
         e.preventDefault()
            let selectedInp = document.querySelectorAll("input[type='radio']")       
 
            let checked;
-
            selectedInp.forEach((ele,idx)=>{
-            if(ele.checked == true){
-              checked=ele
-
-            }
-          })
-          
-          
-          quiz.push({
-            question:question.value,
-            options:[
-              opt1.value,
-              opt2.value,
-              opt3.value,
-              opt4.value,
-            ],
-            correct: checked.value
+             if(ele.checked == true){
+               checked=ele
+               
+              }
+              
+            })
             
-          })
+            if(!checked || 
+            question.value==""||            
+                opt1.value==""||
+                opt2.value==""||
+                opt3.value==""||
+                opt4.value==""    
+            ){
+              alert("please SELECTED your OPTIONS  ")
+            }
+            else{
+
+              quiz.push({
+                question:question.value,
+              options:[
+                opt1.value,
+                opt2.value,
+                opt3.value,
+                opt4.value,
+              ],
+              correct: checked.value
+              
+            })
+          }
           localStorage.setItem("quiz",JSON.stringify(quiz))   
           question.value=""     
           options:[
@@ -184,21 +208,20 @@ let totalQ=document.querySelector("#tq")
               opt3.value="",
               opt4.value="",
             ],
+             checked.value=""
 
-        console.log(quiz);
-            
         
         })
        buildMode.addEventListener("click",()=>{
         bSection.classList.add('active')
-        welcome.classList.remove('active')
+        welcomeP.classList.remove('active')
        })
        playMode.addEventListener("click",()=>{
         pSection.classList.add('active')
-        welcome.classList.remove('active')
+        welcomeP.classList.remove('active')
        })
        
-  let nextBtn = document.querySelector('.next')
+        let nextBtn = document.querySelector('.next')
         let qHeading = document.querySelector('.ques-main')
         let startBtn = document.querySelector('.start-btn')
         let ansMain = document.querySelector('.ans-main')
@@ -206,7 +229,6 @@ let totalQ=document.querySelector("#tq")
         let index =0
         startBtn.addEventListener("click",()=>{
       
-
   questions=JSON.parse(localStorage.getItem('quiz'))  
   
   Render()  
@@ -242,7 +264,6 @@ let totalQ=document.querySelector("#tq")
   let score = 0
   nextBtn.addEventListener('click', function () {
     let radioInputs = document.querySelectorAll('.ans-options')
-          console.log(radioInputs);
           
             let checkedInp;
             radioInputs.forEach((ele, idx) => {
