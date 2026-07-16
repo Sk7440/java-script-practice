@@ -87,12 +87,12 @@
           seletedstar = ele.starvalue;
           submitS.textContent = ele.starvalue;
         });
-    });
+      });
       starBox.addEventListener("mouseleave", () => {
         starS.forEach((ele, idx) => {
           if (seletedstar < ele.starvalue) {
-              ele.classList.remove("active");
-            }
+            ele.classList.remove("active");
+          }
         });
       });
       btn.addEventListener("click", () => {
@@ -102,20 +102,26 @@
         }
 
         vote.push(seletedstar);
-        voteS.textContent = vote.length;
-        totalvote= vote.reduce((acc,ele,idx)=>{
-            return acc+ele
-        },0)
-        console.log(totalvote);
-        averageS.textContent=(totalvote/vote.length).toFixed(2)
-        seletedstar=0
+        localStorage.setItem("vote", JSON.stringify(vote));
+        reload(vote);
+        seletedstar = 0;
         submitS.textContent = seletedstar;
-        starS.forEach((ele, idx)=>{
-
-            ele.classList.remove("active");
-        })
-         
+        starS.forEach((ele, idx) => {
+          ele.classList.remove("active");
+        });
       });
+      let voteP = JSON.parse(localStorage.getItem("vote"));
+      reload(voteP);
+
+      function reload(votes) {
+        let count = votes.length;
+        let totalvotes = (totalVote = vote.reduce((acc, ele, idx) => {
+          return acc + ele;
+        }, 0));
+        let average = (totalVote / vote.length).toFixed(2);
+        voteS.textContent = count;
+        averageS.textContent = average;
+      }
     </script>
   </body>
 </html>
