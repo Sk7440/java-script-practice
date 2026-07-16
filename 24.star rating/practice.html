@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <style>
+    section {
+      display: flex;
+      align-items: center;
+      margin-top: 50px;
+      justify-content: center;
+    }
+    section .rating-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 500px;
+      width: 400px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 10px 0px;
+    }
+    section .rating-box button {
+      border: hidden;
+      margin-top: 50px;
+      padding: 20px;
+      background-color: papayawhip;
+      border-radius: 16px;
+    }
+    .rating-box i {
+      font-size: 56px;
+    }
+
+    .rating-box i.active {
+      color: yellow;
+    }
+  </style>
+  <body>
+    <section>
+      <div class="rating-box">
+        <div class="star-box">
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+          <i class="ri-star-line"></i>
+        </div>
+        <button class="submit">Submit your Rating</button>
+        <h4>Submitted rating: <span id="submit-s">0</span></h4>
+        <h4>Average rating: <span id="average-s">0</span></h4>
+        <h4>Total votes: <span id="votes-s">0</span></h4>
+      </div>
+    </section>
+    <script>
+      let submitS = document.querySelector("#submit-s");
+      let averageS = document.querySelector("#average-s");
+      let voteS = document.querySelector("#vote-s");
+      let submitBtn = document.querySelector(".submit");
+      let starBox = document.querySelector(".star-box");
+      let starS = document.querySelectorAll(".ri-star-line");
+      console.log(starS);
+      
+      starS.addEventListener("mousseenter", () => {
+          
+          starS.forEach((ele,idx)=>{
+            ele.classList.add("active");
+
+        })
+      });
+    </script>
+  </body>
+</html>
