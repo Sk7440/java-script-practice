@@ -139,12 +139,19 @@
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-
+        let selectedInp=document.querySelectorAll("input[type='radio']")
+        let checked
+selectedInp.forEach((ele,idx)=>{
+  if(ele.checked==true){
+    checked=ele
+  }
+})
         quiz.push({
           question: question.value,
           options: [opt1.value, opt2.value, opt3.value, opt4.value],
           correct:checked.value
         });
+        localStorage.setItem("quiz",JSON.stringify(quiz))
         console.log(quiz);
       });
       

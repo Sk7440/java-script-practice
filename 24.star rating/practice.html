@@ -68,7 +68,7 @@
       let starBox = document.querySelector(".star-box");
       let starS = document.querySelectorAll(".ri-star-line");
       let seletedstar = 0;
-      let vote = [];
+      let vote = JSON.parse(localStorage.getItem("vote")) || [];
       console.log(starS);
 
       starS.forEach((ele, idx) => {
@@ -110,14 +110,14 @@
           ele.classList.remove("active");
         });
       });
-      let voteP = JSON.parse(localStorage.getItem("vote"));
-      reload(voteP);
+      
+      reload(vote);
 
       function reload(votes) {
         let count = votes.length;
-        let totalvotes = (totalVote = vote.reduce((acc, ele, idx) => {
+        let totalVote = vote.reduce((acc, ele, idx) => {
           return acc + ele;
-        }, 0));
+        }, 0);
         let average = (totalVote / vote.length).toFixed(2);
         voteS.textContent = count;
         averageS.textContent = average;
