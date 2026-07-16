@@ -87,12 +87,12 @@
           seletedstar = ele.starvalue;
           submitS.textContent = ele.starvalue;
         });
-      });
+    });
       starBox.addEventListener("mouseleave", () => {
         starS.forEach((ele, idx) => {
           if (seletedstar < ele.starvalue) {
-            ele.classList.remove("active");
-          }
+              ele.classList.remove("active");
+            }
         });
       });
       btn.addEventListener("click", () => {
@@ -103,11 +103,18 @@
 
         vote.push(seletedstar);
         voteS.textContent = vote.length;
-       totalvote= vote.reduce((acc,ele,idx)=>{
+        totalvote= vote.reduce((acc,ele,idx)=>{
             return acc+ele
         },0)
         console.log(totalvote);
         averageS.textContent=(totalvote/vote.length).toFixed(2)
+        seletedstar=0
+        submitS.textContent = seletedstar;
+        starS.forEach((ele, idx)=>{
+
+            ele.classList.remove("active");
+        })
+         
       });
     </script>
   </body>
