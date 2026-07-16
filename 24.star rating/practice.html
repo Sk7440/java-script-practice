@@ -63,18 +63,51 @@
     <script>
       let submitS = document.querySelector("#submit-s");
       let averageS = document.querySelector("#average-s");
-      let voteS = document.querySelector("#vote-s");
-      let submitBtn = document.querySelector(".submit");
+      let voteS = document.querySelector("#votes-s");
+      let btn = document.querySelector(".submit");
       let starBox = document.querySelector(".star-box");
       let starS = document.querySelectorAll(".ri-star-line");
+      let seletedstar = 0;
+      let vote = [];
       console.log(starS);
-      
-      starS.addEventListener("mousseenter", () => {
-          
-          starS.forEach((ele,idx)=>{
-            ele.classList.add("active");
 
-        })
+      starS.forEach((ele, idx) => {
+        ele.starvalue = idx + 1;
+        ele.addEventListener("mouseenter", () => {
+          starS.forEach((elee, idxx) => {
+            if (elee.starvalue <= ele.starvalue) {
+              elee.classList.add("active");
+            } else {
+              elee.classList.remove("active");
+            }
+          });
+        });
+
+        ele.addEventListener("click", () => {
+          seletedstar = ele.starvalue;
+          submitS.textContent = ele.starvalue;
+        });
+      });
+      starBox.addEventListener("mouseleave", () => {
+        starS.forEach((ele, idx) => {
+          if (seletedstar < ele.starvalue) {
+            ele.classList.remove("active");
+          }
+        });
+      });
+      btn.addEventListener("click", () => {
+        if (seletedstar == 0) {
+          alert("please add your rating");
+          return;
+        }
+
+        vote.push(seletedstar);
+        voteS.textContent = vote.length;
+       totalvote= vote.reduce((acc,ele,idx)=>{
+            return acc+ele
+        },0)
+        console.log(totalvote);
+        averageS.textContent=(totalvote/vote.length).toFixed(2)
       });
     </script>
   </body>

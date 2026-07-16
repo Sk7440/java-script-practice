@@ -139,11 +139,11 @@
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
-        
+
         quiz.push({
           question: question.value,
           options: [opt1.value, opt2.value, opt3.value, opt4.value],
-          correct:correct.value
+          correct:checked.value
         });
         console.log(quiz);
       });
