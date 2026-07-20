@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #bone {
+      width: 30vw;
+      height: 90vh;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 600%;
+      height: 100%;
+    }
+    .slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      background-color: lightsalmon;
+      height: 100%;
+      border-radius: 15px;
+    }
+    .slide:nth-child(even) {
+      background-color: lightgreen;
+    }
+    .one {
+      margin-left: 30px;
+    }
+    .nonactive {
+      animation-iteration-count: 0;
+    }
+    .active {
+      margin-left: -790px;
+    }
+  </style>
+  <body>
+    <div id="bone">
+      <div class="slider">
+        <div class="slide">
+          <div class="content"></div>
+        </div>
+        <div class="slide">
+          <div class="content"></div>
+        </div>
+        <div class="slide">
+          <div class="content"></div>
+        </div>
+        <div class="slide">
+          <div class="content"></div>
+        </div>
+        <div class="slide">
+          <div class="content"></div>
+        </div>
+        <div class="slide">
+          <div class="content"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    let sliderP = document.querySelector(".slider");
+    let boneP = document.querySelector("#bone");
+    let slideP = document.querySelectorAll(".slide");
+    let oneP = document.querySelector(".one");
+    let content = document.querySelector(".content");
+
+    let testimonials = [
+      {
+        name: "sultan",
+        designation: "banda",
+        testimonial: "5.0",
+        country: "bmberland",
+      },
+      {
+        name: "raju",
+        designation: "takla",
+        testimonial: "3.0",
+        country: "dholakpur",
+      },
+      {
+        name: "asim munir",
+        designation: "joty chaat america ka ghulam",
+        testimonial: "1.0",
+        country: "america",
+      },
+      {
+        name: "maryam nawaz",
+        designation: "sab di maaa",
+        testimonial: "0",
+        country: "gutter",
+      },
+      {
+        name: "bilawal zardari",
+        designation: "1.5 number",
+        testimonial: "0",
+        country: "hanostan",
+      },
+    ];
+    console.log(testimonials.length);
+
+    let id = setInterval(set, 1000);
+    let count = 0;
+    function set() {
+      if (count >= testimonials.length) {
+        count = 0;
+      }
+      let { name, designation, testimonial, country } = testimonials[count];
+
+      count++;
+      content.innerHTML = `
+     <div>
+        
+        <h2>name:${name}</h2>
+        <h2>designation:${designation}</h2>
+        <h2>testimonial:${testimonial}</h2>
+        <h2>country:${country}</h2>
+        </div>`;
+    }
+    set();
+    boneP.addEventListener("mouseenter", () => {
+      clearInterval(id);
+    });
+    boneP.addEventListener("mouseleave", () => {
+      id = setInterval(set, 1000);
+    });
+  </script>
+</html>

@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #bone {
+      width: 50vw;
+      height: 50vh;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 600%;
+      height: 50%;
+    }
+    .slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 50%;
+      border-radius: 15px;
+    }
+    .slide img {
+      width: 100%;
+      object-fit: cover;
+    }
+    .one {
+      margin-left: 30px;
+    }
+    .active {
+      margin-left: -790px;
+    }
+  </style>
+  <body>
+    <div id="bone">
+      <div class="slider">
+        <div class="slide">
+          <img
+            id="hello1"
+            src="https://issimi-vehicles-cdn.b-cdn.net/publicamlvehiclemanagement/VehicleDetails/628/timestamped-1722570747278-2018%20McLaren%20720S_001.jpg?width=3840&quality=75"
+            alt="mclearn"
+          />
+        </div>
+        <div class="slide">
+          <img
+            id="hello2"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW0eRpUAMUYhpBHn-VB_hS-9omGW-XDNrdIyH3USDeHw&s=10"
+            alt="BMW M5 Competition"
+          />
+        </div>
+        <div class="slide">
+          <img
+            id="hello3"
+            src="
+             https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS51AtgMuqjfVUY5XGAj2Nvjrhmrq5EiyTDLkZrv06wyA&s=10"
+            alt="m5 "
+          />
+        </div>
+        <div class="slide">
+          <img
+            id="hello4"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8YGHloiKkVVQyXb6tWZWt0UP3OcKbaN4gAmzBYywNbw&s=10 "
+            alt="koenigsegg"
+          />
+        </div>
+        <div class="slide">
+          <img
+            id="hello5"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpTajXNqn-avLJ_wpeCBmR1NchBNw8UUyoAUIvdbGLlw&s=10"
+            alt="porsche 9 11"
+          />
+        </div>
+        <div class="slide">
+          <img
+            id="hello6"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJWSBXYNpOV_24TXOF7271suCtOdtg3iAxqrKcamtVvw&s=10"
+            alt="ferarri"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      style="
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+        gap: 100px;
+        justify-content: space-between;
+      "
+    >
+      <button
+        class="previous-btn"
+        style="
+          padding: 0.9rem;
+          border-radius: 16px;
+          border: hidden;
+          font-size: 18px;
+        "
+      >
+        previous
+      </button>
+      <button
+        class="next-btn"
+        style="
+          padding: 0.9rem;
+          border-radius: 16px;
+          border: hidden;
+          font-size: 18px;
+        "
+      >
+        next
+      </button>
+    </div>
+  </body>
+
+  <script>
+    let img = document.querySelectorAll("img");
+    let sliderP = document.querySelector(".slider");
+    let boneP = document.querySelector("#bone");
+    let nextBtn = document.querySelector(".next-btn");
+    let slideP = document.querySelectorAll(".slide");
+    let oneP = document.querySelector(".one");
+    let previousBtn = document.querySelector(".previous-btn");
+
+    let count = 0;
+    nextBtn.addEventListener("click", () => {
+      if (count == slideP.length - 1) {
+        alert("images are finished");
+      } else {
+        count++;
+        sliderP.style.marginLeft = `-${count * 100}%`;
+        document.body.style.backgroundImage = `url(${img[count].getAttribute("src")})`;
+      }
+    });
+    previousBtn.addEventListener("click", () => {
+      if (count <= 0) {
+        alert("bhai pangy na ly");
+      } else {
+        count--;
+        sliderP.style.marginLeft = `- ${count * 100}%`;
+      }
+    });
+  </script>
+</html>
