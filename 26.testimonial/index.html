@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      /* overflow: hidden; */
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    #bone {
+      width: 90vw;
+      height: 80vh;
+      overflow: hidden;
+    }
+    .slider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 600%;
+      height: 100%;
+      /* animation-name: turnleft;
+      animation-duration: 10s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate; */
+    }
+    /* @keyframes turnleft {
+      0% {
+        margin-left: 0;
+      }
+      14.28% {
+        margin-left: 0;
+      }
+      28.56% {
+        margin-left: -33.3%;
+      }
+      42.84% {
+        margin-left: -33.3%;
+      }
+      57.12% {
+        margin-left: -66.6%;
+      }
+      71.4% {
+        margin-left: -66.6%;
+      }
+      85.68% {
+        margin-left: -100%;
+      }
+      100% {
+        margin-left: -100%;
+      } */
+    /* } */
+    .slide {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      background-color: lightsalmon;
+      height: 100%;
+      border-radius: 15px;
+    }
+    .slide:nth-child(even) {
+      background-color: lightgreen;
+    }
+    .one {
+      margin-left: 30px;
+    }
+    .nonactive {
+      animation-iteration-count: 0;
+    }
+    .active {
+      margin-left: -790px;
+    }
+  </style>
+  <body>
+    <div id="bone">
+      <div class="slider">
+        <div class="slide"><h1>0</h1></div>
+        <div class="slide">
+          <h1>1</h1>
+        </div>
+        <div class="slide">
+          <h1>2</h1>
+        </div>
+        <div class="slide">
+          <h1>3</h1>
+        </div>
+        <div class="slide">
+          <h1>4</h1>
+        </div>
+        <div class="slide">
+          <h1>5</h1>
+        </div>
+      </div>
+    </div>
+    <div
+      style="
+        display: flex;
+        margin-top: 20px;
+        align-items: center;
+        gap: 100px;
+        justify-content: space-between;
+      "
+    >
+      <button
+        class="previous-btn"
+        style="
+          padding: 0.9rem;
+          border-radius: 16px;
+          border: hidden;
+          font-size: 18px;
+        "
+      >
+        previous
+      </button>
+      <button
+        class="next-btn"
+        style="
+          padding: 0.9rem;
+          border-radius: 16px;
+          border: hidden;
+          font-size: 18px;
+        "
+      >
+        next
+      </button>
+    </div>
+  </body>
+
+  <script>
+    let sliderP = document.querySelector(".slider");
+    let boneP = document.querySelector("#bone");
+    let nextBtn = document.querySelector(".next-btn");
+    let slideP = document.querySelectorAll(".slide");
+    let oneP = document.querySelector(".one");
+    let previousBtn = document.querySelector(".previous-btn");
+    console.log(slideP);
+
+    // slider.addEventListener("mouseenter", () => {
+    //   slider.classList.add("nonactive");
+    // });
+    // slider.addEventListener("mouseleave", () => {
+    //   slider.classList.remove("nonactive");
+    // });
+    let count = 0;
+    nextBtn.addEventListener("click", () => {
+      count++;
+      sliderP.style.marginLeft = `-${count * 100}%`;
+    });
+    previousBtn.addEventListener("click", () => {
+      count--;
+      sliderP.style.marginLeft = `-${count * 100}%`;
+    });
+    
+    let testimonials = [
+      {
+        name: "ss",
+        designation: "ss",
+        testimonial: "ss",
+        country: "ss",
+      },
+    ];
+
+    let obj = {
+      name: "ss",
+      designation: "ss",
+      testimonial: "ss",
+      country: "ss",
+    };
+
+    // let name = obj.name
+    // let designation = obj.designation
+    // let country = obj.country
+    let { name: uuu, designation, country } = obj;
+    console.log(designation);
+    console.log(country);
+    console.log(name);
+  </script>
+</html>
