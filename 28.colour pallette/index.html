@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40vw;
+
+    }
+      section {
+          width: 100%;
+          height: 40vw;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100px;
+        transition: 0.6s;
+        height: 200px;
+      }
+      /* div:hover{
+transform: scale(1.5);
+
+      } */
+      button {
+        border-radius: 16px;
+        border: 2px dotted lightblue;
+        padding: 1.4rem;
+      }
+      div {
+        position: relative;
+      }
+      .one {
+        background-color: #3596;
+      }
+
+      .two {
+        background-color: #39932196;
+      }
+      .three {
+        background-color: #994356;
+      }
+      .four {
+        background-color: #359436;
+      }
+      .five {
+        background-color: #9896;
+      }
+      .six {
+        background-color: #18437896;
+      }
+      .colour-pallette {
+        display: none;
+      }
+      span {
+        display: none;
+      }
+      span.active {
+        display: inline;
+      }
+
+      p {
+        display: none;
+        position: absolute;
+        top: 200px;
+        left: 0;
+        padding: 12px;
+        background-color: sandybrown;
+        align-items: center;
+        justify-content: center;
+      }
+      .active {
+        display: flex;
+      }
+      .nonactive {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+      <button>show all colours</button>
+      <section class="colour-pallette">
+      <div class="one">
+        <span> #3596 </span>
+        <p>colour copied</p>
+      </div>
+      <div class="two">
+        <span> #39932196 </span>
+        <p>colour copied</p>
+      </div>
+      <div class="three">
+        <span> #994356 </span>
+        <p>colour copied</p>
+      </div>
+      <div class="four">
+        <span> #359436 </span>
+        <p>colour copied</p>
+      </div>
+      <div class="five">
+        <span> #9896 </span>
+        <p>colour copied</p>
+      </div>
+      <div class="six">
+        <span> #18437896 </span>
+        <p>colour copied</p>
+      </div>
+    </section>
+    <script>
+      let secPallette = document.querySelector(".colour-pallette");
+      let btn = document.querySelector("button");
+      let div = document.querySelectorAll("div");
+      let span = document.querySelectorAll("span");
+      let pTag = document.querySelectorAll("p");
+      btn.addEventListener("click", () => {
+        secPallette.classList.add("active");
+        btn.classList.add("nonactive");
+      });
+      div.forEach((ele, idx) => {
+        ele.addEventListener("mouseenter", () => {
+          ele.style.transform = `scale(1.5)`;
+          ele.firstElementChild.classList.add("active");
+        });
+        ele.addEventListener("mouseleave", () => {
+          ele.style.transform = `scale(1)`;
+          ele.firstElementChild.classList.remove("active");
+        });
+
+        ele.addEventListener("click", () => {
+          navigator.clipboard.writeText(ele.textContent);
+
+          pTag[idx].classList.add("active");
+          setInterval(() => {
+           pTag[idx].classList.remove("active");
+        
+       }, 1000);
+        });
+      });
+    </script>
+  </body>
+</html>

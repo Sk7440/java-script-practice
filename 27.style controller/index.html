@@ -1,20 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <input type="range" min="0" max="5" name="" id="inp">
+  </head>
+  <body>
+    <div style="display: flex; transition: 0.6s; justify-content: space-around">
+      <div class="daba-img" style="width: 670px; overflow: hidden">
+        <img
+          style="object-fit: cover;transition: 0.6s;"
+          class="carimg"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFbu1R6eRQDRQAeCBdW3vMPoOdMjuSuZTEvTWUZsEufQ&s=10"
+          alt=""
+        />
+      </div>
+      <div>
+        <div>
+          <input type="range" min="0" max="5" name="" id="scaleinp" />
+          <h3>image scaler</h3>
+        </div>
+        <div>
+          <input type="range" min="0" max="5" name="" id="blurinp" />
+          <h3>image blur</h3>
+        </div>
+        <div>
+          <input type="range" min="0" max="100" name="" id="shadowinp" />
+          <h3>image shadow</h3>
+        </div>
+      </div>
+    </div>
     <script>
-        let inp=document.querySelector("#inp")
-        inp.value=0
-        inp.addEventListener("input",()=>{
+      let blurInp = document.querySelector("#blurinp");
+      let scaleInp = document.querySelector("#scaleinp");
+      let shadowInp = document.querySelector("#shadowinp");
+      let img = document.querySelector(".carimg");
+      let divImg = document.querySelector(".daba-img");
+      scaleInp.addEventListener("input", () => {
+        img.style.transform = `scale(${scaleInp.value})`;
+      });
+      blurInp.addEventListener("input", () => {
+        img.style.filter = `blur(${blurInp.value}px)`;
+      });
+      shadowInp.addEventListener("input", () => {
 
-            console.log(inp.value);
-        })
-        
+        divImg.style.boxShadow = `0px 0px ${blurInp.value*20}px ${blurInp.value*10}px`;
+      });
     </script>
-</body>
+  </body>
 </html>
