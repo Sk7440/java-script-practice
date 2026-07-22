@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        width: 99vw;
+        height: 40vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        flex-direction: row;
+      }
+      section {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        justify-content: center;
+        flex-direction: row;
+        gap: 50px;
+      }
+      .main {
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        border-radius: 20px;
+        background-color: #bfc9c4af;
+        height: 500px;
+        width: 500px;
+      }
+      .content {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .content div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 290px;
+      }
+      .active {
+        background-color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="parent">
+      <button class="box">text</button>
+
+      <button class="box">text</button>
+
+      <button class="box">text</button>
+
+      <button class="box">text</button>
+
+      <button class="box">text</button>
+    </div> -->
+    <!-- post make -->
+    <section>
+      <div class="main">
+        <div class="content">
+          <div>
+            <h1>name:</h1>
+            <h3>date:</h3>
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA1-F2w-05wX1h5EmuAyu_sXdXhQVHUgWQTTbP6Mf95Q&s"
+              alt="bhugatti chiron"
+            />
+            <ul><li></li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      // let btns = document.querySelectorAll(".box");
+      // let parent = docume.querySelector(".parent")
+      //   .addEventListener("click", (e) => {
+      //     console.log(e.target);
+      //     if (e.target.classList.contains("box")) {
+      //       e.target.classList.add("active");
+      //     }
+
+      //     console.log("parent clicked");
+      //   });
+      //////////event bubling
+      // child ky opr event lagaya wo automaticlally parent pr chalt h
+      //////event delegations
+    // event bubbling ka use krky parent ky through childs pr event lagaana
+    </script>
+
+
+  </body>
+</html>
