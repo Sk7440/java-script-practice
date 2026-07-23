@@ -55,7 +55,7 @@
     </style>
   </head>
   <body>
-    <!-- <div class="parent">
+    <div class="parent">
       <button class="box">text</button>
 
       <button class="box">text</button>
@@ -65,7 +65,7 @@
       <button class="box">text</button>
 
       <button class="box">text</button>
-    </div> -->
+    </div>
     <!-- post make -->
     <section>
       <div class="main">
@@ -83,20 +83,33 @@
       </div>
     </section>
     <script>
+
+
+      let parent = document.querySelector(".parent")
+        .addEventListener("click", (e) => {
+
+          console.log("parent clicked");
+        });
+      let box = document.querySelector(".box")
+        .addEventListener("click", (e) => {
+
+          console.log("child clicked");
+        });
+
       // let btns = document.querySelectorAll(".box");
       // let parent = docume.querySelector(".parent")
       //   .addEventListener("click", (e) => {
       //     console.log(e.target);
-      //     if (e.target.classList.contains("box")) {
+          // if (e.target.classList.contains("box")) {
       //       e.target.classList.add("active");
       //     }
 
       //     console.log("parent clicked");
       //   });
       //////////event bubling
-      // child ky opr event lagaya wo automaticlally parent pr chalt h
+      // child ky opr event lagaya wo automaticlally parent ka event b chala deta h
       //////event delegations
-    // event bubbling ka use krky parent ky through childs pr event lagaana
+    // event bubbling ka use krky parent ky through childs pr event lagaana(child ka apna koi event nai bnta )
     </script>
 
 

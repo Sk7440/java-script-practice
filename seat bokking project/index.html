@@ -1,11 +1,270 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #fff;
+      padding: 30px;
+    }
+
+    body > h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2.3rem;
+      letter-spacing: 1px;
+    }
+
+    /* Stats Section */
+
+    body > div {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto 35px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Top Cards Only */
+
+    body > div > div {
+      flex: 1;
+      min-width: 180px;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      color: #fff;
+    }
+
+    body > div > .available {
+      background: #14532d;
+    }
+
+    body > div > .reserved {
+      background: #7f1d1d;
+    }
+
+    body > div > .book {
+      background: #1d4ed8;
+    }
+
+    .available h1,
+    .reserved h1,
+    .book h1 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .available span,
+    .reserved span,
+    .book span {
+      display: block;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .available i,
+    .reserved i,
+    .book i {
+      font-size: 34px;
+    }
+
+    /* Seats Container */
+
+    .seats {
+      width: 100%;
+      max-width: 1100px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+      gap: 15px;
+      list-style: none;
+    }
+
+    /* Individual Seat */
+
+    .seat {
+      height: 70px;
+      background: #14532d;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.25s;
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .seat:hover {
+      transform: translateY(-4px);
+      background: #334155;
+    }
+
+    .seat i {
+      margin-top: 5px;
+      font-size: 24px;
+      color: #d1d5db;
+      transition: 0.25s;
+    }
+
+    /* Reserved Seat */
+
+    .seat.reserved {
+      background: #451a1a;
+      border-color: #ef4444;
+    }
+
+    .seat.reserved i {
+      color: #ef4444;
+    }
+
+    /* Booked Seat */
+
+    .seat.booked {
+      background: #1e3a8a;
+      border-color: #3b82f6;
+    }
+
+    .seat.booked i {
+      color: #60a5fa;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+
+      body > h1 {
+        font-size: 2rem;
+      }
+
+      body > div {
+        flex-direction: column;
+      }
+
+      .available,
+      .reserved,
+      .book {
+        width: 100%;
+      }
+
+      .seats {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+      }
+
+      .seat {
+        height: 65px;
+      }
+    }
+  </style>
+  <body>
+    <h1>Seats Booking App</h1>
+    <div>
+      <div class="available">
+        <h1>Available</h1>
+        <span class="available1">0</span>
+        <i class="ri-sofa-line"></i>
+      </div>
+      <div class="reserved">
+        <h1>Reserved</h1>
+        <span class="reserved1">0</span>
+
+        <i class="ri-sofa-line"></i>
+      </div>
+      <div class="book">
+        <h1>Booked</h1>
+        <span class="booked1">0</span>
+
+        <i class="ri-sofa-line"></i>
+      </div>
+    </div>
+
+    <ul class="seats"></ul>
+
+    <script>
+      let allSeats = document.querySelector(".seats");
+      let icon = document.querySelectorAll(".ri-sofa-line");
+      let availbleSeats = document.querySelector(".available1");
+      let reservedSeats = document.querySelector(".reserved1");
+      let bookedSeats = document.querySelector(".booked1");
+      let array = [];
+      for (i = 1; i <= 40; i++) {
+        if (i == 5 || i == 17 || i == 19 || i == 35 || i == 29) {
+          allSeats.innerHTML += `<li class="seat  reserved ">${i}.<i class=" ri-sofa-line"></i></li>`;
+        } else {
+          allSeats.innerHTML += `<li class="seat">${i}.<i class=" ri-sofa-line"></i></li>`;
+        }
+      }
+      let li = document.querySelectorAll("li");
+      let resrved = document.querySelectorAll(".reserved");
+      console.log(resrved);
+      availbleSeats.textContent = li.length - (resrved.length - 1);
+
+      reservedSeats.textContent = resrved.length - 1;
+      console.log(li);
+
+      allSeats.addEventListener("click", (e) => {
+        if (e.target.classList.contains("ri-sofa-line")) {
+          if (e.target.parentElement.classList.contains("reserved")) {
+            alert("khatm gaya bye bye");
+          } else if (!e.target.parentElement.classList.contains("booked")) {
+            e.target.parentElement.classList.add("booked");
+          } else {
+            e.target.parentElement.classList.remove("booked");
+          }
+          console.log(e.target);
+        }
+        if (e.target.classList.contains("seat")) {
+          if (e.target.classList.contains("reserved")) {
+            alert("khatm gaya bye bye");
+          } else if (!e.target.classList.contains("booked")) {
+            e.target.classList.add("booked");
+          } else {
+            e.target.classList.remove("booked");
+          }
+        }
+        let all = document.querySelectorAll(".seat");
+        let bIndex = [...all].indexOf(e.target);
+        let booked = document.querySelectorAll(".booked");
+
+        array.push(bIndex);
+        localStorage.setItem("bookedvalue", JSON.stringify(array));
+        bookedSeats.textContent = booked.length;
+
+        availbleSeats.textContent =
+          li.length - (resrved.length - 1) - booked.length;
+        console.log(array);
+      });
+      localStorage.getItem("bookedvalue", JSON.parse(array));
+
+      bookedSeats.textContent = array.length;
+    </script>
+  </body>
 </html>
