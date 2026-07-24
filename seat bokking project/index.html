@@ -183,6 +183,91 @@
         height: 65px;
       }
     }
+    /* Container styling to center or place it nicely */
+    .movie-select-container {
+      position: relative;
+      width: 280px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 20px auto;
+    }
+
+    /* The actual select element */
+    #movie {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      background-color: #ffffff;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      outline: none;
+      cursor: pointer;
+      appearance: none; /* Removes default browser styling */
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Custom dropdown arrow */
+    .movie-select-container::after {
+      content: "▼";
+      font-size: 12px;
+      color: #6c757d;
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      transition: transform 0.3s ease;
+    }
+
+    /* Hover and Focus States */
+    #movie:hover {
+      border-color: #adb5bd;
+    }
+
+    #movie:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+    }
+
+    /* Rotate arrow on focus (optional polish) */
+    #movie:focus + .movie-select-container::after,
+    .movie-select-container:focus-within::after {
+      transform: translateY(-50%) rotate(180deg);
+      color: #4f46e5;
+    }
+
+    /* Option styling */
+    #movie option {
+      padding: 10px;
+      color: #333;
+    }
+    /* Styling for the total cost heading */
+    .total-cost {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #333333;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 16px 20px;
+      border-radius: 10px;
+      border-left: 5px solid #4f46e5;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+      margin: 20px auto;
+      max-width: 280px; /* Matches the dropdown width for a clean stacked look */
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    /* Highlight the dynamic price value */
+    .total-cost span,
+    .total-cost strong {
+      color: #4f46e5;
+      font-weight: 700;
+    }
   </style>
   <body>
     <h1>Seats Booking App</h1>
@@ -205,16 +290,29 @@
         <i class="ri-sofa-line"></i>
       </div>
     </div>
-
+    <div class="movie-select-container">
+      <select name="movie_selection" id="movie">
+        <option>Select your movie</option>
+        <option value="20">Movie 1:Makri man Homecoming-20$</option>
+        <option value="30">Movie 2:Supraman-30$</option>
+        <option value="40">Movie 3:Thanos badmosh-40$</option>
+        <option value="50">Movie 4:The Hara janwar-50$</option>
+        <option value="60">Movie 5:Pani m rhny wala man-60$</option>
+      </select>
+    </div>
     <ul class="seats"></ul>
+    <div class="result"></div>
 
     <script>
       let allSeats = document.querySelector(".seats");
+
       let icon = document.querySelectorAll(".ri-sofa-line");
       let availbleSeats = document.querySelector(".available1");
       let reservedSeats = document.querySelector(".reserved1");
       let bookedSeats = document.querySelector(".booked1");
-      let array = [];
+      let result = document.querySelector(".result");
+      let array = JSON.parse(localStorage.getItem("bookedvalue")) || [];
+      let select = document.querySelector("#movie");
       for (i = 1; i <= 40; i++) {
         if (i == 5 || i == 17 || i == 19 || i == 35 || i == 29) {
           allSeats.innerHTML += `<li class="seat  reserved ">${i}.<i class=" ri-sofa-line"></i></li>`;
@@ -223,14 +321,25 @@
         }
       }
       let li = document.querySelectorAll("li");
+      console.log(li);
+
       let resrved = document.querySelectorAll(".reserved");
-      console.log(resrved);
       availbleSeats.textContent = li.length - (resrved.length - 1);
 
       reservedSeats.textContent = resrved.length - 1;
-      console.log(li);
-
       allSeats.addEventListener("click", (e) => {
+        let all = document.querySelectorAll(".seat");
+        let booked = document.querySelectorAll(".booked");
+        let bIndex = [...all].indexOf(e.target);
+  
+      array.push(bIndex);
+      localStorage.setItem("bookedvalue", JSON.stringify(array));
+      bookedSeats.textContent = booked.length;
+    
+      
+      availbleSeats.textContent =
+        li.length - (resrved.length - 1) - booked.length;
+      bookedSeats.textContent = array.length;
         if (e.target.classList.contains("ri-sofa-line")) {
           if (e.target.parentElement.classList.contains("reserved")) {
             alert("khatm gaya bye bye");
@@ -239,7 +348,6 @@
           } else {
             e.target.parentElement.classList.remove("booked");
           }
-          console.log(e.target);
         }
         if (e.target.classList.contains("seat")) {
           if (e.target.classList.contains("reserved")) {
@@ -248,23 +356,37 @@
             e.target.classList.add("booked");
           } else {
             e.target.classList.remove("booked");
+            let all = document.querySelectorAll(".seat");
+            let index = [...all].indexOf(e.target);
+            if (index >= 0) {
+              array = array.filter((ele, idx) => {
+                return ele !== index;
+              });
+              localStorage.setItem("bookedvalue", JSON.stringify(array));
+              bookedSeats.textContent = array.length;
+            }
           }
-        }
-        let all = document.querySelectorAll(".seat");
-        let bIndex = [...all].indexOf(e.target);
-        let booked = document.querySelectorAll(".booked");
-
-        array.push(bIndex);
-        localStorage.setItem("bookedvalue", JSON.stringify(array));
-        bookedSeats.textContent = booked.length;
-
-        availbleSeats.textContent =
-          li.length - (resrved.length - 1) - booked.length;
-        console.log(array);
+        } 
+          
       });
-      localStorage.getItem("bookedvalue", JSON.parse(array));
-
       bookedSeats.textContent = array.length;
+
+      li.forEach((elee, idxx) => {
+        let A = array.some((ele, idx) => {
+          return ele == idxx;
+        });
+        if (A) {
+          elee.classList.add("booked");
+        }
+        console.log(A);
+      });
+      select.addEventListener("change", () => {
+        localStorage.setItem("selectvalue", select.value);
+
+        result.innerHTML = `<h2 class="total-cost">Your total cost is <span>${array.length * Number(select.value)}$</span>.</h2>`;
+      });
+      select.value = localStorage.getItem("selectvalue");
+      result.innerHTML = `<h2 class="total-cost">Your total cost is <span>${array.length * Number(select.value)}$</span>.</h2>`;
     </script>
   </body>
 </html>
