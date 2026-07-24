@@ -1,11 +1,959 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Day 27 — Regex, One Small Step at a Time</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --panel: #12161f;
+            --panel-2: #161b26;
+            --line: #232937;
+            --text: #dbe2ee;
+            --dim: #7d8aa3;
+            --green: #5fd98a;
+            --orange: #ffb454;
+            --blue: #6cb6ff;
+            --pink: #ff7ab6;
+            --red: #ff6b6b;
+            --mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            --sans: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--sans);
+            line-height: 1.65;
+            padding-bottom: 80px;
+        }
+
+        ::selection {
+            background: var(--green);
+            color: #08120b;
+        }
+
+        a {
+            color: var(--blue);
+        }
+
+        code,
+        .tok {
+            font-family: var(--mono);
+            background: #1a2030;
+            border: 1px solid var(--line);
+            padding: 2px 7px;
+            border-radius: 5px;
+            font-size: 0.92em;
+            color: var(--orange);
+            white-space: nowrap;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(13, 17, 23, 0.92);
+            backdrop-filter: blur(6px);
+            border-bottom: 1px solid var(--line);
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .topbar .brand {
+            font-family: var(--mono);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--green);
+            box-shadow: 0 0 8px var(--green);
+        }
+
+        .topbar nav {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .topbar nav a {
+            color: var(--dim);
+            text-decoration: none;
+            font-family: var(--mono);
+        }
+
+        .topbar nav a:hover {
+            color: var(--green);
+        }
+
+        .hero {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 60px 24px 36px;
+        }
+
+        .day-tag {
+            font-family: var(--mono);
+            color: var(--green);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            margin: 0 0 16px;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .hero h1 .accent {
+            color: var(--green);
+        }
+
+        .hero p.lead {
+            color: var(--dim);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 0 10px;
+        }
+
+        section {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 44px 24px;
+        }
+
+        section h2 {
+            font-size: 1.35rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        section h2 .num {
+            font-family: var(--mono);
+            color: var(--green);
+            font-size: 0.9rem;
+            border: 1px solid var(--line);
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        section>p.section-intro {
+            color: var(--dim);
+            margin-top: 0;
+            margin-bottom: 22px;
+            max-width: 640px;
+        }
+
+        .rule {
+            border: none;
+            border-top: 1px solid var(--line);
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .step-box {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-bottom: 14px;
+        }
+
+        .step-box .goal {
+            font-size: 0.8rem;
+            color: var(--dim);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: var(--mono);
+            margin-bottom: 6px;
+        }
+
+        .step-box .demo {
+            font-family: var(--mono);
+            font-size: 1.15rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .step-box .demo .pat {
+            color: var(--pink);
+        }
+
+        .step-box .demo .arrow {
+            color: var(--dim);
+            font-size: 0.95rem;
+        }
+
+        .step-box .demo mark {
+            background: transparent;
+            color: var(--green);
+            border-bottom: 2px solid var(--green);
+            padding: 0 1px;
+        }
+
+        .step-box p {
+            margin: 8px 0 0;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .step-box .no {
+            color: var(--red);
+        }
+
+        .step-box .yes {
+            color: var(--green);
+        }
+
+        .build {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 10px;
+        }
+
+        .build-line {
+            font-family: var(--mono);
+            font-size: 1.05rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--line);
+        }
+
+        .build-line:last-child {
+            border-bottom: none;
+        }
+
+        .build-line .piece {
+            color: var(--dim);
+            font-size: 0.85rem;
+            font-family: var(--sans);
+        }
+
+        .build-line .added {
+            color: var(--green);
+        }
+
+        .build-line .kept {
+            color: var(--text);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        th {
+            color: var(--dim);
+            font-family: var(--mono);
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover td {
+            background: #131826;
+        }
+
+        .project-wrap {
+            background: linear-gradient(180deg, #121826, #0e1220);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 26px;
+        }
+
+        .presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 22px;
+        }
+
+        .preset-btn {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            background: var(--panel-2);
+            color: var(--text);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 9px 14px;
+            cursor: pointer;
+            transition: .15s;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        .preset-btn.active {
+            background: var(--green);
+            color: #08120b;
+            border-color: var(--green);
+        }
+
+        label.field-label {
+            display: block;
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--dim);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .pattern-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pattern-row .slashes {
+            font-family: var(--mono);
+            color: var(--dim);
+            font-size: 1.2rem;
+        }
+
+        input#patternInput {
+            flex: 1;
+            min-width: 180px;
+            background: #0b0f16;
+            border: 1px solid var(--line);
+            color: var(--pink);
+            font-family: var(--mono);
+            font-size: 1.05rem;
+            padding: 12px 14px;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        input#flagsInput {
+            width: 70px;
+            background: #0b0f16;
+            border: 1px solid var(--line);
+            color: var(--blue);
+            font-family: var(--mono);
+            font-size: 1.05rem;
+            padding: 12px 10px;
+            border-radius: 8px;
+            outline: none;
+            text-align: center;
+        }
+
+        input#patternInput:focus,
+        input#flagsInput:focus,
+        textarea#textInput:focus {
+            border-color: var(--green);
+        }
+
+        textarea#textInput {
+            width: 100%;
+            min-height: 110px;
+            background: #0b0f16;
+            border: 1px solid var(--line);
+            color: var(--text);
+            font-family: var(--mono);
+            font-size: 0.98rem;
+            padding: 14px;
+            border-radius: 8px;
+            outline: none;
+            resize: vertical;
+        }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+
+        .status-pill {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--line);
+        }
+
+        .status-pill.valid {
+            color: var(--green);
+            border-color: var(--green);
+            background: rgba(95, 217, 138, 0.08);
+        }
+
+        .status-pill.invalid {
+            color: var(--red);
+            border-color: var(--red);
+            background: rgba(255, 107, 107, 0.08);
+        }
+
+        .status-pill.neutral {
+            color: var(--dim);
+        }
+
+        .output-label {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--dim);
+            margin: 20px 0 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .highlighted {
+            background: #0b0f16;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 14px;
+            font-family: var(--mono);
+            font-size: 0.98rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+            min-height: 60px;
+        }
+
+        .highlighted mark {
+            background: rgba(95, 217, 138, 0.22);
+            color: var(--green);
+            border-radius: 3px;
+            padding: 1px 0;
+        }
+
+        .matches-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .matches-list span {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            background: #101827;
+            border: 1px solid var(--line);
+            color: var(--orange);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .explain-box {
+            margin-top: 22px;
+            background: var(--panel-2);
+            border: 1px dashed var(--line);
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-size: 0.9rem;
+            color: var(--dim);
+        }
+
+        .explain-box b {
+            color: var(--text);
+        }
+
+        footer {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 40px 24px 10px;
+            color: var(--dim);
+            font-size: 0.85rem;
+            text-align: center;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width:600px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    
+
+    <div class="topbar">
+        <div class="brand"><span class="dot"></span> DAY 27 · regex.log</div>
+        <nav>
+            <a href="#step1">1. What</a>
+            <a href="#step2">2. Digits</a>
+            <a href="#step3">3. Repeat</a>
+            <a href="#step4">4. Whole thing</a>
+            <a href="#step5">5. Letters</a>
+            <a href="#step6">6. Email</a>
+            <a href="#step7">7. test/match</a>
+            <a href="#project">Project</a>
+        </nav>
+    </div>
+
+    <div class="hero">
+        <span class="day-tag">Absolute Beginner · No Prior Knowledge Needed</span>
+        <h1>You only need <span class="accent">6 small ideas</span><br>to validate a real form.</h1>
+        <p class="lead">
+            Forget everything you've heard about regex looking scary. We're going to build up
+            name, email, phone, and CNIC validation one tiny piece at a time — nothing more than needed.
+        </p>
+    </div>
+
+    <hr class="rule">
+
+    <section id="step1">
+        <h2><span class="num">1</span> What a regex actually does</h2>
+        <p class="section-intro">A regex is just a short description of a "shape" of text. That's it. Nothing scarier
+            than that.</p>
+        <div class="step-box">
+            <div class="goal">Plain search vs. shape search</div>
+            <p><span class="no">Plain search:</span> "find the exact word cat"</p>
+            <p><span class="yes">Regex (shape) search:</span> "find 4 digits in a row" — it doesn't care <em>which</em>
+                4 digits, only that the shape matches.</p>
+        </div>
+        <div class="step-box">
+            <div class="goal">How it looks in JavaScript</div>
+            <div class="demo"><span class="pat">/cat/</span><span class="arrow">a regex is written between two
+                    slashes</span></div>
+            <p>Whatever is between the slashes is the pattern. We'll build patterns up slowly from here.</p>
+        </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="step2">
+        <h2><span class="num">2</span> Idea 1 — matching a digit: <code>\d</code></h2>
+        <p class="section-intro">Phone numbers and CNICs are mostly digits. So the very first thing we need is a way to
+            say "a digit goes here."</p>
+        <div class="step-box">
+            <div class="goal">The rule</div>
+            <p><code>\d</code> means <b>one single digit</b> (0 through 9). Nothing else.</p>
+            <div class="demo"><span class="pat">/\d/</span><span class="arrow">looking inside →</span> Room
+                <mark>4</mark>2, door B</div>
+            <p>It found the first digit and stopped, because <code>\d</code> by itself only asks for <b>one</b> digit.
+            </p>
+        </div>
+        <div class="step-box">
+            <div class="goal">Also useful</div>
+            <table>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Means one of</th>
+                </tr>
+                <tr>
+                    <td><code>\d</code></td>
+                    <td>a digit (0-9)</td>
+                </tr>
+                <tr>
+                    <td><code>\w</code></td>
+                    <td>a letter, digit, or underscore</td>
+                </tr>
+                <tr>
+                    <td><code>\s</code></td>
+                    <td>a space, tab, or line break</td>
+                </tr>
+            </table>
+            <p>For name/email/phone/CNIC validation, you'll mostly reach for <code>\d</code>. Keep the other two in the
+                back of your mind.</p>
+        </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="step3">
+        <h2><span class="num">3</span> Idea 2 — repeating it: <code>+</code>, <code>{n}</code></h2>
+        <p class="section-intro">A phone number isn't 1 digit, it's several. We need a way to say "repeat this."</p>
+        <div class="step-box">
+            <div class="goal">One or more</div>
+            <div class="demo"><span class="pat">/\d+/</span><span class="arrow">→</span> order #<mark>8421</mark></div>
+            <p><code>+</code> after something means <b>"one or more of it, as many as there are."</b></p>
+        </div>
+        <div class="step-box">
+            <div class="goal">An exact count</div>
+            <div class="demo"><span class="pat">/\d{7}/</span><span class="arrow">→</span> exactly <mark>1234567</mark>
+            </div>
+            <p><code>{7}</code> means <b>"exactly 7 of the thing before it."</b> You can also write <code>{2,4}</code>
+                to mean "between 2 and 4 times."</p>
+        </div>
+        <div class="step-box">
+            <div class="goal">Quick reference</div>
+            <table>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Means</th>
+                </tr>
+                <tr>
+                    <td><code>+</code></td>
+                    <td>one or more</td>
+                </tr>
+                <tr>
+                    <td><code>*</code></td>
+                    <td>zero or more</td>
+                </tr>
+                <tr>
+                    <td><code>?</code></td>
+                    <td>zero or one (optional)</td>
+                </tr>
+                <tr>
+                    <td><code>{n}</code></td>
+                    <td>exactly n times</td>
+                </tr>
+                <tr>
+                    <td><code>{n,m}</code></td>
+                    <td>between n and m times</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="step4">
+        <h2><span class="num">4</span> Idea 3 — checking the whole thing: <code>^</code> and <code>$</code></h2>
+        <p class="section-intro">Big problem: <code>/\d{5}/</code> matches 5 digits <em>hiding anywhere</em> in a string
+            — even inside a much longer, invalid one. For form validation we need the <b>entire</b> input to match, not
+            just a piece of it.</p>
+        <div class="step-box">
+            <div class="goal">The problem</div>
+            <div class="demo"><span class="pat">/\d{5}/</span><span class="arrow">→</span> abc<mark>12345</mark>xyz999
+            </div>
+            <p><span class="no">This "matches" even though the input is clearly not just 5 digits.</span> Not good
+                enough for validating a form field.</p>
+        </div>
+        <div class="step-box">
+            <div class="goal">The fix</div>
+            <p><code>^</code> means <b>"start of the text"</b>. <code>$</code> means <b>"end of the text"</b>.</p>
+            <div class="demo"><span class="pat">/^\d{5}$/</span><span class="arrow">→</span> <span class="yes">"12345" ✓
+                    matches</span></div>
+            <div class="demo"><span class="pat">/^\d{5}$/</span><span class="arrow">→</span> <span
+                    class="no">"abc12345xyz" ✗ no match</span></div>
+            <p>Read <code>^\d{5}$</code> as: <b>"from the very start to the very end, this must be exactly 5 digits —
+                    nothing before, nothing after."</b> This is the single most important trick for form validation.</p>
+        </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="step5">
+        <h2><span class="num">5</span> Idea 4 — matching letters: <code>[a-zA-Z]</code></h2>
+        <p class="section-intro">A name field needs letters, not digits. Square brackets <code>[ ]</code> let you say
+            "match one character from this set."</p>
+        <div class="step-box">
+            <div class="goal">Letter ranges</div>
+            <table>
+                <tr>
+                    <th>Pattern</th>
+                    <th>Matches one</th>
+                </tr>
+                <tr>
+                    <td><code>[a-z]</code></td>
+                    <td>lowercase letter</td>
+                </tr>
+                <tr>
+                    <td><code>[A-Z]</code></td>
+                    <td>uppercase letter</td>
+                </tr>
+                <tr>
+                    <td><code>[a-zA-Z]</code></td>
+                    <td>letter, either case</td>
+                </tr>
+                <tr>
+                    <td><code>[a-zA-Z\s]</code></td>
+                    <td>letter, either case, OR a space (for full names)</td>
+                </tr>
+            </table>
+        </div>
+        <div class="step-box">
+            <div class="goal">Building a name pattern</div>
+            <div class="build">
+                <div class="build-line"><span class="piece">start with</span> <span class="added">[a-zA-Z\s]</span>
+                    <span class="piece">— one letter or space</span></div>
+                <div class="build-line"><span class="kept">[a-zA-Z\s]</span><span class="added">+</span> <span
+                        class="piece">— one or more of them</span></div>
+                <div class="build-line"><span class="added">^</span><span class="kept">[a-zA-Z\s]+</span><span
+                        class="added">$</span> <span class="piece">— the whole field must be only letters/spaces</span>
+                </div>
+            </div>
+            <p>Final pattern: <code>^[a-zA-Z\s]+$</code> — matches "Hassan Ali", rejects "Hassan123".</p>
+        </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="step6">
+        <h2><span class="num">6</span> Putting it together — 3 real patterns</h2>
+        <p class="section-intro">You now know everything needed: <code>\d</code>, <code>+</code>/<code>{n}</code>,
+            <code>^ $</code>, and <code>[a-zA-Z]</code>. Let's assemble the real ones, piece by piece.</p>
+
+        <div class="step-box">
+            <div class="goal">Phone — 03XX-XXXXXXX</div>
+            <div class="build">
+                <div class="build-line"><span class="piece">the number always starts with</span> <span
+                        class="added">03</span></div>
+                <div class="build-line"><span class="kept">03</span><span class="added">\d{2}</span> <span
+                        class="piece">— 2 more digits (the XX)</span></div>
+                <div class="build-line"><span class="kept">03\d{2}</span><span class="added">-</span> <span
+                        class="piece">— a literal dash</span></div>
+                <div class="build-line"><span class="kept">03\d{2}-</span><span class="added">\d{7}</span> <span
+                        class="piece">— 7 more digits</span></div>
+                <div class="build-line"><span class="added">^</span><span class="kept">03\d{2}-\d{7}</span><span
+                        class="added">$</span> <span class="piece">— whole field only</span></div>
+            </div>
+            <p>Final: <code>^03\d{2}-\d{7}$</code> — matches "0300-1234567".</p>
+        </div>
+
+        <div class="step-box">
+            <div class="goal">CNIC — XXXXX-XXXXXXX-X</div>
+            <div class="build">
+                <div class="build-line"><span class="added">\d{5}</span> <span class="piece">— 5 digits</span></div>
+                <div class="build-line"><span class="kept">\d{5}</span><span class="added">-</span><span
+                        class="kept">\d{7}</span> <span class="piece">— dash, then 7 digits</span></div>
+                <div class="build-line"><span class="kept">\d{5}-\d{7}</span><span class="added">-</span><span
+                        class="kept">\d{1}</span> <span class="piece">— dash, then 1 digit</span></div>
+                <div class="build-line"><span class="added">^</span><span class="kept">\d{5}-\d{7}-\d{1}</span><span
+                        class="added">$</span> <span class="piece">— whole field only</span></div>
+            </div>
+            <p>Final: <code>^\d{5}-\d{7}-\d{1}$</code> — matches "35202-1234567-1".</p>
+        </div>
+
+        <div class="step-box">
+            <div class="goal">Email — the beginner-friendly version</div>
+            <div class="build">
+                <div class="build-line"><span class="added">\w+</span> <span class="piece">— one or more letters/digits
+                        (the name part)</span></div>
+                <div class="build-line"><span class="kept">\w+</span><span class="added">@</span> <span class="piece">—
+                        a literal @ symbol</span></div>
+                <div class="build-line"><span class="kept">\w+@</span><span class="added">\w+</span> <span
+                        class="piece">— the domain name, e.g. "gmail"</span></div>
+                <div class="build-line"><span class="kept">\w+@\w+</span><span class="added">\.</span><span
+                        class="kept">[a-zA-Z]{2,}</span> <span class="piece">— a dot, then 2+ letters (e.g.
+                        "com")</span></div>
+                <div class="build-line"><span class="added">^</span><span class="kept">\w+@\w+\.[a-zA-Z]{2,}</span><span
+                        class="added">$</span> <span class="piece">— whole field only</span></div>
+            </div>
+            <p>Final: <code>^\w+@\w+\.[a-zA-Z]{2,}$</code> — matches "ali@gmail.com". (Note: <code>.</code> normally
+                means "any character," so a real dot is written as <code>\.</code>)</p>
+        </div>
+    </section>
+
+    <hr class="rule">
+
+    <section id="step7">
+        <h2><span class="num">7</span> Using a pattern in code</h2>
+        <p class="section-intro">A pattern alone does nothing — you need to ask JavaScript to check it. Two methods
+            cover almost every case.</p>
+        <div class="step-box">
+            <div class="goal">.test() — yes or no</div>
+            <p>Use this for form validation: "is this input valid?"</p>
+            <div class="demo"><span class="pat">/^\d{5}$/.test("12345")</span><span class="arrow">→</span> <span
+                    class="yes">true</span></div>
+        </div>
+        <div class="step-box">
+            <div class="goal">.match() — what actually matched</div>
+            <p>Use this when you want to pull the matching text out, not just true/false.</p>
+            <div class="demo"><span class="pat">"call 0300-1234567".match(/\d+/)</span><span class="arrow">→</span>
+                <span class="yes">["0300"]</span></div>
+        </div>
+        <div class="explain-box">
+            That's genuinely the whole toolkit: <b>\d, \w, \s · [a-zA-Z] · + and {n} · ^ and $ · .test() and
+                .match()</b>. Everything else in regex is an extra convenience built on these same ideas.
+        </div>
+    </section>
+
+    <hr class="rule">
+
+
+
+    <footer>
+        Day 27 of the JS learning series — Regex fundamentals, kept to the non-negotiables. Runs entirely in your
+        browser.
+    </footer>
+
+    <script>
+        const presets = [
+            {
+                name: "Name",
+                pattern: "^[a-zA-Z\\s]+$",
+                flags: "",
+                sample: "Hassan Ali\nSara123\nMuhammad Bilal",
+                explain: "Built from Idea 4: <code>[a-zA-Z\\s]</code> matches one letter or space, <code>+</code> repeats it, <code>^ $</code> forces the whole field to be only letters/spaces. Rejects names with digits."
+            },
+            {
+                name: "Email",
+                pattern: "^\\w+@\\w+\\.[a-zA-Z]{2,}$",
+                flags: "",
+                sample: "ali@gmail.com\nnotanemail@\nadmin@site.co",
+                explain: "Piece by piece: <code>\\w+</code> (name part) → <code>@</code> (literal) → <code>\\w+</code> (domain) → <code>\\.</code> (literal dot) → <code>[a-zA-Z]{2,}</code> (2+ letters, e.g. com/co) → wrapped in <code>^ $</code> for the whole field."
+            },
+            {
+                name: "Phone (03XX-XXXXXXX)",
+                pattern: "^03\\d{2}-\\d{7}$",
+                flags: "",
+                sample: "0300-1234567\n0345-9998888\n123-4567890",
+                explain: "Literal <code>03</code> → <code>\\d{2}</code> (2 more digits) → literal <code>-</code> → <code>\\d{7}</code> (7 digits) → wrapped in <code>^ $</code>. Matches the Pakistani mobile format."
+            },
+            {
+                name: "CNIC (XXXXX-XXXXXXX-X)",
+                pattern: "^\\d{5}-\\d{7}-\\d{1}$",
+                flags: "",
+                sample: "35202-1234567-1\n12345-6789012-3\n1234-567-1",
+                explain: "<code>\\d{5}</code> → <code>-</code> → <code>\\d{7}</code> → <code>-</code> → <code>\\d{1}</code> → wrapped in <code>^ $</code>. Matches the Pakistani CNIC format XXXXX-XXXXXXX-X."
+            }
+        ];
+
+        const presetsEl = document.getElementById('presets');
+        presets.forEach((p, i) => {
+            const btn = document.createElement('button');
+            btn.className = 'preset-btn';
+            btn.textContent = p.name;
+            btn.addEventListener('click', () => loadPreset(i, btn));
+            presetsEl.appendChild(btn);
+        });
+
+        function loadPreset(i, btnEl) {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+            const p = presets[i];
+            patternInput.value = p.pattern;
+            flagsInput.value = p.flags;
+            textInput.value = p.sample;
+            currentExplain = p.explain;
+            runTest();
+        }
+
+        const patternInput = document.getElementById('patternInput');
+        const flagsInput = document.getElementById('flagsInput');
+        const textInput = document.getElementById('textInput');
+        const statusPill = document.getElementById('statusPill');
+        const countPill = document.getElementById('countPill');
+        const highlightOutput = document.getElementById('highlightOutput');
+        const matchesList = document.getElementById('matchesList');
+        const patternExplain = document.getElementById('patternExplain');
+
+        let currentExplain = null;
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        function runTest() {
+            const patStr = patternInput.value;
+            let flags = flagsInput.value.replace(/[^gimsuy]/g, '');
+            if (!flags.includes('g')) flags += 'g';
+
+            const text = textInput.value;
+
+            if (!patStr) {
+                statusPill.textContent = 'Waiting for input…';
+                statusPill.className = 'status-pill neutral';
+                countPill.textContent = '0 matches';
+                highlightOutput.innerHTML = escapeHtml(text);
+                matchesList.innerHTML = '';
+                patternExplain.innerHTML = currentExplain || 'Select a preset above to see it explained here.';
+                return;
+            }
+
+            let regex;
+            try {
+                regex = new RegExp(patStr, flags);
+            } catch (e) {
+                statusPill.textContent = 'Invalid pattern: ' + e.message;
+                statusPill.className = 'status-pill invalid';
+                countPill.textContent = '0 matches';
+                highlightOutput.innerHTML = escapeHtml(text);
+                matchesList.innerHTML = '';
+                return;
+            }
+
+            const testFlags = flags.replace('g', '');
+            const testRegex = new RegExp(patStr, testFlags);
+            const isValid = testRegex.test(text.trim());
+
+            statusPill.textContent = isValid ? '✓ Whole text matches pattern' : '✗ Text does not fully match';
+            statusPill.className = 'status-pill ' + (isValid ? 'valid' : 'invalid');
+
+            const matches = [...text.matchAll(regex)];
+            countPill.textContent = matches.length + (matches.length === 1 ? ' match' : ' matches');
+
+            if (matches.length === 0) {
+                highlightOutput.innerHTML = escapeHtml(text) || '<span style="color:var(--dim)">Nothing typed yet…</span>';
+                matchesList.innerHTML = '';
+            } else {
+                let result = '';
+                let lastIndex = 0;
+                matches.forEach(m => {
+                    const start = m.index;
+                    const end = start + m[0].length;
+                    result += escapeHtml(text.slice(lastIndex, start));
+                    result += '<mark>' + escapeHtml(m[0]) + '</mark>';
+                    lastIndex = end;
+                });
+                result += escapeHtml(text.slice(lastIndex));
+                highlightOutput.innerHTML = result;
+                matchesList.innerHTML = matches.map(m => '<span>' + escapeHtml(m[0]) + '</span>').join('');
+            }
+
+            patternExplain.innerHTML = currentExplain || 'Custom pattern — try building it piece by piece using the ideas above.';
+        }
+
+        patternInput.addEventListener('input', () => { currentExplain = null; document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active')); runTest(); });
+        flagsInput.addEventListener('input', runTest);
+        textInput.addEventListener('input', runTest);
+
+        loadPreset(1, null);
+        document.querySelectorAll('.preset-btn')[1].classList.add('active');
+    </script>
 </body>
+
 </html>
