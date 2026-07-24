@@ -331,15 +331,14 @@
         let all = document.querySelectorAll(".seat");
         let booked = document.querySelectorAll(".booked");
         let bIndex = [...all].indexOf(e.target);
-  
-      array.push(bIndex);
-      localStorage.setItem("bookedvalue", JSON.stringify(array));
-      bookedSeats.textContent = booked.length;
-    
-      
-      availbleSeats.textContent =
-        li.length - (resrved.length - 1) - booked.length;
-      bookedSeats.textContent = array.length;
+
+        array.push(bIndex);
+        localStorage.setItem("bookedvalue", JSON.stringify(array));
+        bookedSeats.textContent = booked.length;
+
+        availbleSeats.textContent =
+          li.length - (resrved.length - 1) - booked.length;
+        bookedSeats.textContent = array.length;
         if (e.target.classList.contains("ri-sofa-line")) {
           if (e.target.parentElement.classList.contains("reserved")) {
             alert("khatm gaya bye bye");
@@ -366,8 +365,9 @@
               bookedSeats.textContent = array.length;
             }
           }
-        } 
-          
+        }
+        select.value = localStorage.getItem("selectvalue");
+        result.innerHTML = `<h2 class="total-cost">Your total cost is <span>${array.length * Number(select.value)}$</span>.</h2>`;
       });
       bookedSeats.textContent = array.length;
 
