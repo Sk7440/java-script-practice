@@ -297,6 +297,11 @@
     let submitBtn = document.querySelector(".submit-button");
     /////circlr childs
     let childsAll = document.querySelectorAll(".childs");
+    //////edit personal info button
+    let personalBtn = document.querySelector(".edit-personal");
+    /////edit professional detail button
+    let editingBtn = document.querySelector(".edit-pro");
+
     let index = 0;
     personalForm.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -311,22 +316,45 @@
           personalForm.classList.remove("active");
           proDetail.classList.add("active");
         }
-    }
-});
-proDetail.addEventListener("submit", (e) => {
-    e.preventDefault();
-    nextBtn.addEventListener("click", () => {
-    index++
-    if (index === 2) {
-      proDetail.classList.remove("active");
-      submit.classList.add("active");
-      childsAll[2].classList.add("color");
-      progressBar.style.width = "95%";
-    }
-    })})
-    // previousBtn.addEventListener("click", () => {
-    //   if (index >= 0) {
-    //   }
-    // });
+      }
+      if (index === 2) {
+        progressBar.style.width = "100%";
+        childsAll[index].classList.add("color");
+        if (proDetail.classList.contains("active")) {
+          proDetail.classList.remove("active");
+          submit.classList.add("active");
+          nextBtn.classList.add("none");
+        }
+      }
+    });
+    submitBtn.addEventListener("click", () => {
+      alert("Form Submitted");
+    });
+    submit.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    proDetail.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    personalBtn.addEventListener("click", () => {
+      if (submit.classList.contains("active")) {
+        personalForm.classList.add("active");
+        submit.classList.remove("active");
+        nextBtn.classList.remove("none");
+        progressBar.style.width = "00%";
+        childsAll[1].classList.remove("color");
+        childsAll[2].classList.remove("color");
+      }
+    });
+    editingBtn.addEventListener("click", () => {
+      if (submit.classList.contains("active")) {
+       proDetail.classList.add("active");
+        submit.classList.remove("active");
+        nextBtn.classList.remove("none");
+        progressBar.style.width = "50%";
+        childsAll[1].classList.add("color");
+        childsAll[2].classList.remove("color");
+      }
+    });
   </script>
 </html>
