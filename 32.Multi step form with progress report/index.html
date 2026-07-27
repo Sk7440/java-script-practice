@@ -1,11 +1,293 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Job Application form</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body>
+    <!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Registration Form</title>
+
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+          }
+
+          body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #1f2937, #111827, #0f172a);
+            padding: 30px;
+          }
+
+          .form-container1 {
+            width: 100%;
+            max-width: 520px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 22px;
+            padding: 40px;
+            box-shadow:
+              0 20px 60px rgba(0, 0, 0, 0.45),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          }
+
+          .form-container1 h2 {
+            color: #fff;
+            font-size: 32px;
+            text-align: center;
+            margin-top: 70px;
+            margin-bottom: 8px;
+            font-weight: 700;
+          }
+
+          .form-container1 p {
+            color: #bfc7d3;
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 15px;
+          }
+
+          .input-group {
+            margin-bottom: 22px;
+          }
+
+          .input-group label {
+            display: block;
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 500;
+          }
+
+          .input-group input {
+            width: 100%;
+            padding: 16px 18px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            font-size: 15px;
+            transition: 0.35s ease;
+            outline: none;
+          }
+
+          .input-group input::placeholder {
+            color: #9ca3af;
+          }
+
+          .input-group input:focus {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.08);
+            box-shadow:
+              0 0 0 4px rgba(59, 130, 246, 0.18),
+              0 8px 25px rgba(59, 130, 246, 0.25);
+          }
+
+          button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #2563eb, #06b6d4);
+            color: #fff;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.35s;
+            margin-top: 10px;
+          }
+
+          button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.45);
+          }
+
+          button:active {
+            transform: scale(0.98);
+          }
+
+          @media (max-width: 600px) {
+            .form-container1 {
+              padding: 28px;
+            }
+
+            .form-container1 h2 {
+              font-size: 26px;
+              margin-top: 100px;
+            }
+          }
+          .circle-parent {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            justify-content: space-between;
+            position: relative;
+          }
+
+          .child-div {
+            width: 100%;
+            position: absolute;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          .childs {
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            align-self: center;
+            font-size: 1.5rem;
+            width: 50px;
+            border-radius: 50%;
+            background-color: white;
+          }
+          .childs:nth-child(1) {
+            background-color: blue;
+            color: white;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="form-container1">
+          <div class="circle-parent">
+            <div class="progress-bar"></div>
+            <div class="child-div">
+              <div class="childs">1</div>
+              <div class="childs">2</div>
+              <div class="childs">3</div>
+            </div>
+          </div>
+          <h2 class="head2">Job Application Form</h2>
+          <p>Personal information.</p>
+          <form>
+            <div class="input-group">
+              <label>Full Name</label>
+              <input id="name" type="text" placeholder="Enter your full name" />
+            </div>
+
+            <div class="input-group">
+              <label>Phone Number</label>
+              <input id="phone" type="tel" placeholder="03XX-XXXXXXX" />
+            </div>
+
+            <div class="input-group">
+              <label>Email Address</label>
+              <input id="email" type="email" placeholder="example@email.com" />
+            </div>
+
+            <div class="input-group">
+              <label>CNIC Number</label>
+              <input id="cnic" type="text" placeholder="XXXXX-XXXXXXX-X" />
+            </div>
+            <div class="input-group">
+              <label>City</label>
+              <input id="city" type="text" placeholder="Lahore" />
+            </div>
+
+            <button type="submit">Next</button>
+          </form>
+        </div>
+        <div class="form-container1">
+          <h2 class="head2">Job Application Form</h2>
+          <p>Professional Details</p>
+          <form>
+            <div class="input-group">
+              <label>Education Level</label>
+              <input
+                id="Education"
+                type="text"
+                placeholder="Enter your Education"
+              />
+            </div>
+
+            <div class="input-group">
+              <label>Years of Experience</label>
+              <input id="exp" type="text" placeholder="Enter your Experience" />
+            </div>
+
+            <div class="input-group">
+              <label>Skills</label>
+              <input
+                id="Skills"
+                type="text"
+                placeholder="Describe your Skills"
+              />
+            </div>
+
+            <div class="input-group">
+              <label>Current Salary</label>
+              <input id="currentsalary" type="text" placeholder="45000/-" />
+            </div>
+            <div class="input-group">
+              <label>Expected Salary</label>
+              <input id="expsalary" type="text" placeholder="60000/-" />
+            </div>
+
+            <button type="Next">Next</button>
+            <button type="Previous">Previous</button>
+          </form>
+        </div>
+        <div class="form-container1">
+          <h2 class="head2">Job Application Form</h2>
+          <p>Review and Submit</p>
+          <form>
+            <div class="input-group">
+              <label>Education Level</label>
+              <input
+                id="Education"
+                type="text"
+                placeholder="Enter your Education"
+              />
+            </div>
+
+            <div class="input-group">
+              <label>Years of Experience</label>
+              <input id="exp" type="text" placeholder="Enter your Experience" />
+            </div>
+
+            <div class="input-group">
+              <label>Skills</label>
+              <input
+                id="Skills"
+                type="text"
+                placeholder="Describe your Skills"
+              />
+            </div>
+
+            <div class="input-group">
+              <label>Current Salary</label>
+              <input id="currentsalary" type="text" placeholder="45000/-" />
+            </div>
+            <div class="input-group">
+              <label>Expected Salary</label>
+              <input id="expsalary" type="text" placeholder="60000/-" />
+            </div>
+
+            <button type="Next">Next</button>
+            <button type="Previous">Previous</button>
+          </form>
+        </div>
+      </body>
+    </html>
+  </body>
 </html>
