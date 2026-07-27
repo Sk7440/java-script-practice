@@ -37,6 +37,8 @@
 
           .form-container1 {
             width: 100%;
+            display: flex;
+            flex-direction: column;
             max-width: 520px;
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(18px);
@@ -112,6 +114,7 @@
             font-weight: 600;
             cursor: pointer;
             transition: 0.35s;
+            z-index: 99;
             margin-top: 10px;
           }
 
@@ -165,10 +168,37 @@
             background-color: blue;
             color: white;
           }
+          .none {
+            display: none;
+          }
+
+          .progress-bar {
+            margin-left: 10px;
+            margin-top: 15px;
+            height: 20px;
+            background-color: blue;
+          }
+          .color {
+            color: white;
+            background-color: blue;
+          }
+          .personal-form,
+          .pro-detail,
+          .submitsec {
+            display: none;
+          }
+
+          .active {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 1000;
+            flex-direction: column;
+          }
         </style>
       </head>
       <body>
-        <div class="form-container1">
+        <div class="personal-info form-container1">
           <div class="circle-parent">
             <div class="progress-bar"></div>
             <div class="child-div">
@@ -178,8 +208,8 @@
             </div>
           </div>
           <h2 class="head2">Job Application Form</h2>
-          <p>Personal information.</p>
-          <form>
+          <form class="active personal-form">
+            <p>Personal information.</p>
             <div class="input-group">
               <label>Full Name</label>
               <input id="name" type="text" placeholder="Enter your full name" />
@@ -203,14 +233,10 @@
               <label>City</label>
               <input id="city" type="text" placeholder="Lahore" />
             </div>
-
-            <button type="submit">Next</button>
           </form>
-        </div>
-        <div class="form-container1">
-          <h2 class="head2">Job Application Form</h2>
-          <p>Professional Details</p>
-          <form>
+
+          <form class="pro-detail form-container1">
+            <p>Professional Details</p>
             <div class="input-group">
               <label>Education Level</label>
               <input
@@ -242,52 +268,65 @@
               <label>Expected Salary</label>
               <input id="expsalary" type="text" placeholder="60000/-" />
             </div>
-
-            <button type="Next">Next</button>
-            <button type="Previous">Previous</button>
           </form>
-        </div>
-        <div class="form-container1">
-          <h2 class="head2">Job Application Form</h2>
-          <p>Review and Submit</p>
-          <form>
-            <div class="input-group">
-              <label>Education Level</label>
-              <input
-                id="Education"
-                type="text"
-                placeholder="Enter your Education"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Years of Experience</label>
-              <input id="exp" type="text" placeholder="Enter your Experience" />
-            </div>
-
-            <div class="input-group">
-              <label>Skills</label>
-              <input
-                id="Skills"
-                type="text"
-                placeholder="Describe your Skills"
-              />
-            </div>
-
-            <div class="input-group">
-              <label>Current Salary</label>
-              <input id="currentsalary" type="text" placeholder="45000/-" />
-            </div>
-            <div class="input-group">
-              <label>Expected Salary</label>
-              <input id="expsalary" type="text" placeholder="60000/-" />
-            </div>
-
-            <button type="Next">Next</button>
-            <button type="Previous">Previous</button>
+          <form class="form-container1 submitsec">
+            <p>Review and Submit</p>
+            <button class="edit-personal">Edit Personal Information</button>
+            <button class="edit-pro">Edit Professional Details</button>
+            <button class="submit-button">Submit</button>
           </form>
+
+          <button class="Next" type="submit">Next</button>
+          <button class="previous none" type="submit">previous</button>
         </div>
       </body>
     </html>
   </body>
+  <script>
+    let progressBar = document.querySelector(".progress-bar");
+    /////profesional detail section
+    let proDetail = document.querySelector(".pro-detail");
+    /////PERSONAL detail section
+    let personalForm = document.querySelector(".personal-form");
+    ///// PERSONAL detail section BUTTON
+    let nextBtn = document.querySelector(".Next");
+    let previousBtn = document.querySelector("previous");
+    /////SUBMIT section
+    let submit = document.querySelector(".submitsec");
+    //// submit section button
+    let submitBtn = document.querySelector(".submit-button");
+    /////circlr childs
+    let childsAll = document.querySelectorAll(".childs");
+    let index = 0;
+    personalForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
+    nextBtn.addEventListener("click", () => {
+      index++;
+
+      if (index === 1) {
+        progressBar.style.width = "50%";
+        childsAll[1].classList.add("color");
+        if (personalForm.classList.contains("active")) {
+          personalForm.classList.remove("active");
+          proDetail.classList.add("active");
+        }
+    }
+});
+proDetail.addEventListener("submit", (e) => {
+    e.preventDefault();
+    nextBtn.addEventListener("click", () => {
+    index++
+    if (index === 2) {
+      proDetail.classList.remove("active");
+      submit.classList.add("active");
+      childsAll[2].classList.add("color");
+      progressBar.style.width = "95%";
+    }
+    })})
+    // previousBtn.addEventListener("click", () => {
+    //   if (index >= 0) {
+    //   }
+    // });
+  </script>
 </html>
