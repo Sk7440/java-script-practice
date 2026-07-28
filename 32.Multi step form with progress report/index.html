@@ -265,8 +265,10 @@
               <input id="expsalary" type="text" placeholder="60000/-" />
             </div>
           </form>
+          
           <form class="form-container1 submitsec">
             <p>Review and Submit</p>
+            <div class="result"></div>
             <button class="edit-personal">Edit Personal Information</button>
             <button class="edit-pro">Edit Professional Details</button>
             <button class="submit-button">Submit</button>
@@ -297,6 +299,7 @@
     let personalBtn = document.querySelector(".edit-personal");
     /////edit professional detail button
     let editingBtn = document.querySelector(".edit-pro");
+    let result = document.querySelector(".result");
     ///////personal info
     let nameInp = document.querySelector("#name");
     let cnicInp = document.querySelector("#cnic");
@@ -323,50 +326,72 @@
     let csCheck = /^\d{5}$/;
     let expCheck = /^\d{5}$/;
     let index = 0;
+    let objPersonal =
+      JSON.parse(localStorage.getItem("objPersonalvalue")) || {};
+    let objProfessional =
+      JSON.parse(localStorage.getItem("objProfessionalvalue")) || {};
     personalForm.addEventListener("submit", (e) => {
       e.preventDefault();
     });
     nextBtn.addEventListener("click", () => {
-      if (!nameCheck.test(nameInp.value))
-        return alert("please enter valid name");
-      else if (!emailCheck.test(emailInp.value))
-        return alert("please enter valid email");
-      else if (!phoneCheck.test(phoneInp.value))
-        return alert("please enter valid number");
-      else if (!cnicCheck.test(cnicInp.value))
-        return alert("please enter valid cnic");
-      else if (!cityCheck.test(cityInp.value))
-        return alert("please enter your city name");
-      index++;
-      console.log(index);
+      let personal = personalRegex();
+      console.log(personal);
 
-      if (index === 1) {
-        if (personalForm.classList.contains("active")) {
-          personalForm.classList.remove("active");
-          proDetail.classList.add("active");
-          progressBar.style.width = "50%";
-          childsAll[1].classList.add("color");
+      if (personal == true) {
+        objPersonal = {
+          name: nameInp.value,
+          email: emailInp.value,
+          phone: phoneInp.value,
+          cnic: cnicInp.value,
+          city: cityInp.value,
+        };
+        localStorage.setItem("objPersonalvalue", JSON.stringify(objPersonal));
+        index++;
+        if (index === 1) {
+          if (personalForm.classList.contains("active")) {
+            personalForm.classList.remove("active");
+            proDetail.classList.add("active");
+            progressBar.style.width = "50%";
+            childsAll[1].classList.add("color");
+          }
         }
       }
 
       if (index >= 2) {
-        if (!eduCheck.test(educationInp.value))
-          return alert("please enter valid education");
-        else if (!experienceCheck.test(experienceInp.value))
-          return alert("please enter valid experiance");
-        else if (!skillsCheck.test(skillsInp.value))
-          return alert("please enter valid skills");
-        else if (!csCheck.test(csInp.value))
-          return alert("please enter valid current salary");
-        else if (!expCheck.test(expInp.value))
-          return alert("please enter your city expected salary");
-        if (proDetail.classList.contains("active")) {
-          proDetail.classList.remove("active");
-          submit.classList.add("active");
-          nextBtn.classList.add("none");
-          progressBar.style.width = "100%";
-          childsAll[2].classList.add("color");
+        let professional = professionalRegex();
+        if (professional == true) {
+          objProfessional = {
+            education: educationInp.value,
+            experience: experienceInp.value,
+            skills: skillsInp.value,
+            currentSalary: csInp.value,
+            expected: expInp.value,
+          };
+          localStorage.setItem(
+            "objProfessionalvalue",
+            JSON.stringify(objProfessional),
+          );
+
+          if (proDetail.classList.contains("active")) {
+            proDetail.classList.remove("active");
+            submit.classList.add("active");
+            nextBtn.classList.add("none");
+            progressBar.style.width = "100%";
+            childsAll[2].classList.add("color");
+          }
         }
+        result.innerHTML = `<div>
+                Name: ${objPersonal.name}<br>
+                Phone: ${objPersonal.phone}<br>
+                Education: ${objProfessional.education}<br>
+                Cnic: ${objPersonal.cnic}<br>
+                City: ${objPersonal.city}<br>
+                Email: ${objPersonal.email}<br>
+                Experience: ${objProfessional.experience}<br>
+                Skills: ${objProfessional.skills}<br>
+                Current salary: ${objProfessional.currentSalary}<br>
+                Expected salary: ${objProfessional.expected}
+              </div>`;
       }
     });
     submitBtn.addEventListener("click", () => {
@@ -377,15 +402,15 @@
     });
     proDetail.addEventListener("submit", (e) => {
       e.preventDefault();
-    }); 
-    console.log('sultan khalid'.split(''));
-    
+    });
+    console.log("sultan khalid".split(""));
+
     personalBtn.addEventListener("click", () => {
       if (submit.classList.contains("active")) {
         personalForm.classList.add("active");
         submit.classList.remove("active");
         nextBtn.classList.remove("none");
-        progressBar.style.width = "0%";
+        index = progressBar.style.width = "0%";
         childsAll[1].classList.remove("color");
         childsAll[2].classList.remove("color");
       }
@@ -400,5 +425,42 @@
         childsAll[2].classList.remove("color");
       }
     });
+    function professionalRegex() {
+      if (!eduCheck.test(educationInp.value)) {
+        alert("please enter valid education");
+        return false;
+      } else if (!experienceCheck.test(experienceInp.value)) {
+        alert("please enter valid experiance");
+
+        return false;
+      } else if (!skillsCheck.test(skillsInp.value)) {
+        alert("please enter valid skills");
+        return false;
+      } else if (!csCheck.test(csInp.value)) {
+        alert("please enter valid current salary");
+        return false;
+      } else if (!expCheck.test(expInp.value)) {
+        alert("please enter your city expected salary");
+        return false;
+      } else return true;
+    }
+    function personalRegex() {
+      if (!nameCheck.test(nameInp.value)) {
+        alert("please enter valid name");
+        return false;
+      } else if (!emailCheck.test(emailInp.value)) {
+        alert("please enter valid email");
+        return false;
+      } else if (!phoneCheck.test(phoneInp.value)) {
+        alert("please enter valid number");
+        return false;
+      } else if (!cnicCheck.test(cnicInp.value)) {
+        alert("please enter valid cnic");
+        return flase;
+      } else if (!cityCheck.test(cityInp.value)) {
+        alert("please enter your city name");
+        return false;
+      } else return true;
+    }
   </script>
 </html>
