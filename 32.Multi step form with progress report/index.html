@@ -265,7 +265,7 @@
               <input id="expsalary" type="text" placeholder="60000/-" />
             </div>
           </form>
-          
+
           <form class="form-container1 submitsec">
             <p>Review and Submit</p>
             <div class="result"></div>
@@ -347,7 +347,7 @@
         };
         localStorage.setItem("objPersonalvalue", JSON.stringify(objPersonal));
         index++;
-        if (index === 1) {
+        if (index == 1) {
           if (personalForm.classList.contains("active")) {
             personalForm.classList.remove("active");
             proDetail.classList.add("active");
@@ -379,19 +379,34 @@
             progressBar.style.width = "100%";
             childsAll[2].classList.add("color");
           }
+          index = 0;
+          index++;
+          let personal = personalRegex();
+          if (personal == true) {
+            if (index == 1) {
+              if (personalForm.classList.contains("active")) {
+                personalForm.classList.remove("active");
+                submit.classList.add("active");
+                nextBtn.classList.add("none");
+                progressBar.style.width = "100%";
+                childsAll[1].classList.add("color");
+                childsAll[2].classList.add("color");
+              }
+            }
+          }
         }
         result.innerHTML = `<div>
-                Name: ${objPersonal.name}<br>
-                Phone: ${objPersonal.phone}<br>
-                Education: ${objProfessional.education}<br>
-                Cnic: ${objPersonal.cnic}<br>
-                City: ${objPersonal.city}<br>
-                Email: ${objPersonal.email}<br>
-                Experience: ${objProfessional.experience}<br>
-                Skills: ${objProfessional.skills}<br>
-                Current salary: ${objProfessional.currentSalary}<br>
-                Expected salary: ${objProfessional.expected}
-              </div>`;
+                    Name: ${objPersonal.name}<br>
+                    Phone: ${objPersonal.phone}<br>
+                    Education: ${objProfessional.education}<br>
+                    Cnic: ${objPersonal.cnic}<br>
+                    City: ${objPersonal.city}<br>
+                    Email: ${objPersonal.email}<br>
+                    Experience: ${objProfessional.experience}<br>
+                    Skills: ${objProfessional.skills}<br>
+                    Current salary: ${objProfessional.currentSalary}<br>
+                    Expected salary: ${objProfessional.expected}
+                  </div>`;
       }
     });
     submitBtn.addEventListener("click", () => {
@@ -407,10 +422,12 @@
 
     personalBtn.addEventListener("click", () => {
       if (submit.classList.contains("active")) {
-        personalForm.classList.add("active");
         submit.classList.remove("active");
+        personalForm.classList.add("active");
         nextBtn.classList.remove("none");
-        index = progressBar.style.width = "0%";
+        nextBtn.textContent = "Update";
+
+        progressBar.style.width = "0%";
         childsAll[1].classList.remove("color");
         childsAll[2].classList.remove("color");
       }
