@@ -239,16 +239,12 @@
             <p>Professional Details</p>
             <div class="input-group">
               <label>Education Level</label>
-              <input
-                id="Education"
-                type="text"
-                placeholder="Enter your Education"
-              />
+              <input id="Education" type="text" placeholder="FSC,BS" />
             </div>
 
             <div class="input-group">
               <label>Years of Experience</label>
-              <input id="exp" type="text" placeholder="Enter your Experience" />
+              <input id="exp" type="text" placeholder="2 Years,5 Years" />
             </div>
 
             <div class="input-group">
@@ -256,7 +252,7 @@
               <input
                 id="Skills"
                 type="text"
-                placeholder="Describe your Skills"
+                placeholder="Mern Stack Developer,Full Stack Developer"
               />
             </div>
 
@@ -301,29 +297,75 @@
     let personalBtn = document.querySelector(".edit-personal");
     /////edit professional detail button
     let editingBtn = document.querySelector(".edit-pro");
+    ///////personal info
+    let nameInp = document.querySelector("#name");
+    let cnicInp = document.querySelector("#cnic");
+    let emailInp = document.querySelector("#email");
+    let phoneInp = document.querySelector("#phone");
+    let cityInp = document.querySelector("#city");
+    /////personal info regex working
 
+    let nameCheck = /^[A-Za-z\s]{2,50}$/;
+    let emailCheck = /^\w+@\w+\.[A-Za-z]{2,50}$/;
+    let phoneCheck = /^03\d{2}-\d{7}$/;
+    let cnicCheck = /^\d{5}-\d{7}-\d{1}$/;
+    let cityCheck = /^[A-Za-z/s]{2,10}$/;
+    ///////professional info
+    let educationInp = document.querySelector("#Education");
+    let experienceInp = document.querySelector("#exp");
+    let skillsInp = document.querySelector("#Skills");
+    let csInp = document.querySelector("#currentsalary");
+    let expInp = document.querySelector("#expsalary");
+    ///////professional inp regex
+    let eduCheck = /^[A-Za-z\s]{2,50}$/;
+    let experienceCheck = /^\d{1,3}$/;
+    let skillsCheck = /^[A-Za-z\s]{2,50}$/;
+    let csCheck = /^\d{5}$/;
+    let expCheck = /^\d{5}$/;
     let index = 0;
     personalForm.addEventListener("submit", (e) => {
       e.preventDefault();
     });
     nextBtn.addEventListener("click", () => {
+      if (!nameCheck.test(nameInp.value))
+        return alert("please enter valid name");
+      else if (!emailCheck.test(emailInp.value))
+        return alert("please enter valid email");
+      else if (!phoneCheck.test(phoneInp.value))
+        return alert("please enter valid number");
+      else if (!cnicCheck.test(cnicInp.value))
+        return alert("please enter valid cnic");
+      else if (!cityCheck.test(cityInp.value))
+        return alert("please enter your city name");
       index++;
+      console.log(index);
 
       if (index === 1) {
-        progressBar.style.width = "50%";
-        childsAll[1].classList.add("color");
         if (personalForm.classList.contains("active")) {
           personalForm.classList.remove("active");
           proDetail.classList.add("active");
+          progressBar.style.width = "50%";
+          childsAll[1].classList.add("color");
         }
       }
-      if (index === 2) {
-        progressBar.style.width = "100%";
-        childsAll[index].classList.add("color");
+
+      if (index >= 2) {
+        if (!eduCheck.test(educationInp.value))
+          return alert("please enter valid education");
+        else if (!experienceCheck.test(experienceInp.value))
+          return alert("please enter valid experiance");
+        else if (!skillsCheck.test(skillsInp.value))
+          return alert("please enter valid skills");
+        else if (!csCheck.test(csInp.value))
+          return alert("please enter valid current salary");
+        else if (!expCheck.test(expInp.value))
+          return alert("please enter your city expected salary");
         if (proDetail.classList.contains("active")) {
           proDetail.classList.remove("active");
           submit.classList.add("active");
           nextBtn.classList.add("none");
+          progressBar.style.width = "100%";
+          childsAll[2].classList.add("color");
         }
       }
     });
@@ -335,20 +377,22 @@
     });
     proDetail.addEventListener("submit", (e) => {
       e.preventDefault();
-    });
+    }); 
+    console.log('sultan khalid'.split(''));
+    
     personalBtn.addEventListener("click", () => {
       if (submit.classList.contains("active")) {
         personalForm.classList.add("active");
         submit.classList.remove("active");
         nextBtn.classList.remove("none");
-        progressBar.style.width = "00%";
+        progressBar.style.width = "0%";
         childsAll[1].classList.remove("color");
         childsAll[2].classList.remove("color");
       }
     });
     editingBtn.addEventListener("click", () => {
       if (submit.classList.contains("active")) {
-       proDetail.classList.add("active");
+        proDetail.classList.add("active");
         submit.classList.remove("active");
         nextBtn.classList.remove("none");
         progressBar.style.width = "50%";
