@@ -195,6 +195,10 @@
             z-index: 1000;
             flex-direction: column;
           }
+          .resultdiv {
+            color: white;
+            font-size: 26px;
+          }
         </style>
       </head>
       <body>
@@ -325,7 +329,10 @@
     let skillsCheck = /^[A-Za-z\s]{2,50}$/;
     let csCheck = /^\d{5}$/;
     let expCheck = /^\d{5}$/;
-    let index = 0;
+    let index = sessionStorage.getItem("indexvalue") || 0;
+
+    Check(index)
+   
     let objPersonal =
       JSON.parse(localStorage.getItem("objPersonalvalue")) || {};
     let objProfessional =
@@ -334,26 +341,27 @@
       e.preventDefault();
     });
     nextBtn.addEventListener("click", () => {
-      let personal = personalRegex();
-      console.log(personal);
+      index++;
+      sessionStorage.setItem("indexvalue", index);
 
-      if (personal == true) {
-        objPersonal = {
-          name: nameInp.value,
-          email: emailInp.value,
-          phone: phoneInp.value,
-          cnic: cnicInp.value,
-          city: cityInp.value,
-        };
-        localStorage.setItem("objPersonalvalue", JSON.stringify(objPersonal));
-        index++;
-        if (index == 1) {
-          if (personalForm.classList.contains("active")) {
-            personalForm.classList.remove("active");
-            proDetail.classList.add("active");
-            progressBar.style.width = "50%";
-            childsAll[1].classList.add("color");
-          }
+      console.log(index);
+      if (index == 1) {
+        let personal = personalRegex();
+        console.log(personal);
+
+        if (personal == true) {
+          objPersonal = {
+            name: nameInp.value,
+            email: emailInp.value,
+            phone: phoneInp.value,
+            cnic: cnicInp.value,
+            city: cityInp.value,
+          };
+          localStorage.setItem("objPersonalvalue", JSON.stringify(objPersonal));
+          Check(index);
+        }
+        else{
+          index--
         }
       }
 
@@ -371,56 +379,34 @@
             "objProfessionalvalue",
             JSON.stringify(objProfessional),
           );
-
-          if (proDetail.classList.contains("active")) {
-            proDetail.classList.remove("active");
-            submit.classList.add("active");
-            nextBtn.classList.add("none");
-            progressBar.style.width = "100%";
-            childsAll[2].classList.add("color");
-          }
-          index = 0;
-          index++;
-          let personal = personalRegex();
-          if (personal == true) {
-            if (index == 1) {
-              if (personalForm.classList.contains("active")) {
-                personalForm.classList.remove("active");
-                submit.classList.add("active");
-                nextBtn.classList.add("none");
-                progressBar.style.width = "100%";
-                childsAll[1].classList.add("color");
-                childsAll[2].classList.add("color");
-              }
-            }
-          }
+          Check(index);
+          result.innerHTML = `<div class="resultdiv">
+                      Name: ${objPersonal.name}<br>
+                      Phone: ${objPersonal.phone}<br>
+                      Education: ${objProfessional.education}<br>
+                      Cnic: ${objPersonal.cnic}<br>
+                      City: ${objPersonal.city}<br>
+                      Email: ${objPersonal.email}<br>
+                      Experience: ${objProfessional.experience}<br>
+                      Skills: ${objProfessional.skills}<br>
+                      Current salary: ${objProfessional.currentSalary}<br>
+                      Expected salary: ${objProfessional.expected}
+                    </div>`;
+                    index=1
         }
-        result.innerHTML = `<div>
-                    Name: ${objPersonal.name}<br>
-                    Phone: ${objPersonal.phone}<br>
-                    Education: ${objProfessional.education}<br>
-                    Cnic: ${objPersonal.cnic}<br>
-                    City: ${objPersonal.city}<br>
-                    Email: ${objPersonal.email}<br>
-                    Experience: ${objProfessional.experience}<br>
-                    Skills: ${objProfessional.skills}<br>
-                    Current salary: ${objProfessional.currentSalary}<br>
-                    Expected salary: ${objProfessional.expected}
-                  </div>`;
+        else{
+          index--
+        }
       }
+
     });
     submitBtn.addEventListener("click", () => {
       alert("Form Submitted");
     });
-    submit.addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
-    proDetail.addEventListener("submit", (e) => {
-      e.preventDefault();
-    });
     console.log("sultan khalid".split(""));
 
-    personalBtn.addEventListener("click", () => {
+    personalBtn.addEventListener("click", (e) => {
+      e.preventDefault()
       if (submit.classList.contains("active")) {
         submit.classList.remove("active");
         personalForm.classList.add("active");
@@ -432,7 +418,8 @@
         childsAll[2].classList.remove("color");
       }
     });
-    editingBtn.addEventListener("click", () => {
+    editingBtn.addEventListener("click", (e) => {
+      e.preventDefault()
       if (submit.classList.contains("active")) {
         proDetail.classList.add("active");
         submit.classList.remove("active");
@@ -479,5 +466,24 @@
         return false;
       } else return true;
     }
+    function Check(index) {
+      if (index ==  1) {
+
+        personalForm.classList.remove("active");
+        proDetail.classList.add("active");
+        progressBar.style.width = "50%";
+        childsAll[1].classList.add("color");
+      }else if (index == 2) {
+        proDetail.classList.remove("active");
+        personalForm.classList.remove("active");
+        submit.classList.add("active");
+        nextBtn.classList.add("none");
+        progressBar.style.width = "100%";
+        childsAll[2].classList.add("color");
+        childsAll[1].classList.add("color");
+
+      }
+    }
+    
   </script>
 </html>
