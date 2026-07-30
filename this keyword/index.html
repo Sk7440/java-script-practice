@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        // ==========================================
+        // DAY 31 — this Keyword
+        // ==========================================
+
+
+        // 1. this inside an object method
+        // ----------------------------------
+
+        const user = {
+            name: "Ali",
+
+            greet: function () {
+                console.log(this.name);
+            }
+        };
+
+        user.greet();
+
+        // this refers to the object calling the method.
+        // Here: this = user
+
+
+
+        // 2. this depends on HOW the function is called
+        // ----------------------------------------------
+
+        const person1 = {
+            name: "Ahmed",
+            sayName: function () {
+                console.log(this.name);
+            }
+        };
+
+        const person2 = {
+            name: "Sara",
+            sayName: person1.sayName
+        };
+
+        person1.sayName(); // Ahmed
+        person2.sayName(); // Sara
+
+
+
+        // 3. Arrow functions do NOT have their own this
+        // ----------------------------------------------
+
+        const student = {
+            name: "Ali",
+
+            greet: () => {
+                console.log(this.name);
+            }
+        };
+
+        student.greet();
+
+        // Don't use an arrow function as an object method
+        // when you need this to refer to the object.
+
+
+
+        // 4. Common problem with setTimeout
+        // ----------------------------------
+
+        const teacher = {
+            name: "Sana",
+
+            greet: function () {
+
+                setTimeout(function () {
+                    console.log(this.name);
+                }, 1000);
+
+            }
+        };
+
+        teacher.greet();
+
+        // The regular function inside setTimeout
+        // has its own this.
+
+
+
+        // 5. Fix: use an arrow function
+        // ------------------------------
+
+        const teacher2 = {
+            name: "Sana",
+
+            greet: function () {
+
+                setTimeout(() => {
+                    console.log(this.name);
+                }, 1000);
+
+            }
+        };
+
+        teacher2.greet();
+
+        // Arrow function takes this from the surrounding function.
+        // So this still refers to teacher2.
+    </script>
+</body>
+
+</html>
