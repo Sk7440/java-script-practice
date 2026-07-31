@@ -13,21 +13,101 @@
       body {
         font-family: "Inter", sans-serif;
       }
-    .inp {
+      /* Container/Form styling */
+      form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #ffffff;
+        padding: 10px 14px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        max-width: 450px;
+        width: 100%;
+        transition: all 0.3s ease;
+      }
+
+      /* Subtle lift effect on hover */
+      form:hover {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+      }
+
+      /* Label & Input styling */
+      form label {
+        flex: 1;
+        display: flex;
+      }
+
+      form input[type="text"] {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #e1e4e8;
+        border-radius: 8px;
+        font-size: 1rem;
+        color: #333333;
+        outline: none;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      /* Input focus state */
+      form input[type="text"]:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+      }
+
+      /* Placeholder styling */
+      form input[type="text"]::placeholder {
+        color: #9ca3af;
+        font-style: italic;
+      }
+
+      /* Button styling */
+      form button {
+        background-color: #6366f1;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background-color 0.2s ease,
+          transform 0.1s ease;
+      }
+
+      /* Button hover and active states */
+      form button:hover {
+        background-color: #4f46e5;
+      }
+
+      form button:active {
+        transform: scale(0.98);
+      }
+      .inp {
+        display: none;
         flex: 1;
         width: 95%;
         padding: 0.85rem 1.25rem;
         font-size: 0.95rem;
-        font-family: 'Inter', sans-serif;
+        font-family: "Inter", sans-serif;
         color: #0f172a;
         background: #ffffff;
         border: 2px solid #e2e8f0;
         border-radius: 1rem;
         outline: none;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        box-shadow:
+          0 4px 6px -1px rgba(0, 0, 0, 0.02),
+          0 2px 4px -1px rgba(0, 0, 0, 0.02);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      
+      .active {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       .inp::placeholder {
         color: #94a3b8;
         font-weight: 400;
@@ -36,40 +116,104 @@
       .inp:focus {
         border-color: #6366f1;
         background-color: #ffffff;
-        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12), 0 10px 15px -3px rgba(99, 102, 241, 0.05);
+        box-shadow:
+          0 0 0 4px rgba(99, 102, 241, 0.12),
+          0 10px 15px -3px rgba(99, 102, 241, 0.05);
         transform: translateY(-1px);
+      }
+      .color {
+        color: lightcoral;
+        cursor: pointer;
+        background-color: blue;
       }
     </style>
   </head>
   <body
-    style="background: linear-gradient(to bottom right, #f8fafc, #f1f5f9); min-height: 100vh; color: #1e293b; display: flex; flex-direction: column; align-items: center; padding: 3rem 1rem;"
+    style="
+      background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
+      min-height: 100vh;
+      color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1rem;
+    "
   >
     <!-- Main Container -->
     <div
-      style="width: 100%; max-width: 48rem; background-color: #ffffff; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); border-radius: 1rem; padding: 2rem; border: 1px solid #f1f5f9;"
+      style="
+        width: 100%;
+        max-width: 48rem;
+        background-color: #ffffff;
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border-radius: 1rem;
+        padding: 2rem;
+        border: 1px solid #f1f5f9;
+      "
     >
       <!-- Header Section -->
       <div
-        style="display: flex; flex-direction: column; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid #f1f5f9;"
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid #f1f5f9;
+        "
       >
-        <div style="display: flex; align-items: center; justify-content: center ; flex-direction: column; ">
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+          "
+        >
           <h1
-            style="font-size: 1.875rem; font-weight: 700; letter-spacing: -0.025em; color: #0f172a; margin: 0;"
+            style="
+              font-size: 1.875rem;
+              font-weight: 700;
+              letter-spacing: -0.025em;
+              color: #0f172a;
+              margin: 0;
+            "
           >
             Task Manager
           </h1>
-          <p style="font-size: 0.875rem; color: #64748b; margin-top: 0.25rem; margin-bottom: 0;">
+          <p
+            style="
+              font-size: 0.875rem;
+              color: #64748b;
+              margin-top: 0.25rem;
+              margin-bottom: 0;
+            "
+          >
             Organize your daily goals and track your progress effortlessly.
           </p>
         </div>
         <button
           id="btn"
-          style="display: inline-flex; align-items: center; justify-content: center; background-color: #4f46e5; color: #ffffff; font-weight: 500; padding: 0.625rem 1.25rem; border-radius: 0.75rem; box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1); border: none; cursor: pointer; transition: all 200ms;"
-          onmouseover="this.style.backgroundColor='#4338ca'"
-          onmouseout="this.style.backgroundColor='#4f46e5'"
+          style="
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4f46e5;
+            color: #ffffff;
+            font-weight: 500;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.1);
+            border: none;
+            cursor: pointer;
+            transition: all 200ms;
+          "
+          onmouseover="this.style.backgroundColor = '#4338ca'"
+          onmouseout="this.style.backgroundColor = '#4f46e5'"
         >
           <svg
-            style="width: 1.25rem; height: 1.25rem; margin-right: 0.5rem;"
+            style="width: 1.25rem; height: 1.25rem; margin-right: 0.5rem"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -83,99 +227,248 @@
           </svg>
           Add Task
         </button>
-        <div class="inp"></div>
+        <div class="inp">
+          <form action="">
+            <label for=""
+              ><input type="text" placeholder="enter your task"
+            /></label>
+            <button type="submit">Enter</button>
+          </form>
+        </div>
       </div>
 
       <!-- Dashboard Grid / Columns -->
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 1.5rem;
+          margin-top: 2rem;
+        "
+      >
         <!-- No Status Column -->
         <div
-          style="background-color: rgba(248, 250, 252, 0.7); border-radius: 0.75rem; padding: 1rem; border: 1px solid rgba(226, 232, 240, 0.6); display: flex; flex-direction: column;"
+          style="
+            background-color: rgba(248, 250, 252, 0.7);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+            display: flex;
+            flex-direction: column;
+          "
         >
           <div
-            style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid #e2e8f0;"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding-bottom: 0.75rem;
+              margin-bottom: 0.75rem;
+              border-bottom: 1px solid #e2e8f0;
+            "
           >
             <h2
-              style="font-weight: 600; color: #334155; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;"
+              style="
+                font-weight: 600;
+                color: #334155;
+                font-size: 0.875rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin: 0;
+              "
             >
               No Status
             </h2>
             <span
-              style="background-color: #e2e8f0; color: #334155; font-size: 0.75rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 9999px;"
+              class="no-statusspan"
+              style="
+                background-color: #e2e8f0;
+                color: #334155;
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 0.125rem 0.5rem;
+                border-radius: 9999px;
+              "
               >0</span
             >
           </div>
           <!-- Task container placeholder -->
           <div
-            style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; color: #94a3b8; border: 2px dashed #e2e8f0; border-radius: 0.5rem;"
+            class="no-statusdiv"
+            style="
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              padding: 1.5rem;
+              color: #94a3b8;
+              border: 2px dashed #e2e8f0;
+              border-radius: 0.5rem;
+            "
           >
-            <p style="font-size: 0.75rem; margin: 0;">No tasks here yet.</p>
+            <p style="font-size: 0.75rem; margin: 0">No tasks here yet.</p>
           </div>
         </div>
 
         <!-- Completed Column -->
         <div
-          style="background-color: rgba(236, 253, 245, 0.4); border-radius: 0.75rem; padding: 1rem; border: 1px solid #d1fae5; display: flex; flex-direction: column;"
+          style="
+            background-color: rgba(236, 253, 245, 0.4);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid #d1fae5;
+            display: flex;
+            flex-direction: column;
+          "
         >
           <div
-            style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(167, 243, 208, 0.6);"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding-bottom: 0.75rem;
+              margin-bottom: 0.75rem;
+              border-bottom: 1px solid rgba(167, 243, 208, 0.6);
+            "
           >
             <h2
-              style="font-weight: 600; color: #065f46; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;"
+              style="
+                font-weight: 600;
+                color: #065f46;
+                font-size: 0.875rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin: 0;
+              "
             >
               Completed
             </h2>
             <span
-              style="background-color: #d1fae5; color: #065f46; font-size: 0.75rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 9999px;"
+              style="
+                background-color: #d1fae5;
+                color: #065f46;
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 0.125rem 0.5rem;
+                border-radius: 9999px;
+              "
               >0</span
             >
           </div>
           <!-- Task container placeholder -->
           <div
-            style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; color: rgba(5, 150, 105, 0.6); border: 2px dashed rgba(167, 243, 208, 0.6); border-radius: 0.5rem;"
+            style="
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              padding: 1.5rem;
+              color: rgba(5, 150, 105, 0.6);
+              border: 2px dashed rgba(167, 243, 208, 0.6);
+              border-radius: 0.5rem;
+            "
           >
-            <p style="font-size: 0.75rem; margin: 0;">Completed tasks will appear here.</p>
+            <p style="font-size: 0.75rem; margin: 0">
+              Completed tasks will appear here.
+            </p>
           </div>
         </div>
 
         <!-- Not Completed Column -->
         <div
-          style="background-color: rgba(255, 241, 242, 0.4); border-radius: 0.75rem; padding: 1rem; border: 1px solid #ffe4e6; display: flex; flex-direction: column;"
+          style="
+            background-color: rgba(255, 241, 242, 0.4);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            border: 1px solid #ffe4e6;
+            display: flex;
+            flex-direction: column;
+          "
         >
           <div
-            style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.75rem; margin-bottom: 0.75rem; border-bottom: 1px solid rgba(254, 205, 211, 0.6);"
+            style="
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              padding-bottom: 0.75rem;
+              margin-bottom: 0.75rem;
+              border-bottom: 1px solid rgba(254, 205, 211, 0.6);
+            "
           >
             <h2
-              style="font-weight: 600; color: #9f1239; font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; margin: 0;"
+              style="
+                font-weight: 600;
+                color: #9f1239;
+                font-size: 0.875rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin: 0;
+              "
             >
               Not Completed
             </h2>
             <span
-              style="background-color: #ffe4e6; color: #9f1239; font-size: 0.75rem; font-weight: 700; padding: 0.125rem 0.5rem; border-radius: 9999px;"
+              style="
+                background-color: #ffe4e6;
+                color: #9f1239;
+                font-size: 0.75rem;
+                font-weight: 700;
+                padding: 0.125rem 0.5rem;
+                border-radius: 9999px;
+              "
               >0</span
             >
           </div>
           <!-- Task container placeholder -->
           <div
-            style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1.5rem; color: rgba(225, 29, 72, 0.6); border: 2px dashed rgba(254, 205, 211, 0.6); border-radius: 0.5rem;"
+            style="
+              flex: 1;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              text-align: center;
+              padding: 1.5rem;
+              color: rgba(225, 29, 72, 0.6);
+              border: 2px dashed rgba(254, 205, 211, 0.6);
+              border-radius: 0.5rem;
+            "
           >
-            <p style="font-size: 0.75rem; margin: 0;">Pending tasks will appear here.</p>
+            <p style="font-size: 0.75rem; margin: 0">
+              Pending tasks will appear here.
+            </p>
           </div>
         </div>
       </div>
     </div>
   </body>
   <script>
+    let index = 0;
     let addBtn = document.querySelector("#btn");
-    let inpDiv=document.querySelector(".inp")
+    let inpDiv = document.querySelector(".inp");
+    let input = document.querySelector("input");
+    let form = document.querySelector("form");
+    ////nostatus
+    let nostatusDiv = document.querySelector(".no-statusdiv");
+    let nostatusSpan = document.querySelector(".no-statusspan");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      nostatusSpan.textContent = ++index;
+      let inpText = document.createElement("span");
+      inpText.draggable  = 'true'
+      inpText.textContent = input.value;
+      nostatusDiv.appendChild(inpText);
+      /////drag events
+      inpText.addEventListener("dragstart", () => {
+        inpText.classList.add("color");
+      });
+    });
     addBtn.addEventListener("click", () => {
-      let inp = document.createElement("input");
-      inp.classList="inp"
-      inp.placeholder = "Enter your task";
-      inp.type = "text";
-      inpDiv.appendChild(inp)
-      console.log(inp);
-      
+      inpDiv.classList.add("active");
     });
   </script>
 </html>
