@@ -1,11 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
+  </head>
+  <body></body>
+  <script>
+    fetch("https://jsonplaceholder.typicode.com/users/5")
+      ////.then wo wait krta h response ka
+      .then((response) => {
+        // reponse ko log m show karwaya jata
+        console.log("Status code:", response.status);
+
+        if (!response.ok) {
+          // agr response mily magr server humy error bhj dy to osko ko handle krny ky lye reponse .ok ky zarye hum khud erroe bhjty hain
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+        // response ko json kr ky return kry
+        return response.json();
+      })
+      // opr waly reponse ko dekhty howy mazeed wait krna pry ga osky lye then ka istamal krygyn
+      .then((data) => {
+        // .then ky aandr data revice hoga
+        // jiss ko console.log(); m shiw krwa dyn gyn
+
+        console.log("User name:", data.name);
+        console.log("User email:", data.email);
+      })
+      .catch((error) => {
+        // .catch error m humy errors recieve hoty hain
+        console.log("Something went wrong:", error.message);
+      })
+      .finally(() => {
+        // .finally dono conditions m chlta h h jb reponse reject history tb b or jb resolve hon tb b   
+        console.log(".then chain: finished (finally block)");
+      });
+  </script>
 </html>
