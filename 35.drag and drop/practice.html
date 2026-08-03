@@ -126,6 +126,9 @@
         cursor: pointer;
         background-color: blue;
       }
+      .nonactive {
+        display: none;
+      }
     </style>
   </head>
   <body
@@ -294,7 +297,7 @@
           </div>
           <!-- Task container placeholder -->
           <div
-            class="no-statusdiv"
+            class="drag-div"
             style="
               flex: 1;
               display: flex;
@@ -349,6 +352,7 @@
               style="
                 background-color: #d1fae5;
                 color: #065f46;
+
                 font-size: 0.75rem;
                 font-weight: 700;
                 padding: 0.125rem 0.5rem;
@@ -359,6 +363,7 @@
           </div>
           <!-- Task container placeholder -->
           <div
+            class="drag-div"
             style="
               flex: 1;
               display: flex;
@@ -425,6 +430,7 @@
           </div>
           <!-- Task container placeholder -->
           <div
+            class="drag-div"
             style="
               flex: 1;
               display: flex;
@@ -453,20 +459,55 @@
     let input = document.querySelector("input");
     let form = document.querySelector("form");
     ////nostatus
-    let nostatusDiv = document.querySelector(".no-statusdiv");
+    let dragDiv = document.querySelectorAll(".drag-div");
+
     let nostatusSpan = document.querySelector(".no-statusspan");
     form.addEventListener("submit", (e) => {
       e.preventDefault();
-      nostatusSpan.textContent = ++index;
+      if (input.value) {
+        nostatusSpan.textContent = ++index;
+      }
       let inpText = document.createElement("span");
-      inpText.draggable  = 'true'
+      inpText.draggable = "true";
       inpText.textContent = input.value;
-      nostatusDiv.appendChild(inpText);
+      inpText.classList.add("item");
+      dragDiv[0].append(inpText);
+      dragDiv[0].firstElementChild.classList.add("nonactive");
+
+      input.value = "";
       /////drag events
+      inpText.addEventListener("dragend", () => {
+        inpText.classList.remove("color");
+      });
       inpText.addEventListener("dragstart", () => {
         inpText.classList.add("color");
       });
     });
+
+    dragDiv.forEach((ele, idx) => {
+      console.log();
+
+      ele.addEventListener("dragover", () => {
+        ele.style.backgroundColor = "yellow";
+        dragDiv.forEach((elee, idxx) => {
+          if ((ele.style.backgroundColor = "yellow")) {
+            elee.style.backgroundColor = "";
+          }
+        });
+      });
+
+      ele.addEventListener("dragenter", (e) => {
+        console.log(e);
+
+        let allItems = document.querySelectorAll(".item");
+        allItems.forEach((item, idx) => {
+          if (item.classList.contains("color")) {
+            ele.appendChild(item);
+          }
+        });
+      });
+    });
+
     addBtn.addEventListener("click", () => {
       inpDiv.classList.add("active");
     });
