@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+        
+      /////// G
+      /////4
+      /////// G
+      ////end
+      /////hello
+      /////Finished
+      ///9
+      ///0
+      
+      const promise = new Promise((resolve, reject) => {
+        if (true) {
+          resolve("hello");
+        }
+      });
+
+      console.log("G");
+
+      setTimeout(() => {
+        console.log("9");
+      }, 0);
+
+      console.log("4");
+      promise.then((res) => {
+          console.log(res);
+        })
+        .finally(() => {
+          console.log("finished");
+        });
+      console.log("G");
+
+      setTimeout(() => {
+        console.log("0");
+      }, 0);
+
+      console.log("end");
+      ////normal code call stack osky execute set time out inter wo dafa hota h  call back queuetask queue
+    //   osky fetch api or jo micro task micro chapa osky batao tumahry pass kuch micro task ly bhai jo h ly call stack bhjny osko excute 
+    </script>
+  </body>
+</html>

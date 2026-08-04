@@ -1,14 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    
-</body>
-<script>
+  </head>
+  <body></body>
+  <script>
     /* ================================================================
    PART 1: WHAT fetch() ACTUALLY GIVES YOU
    ================================================================
@@ -24,53 +22,51 @@
    This is why every fetch call needs to "wait" twice.
 */
 
-// const promise = new Promise((resolve, reject) => {
-    
-// })
+    // const promise = new Promise((resolve, reject) => {
 
+    // })
 
-/* ================================================================
+    /* ================================================================
    PART 2: THE .then() / .catch() / .finally() WAY
    ================================================================ */
 
-console.log('--- PART 2: .then chain starting ---');
+    // console.log('--- PART 2: .then chain starting ---');
 
-fetch('https://jsonplaceholder.typicode.com/users/6')
-    .then((response) => {
-        // Stage 1 done: we have headers + status, NOT the data yet
-        console.log('Status code:', response.status);
+    // fetch('https://jsonplaceholder.typicode.com/users/6')
+    //     .then((response) => {
+    //         // Stage 1 done: we have headers + status, NOT the data yet
+    //         console.log('Status code:', response.status);
 
-        // fetch does NOT reject on 404/500 by itself!
-        // You must check response.ok manually.
-        if (!response.ok) {
-            throw new Error(`Request failed with status ${response.status}`);
-            // throwing here skips straight to .catch() below
-        }
+    //         // fetch does NOT reject on 404/500 by itself!
+    //         // You must check response.ok manually.
+    //         if (!response.ok) {
+    //             throw new Error(`Request failed with status ${response.status}`);
+    //             // throwing here skips straight to .catch() below
+    //         }
 
-        return response.json();
-        // Stage 2: unpacking the body — ALSO returns a promise.
-        // Returning it here means the NEXT .then() waits for it.
-    })
-    .then((data) => {
-        // NOW we finally have the actual data
-        console.log(data);
-        
-        console.log('User name:', data.name);
-        console.log('User email:', data.email);
-    })
-    .catch((error) => {
-        // catches a rejected fetch (network down, DNS fail, offline)
-        // AND the manual throw above (bad status code)
-        console.log('Something went wrong:', error.message);
-    })
-    .finally(() => {
-        // ALWAYS runs — success or failure, doesn't matter.
-        // Perfect place for "hide the loading spinner" type code.
-        console.log('.then chain: finished (finally block)');
-    });
+    //         return response.json();
+    //         // Stage 2: unpacking the body — ALSO returns a promise.
+    //         // Returning it here means the NEXT .then() waits for it.
+    //     })
+    //     .then((data) => {
+    //         // NOW we finally have the actual data
+    //         console.log(data);
 
+    //         console.log('User name:', data.name);
+    //         console.log('User email:', data.email);
+    //     })
+    //     .catch((error) => {
+    //         // catches a rejected fetch (network down, DNS fail, offline)
+    //         // AND the manual throw above (bad status code)
+    //         console.log('Something went wrong:', error.message);
+    //     })
+    //     .finally(() => {
+    //         // ALWAYS runs — success or failure, doesn't matter.
+    //         // Perfect place for "hide the loading spinner" type code.
+    //         console.log('.then chain: finished (finally block)');
+    //     });
 
-/* ----------------------------------------------------------------
+    /* ----------------------------------------------------------------
    WHAT EACH PIECE MEANS, ISOLATED:
    ----------------------------------------------------------------
    .then(onSuccess)          → runs if the promise resolves
@@ -86,8 +82,7 @@ fetch('https://jsonplaceholder.typicode.com/users/6')
    clean up regardless of outcome.
 */
 
-
-/* ================================================================
+    /* ================================================================
    PART 3: THE SAME REQUEST, WITH async/await
    ================================================================
    async/await is NOT a different tool. It's the SAME promise
@@ -101,44 +96,48 @@ fetch('https://jsonplaceholder.typicode.com/users/6')
      3. use try/catch instead of .catch() for errors
 */
 
-// async function getUser() {
-//     console.log('--- PART 3: async/await version starting ---');
-//     try {
-//         const response = await fetch('https://jsonplaceholder.typicode.com/users/1');
-//         // ^ pauses here until Stage 1 (headers/status) is done
+    async function getUser() {
+      console.log("--- PART 3: async/await version starting ---");
+      try {
+        // const response = await fetch("https://dummyjson.com/products", {
+        // const response = await fetch("https://dummyjson.com/product/1", {
+        const response = await fetch("https://icanhazdadjoke.com/ ", {
+          // headers: {
+          //   Accept: "application/json",
+          // },
+        });
+        // ^ pauses here until Stage 1 (headers/status) is done
 
-//         console.log('Status code:', response.status);
+        console.log("Status code:", response.status);
 
-//         if (!response.ok) {
-//             throw new Error(`Request failed with status ${response.status}`);
-//         }
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
 
-//         const data = await response.json();
-//         // ^ pauses AGAIN here until Stage 2 (body) is done —
-//         // this is why you await twice
+        const data = await response.json();
+        // ^ pauses AGAIN here until Stage 2 (body) is done —
+        // this is why you await twice
 
-//         console.log('User name:', data.name);
-//         console.log('User email:', data.email);
+        console.log(data);  
 
-//         return data; // async functions ALWAYS return a promise,
-//         // even though this line just says "return data"
-//     } catch (error) {
-//         // catches network failures AND the manual throw above —
-//         // does the exact same job .catch() did in Part 2
-//         console.log('Something went wrong:', error.message);
-//     } finally {
-//         // same job as .finally() in Part 2
-//         console.log('async/await: finished (finally block)');
-//     }
-// }
+        console.log("User name:", data.name);
+        console.log("User email:", data.email);
 
-// // getUser();
+        return data; // async functions ALWAYS return a promise,
+        // even though this line just says "return data"
+      } catch (error) {
+        // catches network failures AND the manual throw above —
+        // does the exact same job .catch() did in Part 2
+        console.log("Something went wrong:", error.message);
+      } finally {
+        // same job as .finally() in Part 2
+        console.log("async/await: finished (finally block)");
+      }
+    }
 
+    getUser();
 
-
-
-
-/* ================================================================
+    /* ================================================================
    QUICK REFERENCE — KEEP THIS NEARBY
    ================================================================
 
@@ -174,5 +173,5 @@ fetch('https://jsonplaceholder.typicode.com/users/6')
    but you'll almost always WRITE with async/await.
 ================================================================
 */
-</script>
+  </script>
 </html>
