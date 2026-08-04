@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Lists</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        min-height: 100vh;
+        padding: 40px;
+      }
+
+      body > h1 {
+        text-align: center;
+        color: #fff;
+        font-size: 3rem;
+        margin-bottom: 40px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      div {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+      }
+
+      div > div {
+        width: 340px;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 18px;
+        padding: 25px;
+        color: white;
+        transition: 0.4s ease;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+      }
+
+      div > div:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+        border-color: #38bdf8;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin-bottom: 12px;
+      }
+
+      div > div h1 {
+        color: #38bdf8;
+        font-size: 1.5rem;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 10px;
+        margin-bottom: 18px;
+      }
+
+      div > div h2 {
+        color: #facc15;
+        font-size: 1.1rem;
+      }
+
+      div > div h3 {
+        font-size: 0.95rem;
+        color: #e2e8f0;
+        line-height: 1.6;
+        font-weight: 400;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 20px;
+        }
+
+        body > h1 {
+          font-size: 2.2rem;
+        }
+
+        div > div {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Product Lists</h1>
+    <div></div>
+  </body>
+
+  <script>
+    let divTag = document.querySelector("div");
+    let dataArray = [];
+    async function getUser() {
+      try {
+        const response = await fetch("https://dummyjson.com/products");
+
+        console.log("Status code:", response.status);
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        dataArray.push(data);
+
+        render();
+
+        return data;
+      } catch (error) {
+        divTag.innerHTML = `"Something went wrong:", ${error.message}`;
+      } finally {
+        console.log("async/await: finished (finally block)");
+      }
+    }
+
+    getUser();
+    function render() {
+      dataArray[0].products.forEach((ele, idx) => {
+        console.log(ele);
+
+        divTag.innerHTML = ` <div>
+        <h1>Title:${ele.title}</h1>
+        <h2>id:${ele.id}</h2>
+        <h3>description:${ele.description}</h3>
+        <h3>Category:${ele.category}</h3>
+        <h3>Price:${ele.price}</h3>
+        <h3>Status:${ele.availabilityStatus}</h3>
+
+    </div>`;
+      });
+    }
+  </script>
+</html>
