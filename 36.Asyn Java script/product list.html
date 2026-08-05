@@ -16,67 +16,81 @@
       body {
         background: linear-gradient(135deg, #0f172a, #1e293b);
         min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         padding: 40px;
       }
 
-      body > h1 {
-        text-align: center;
-        color: #fff;
-        font-size: 3rem;
-        margin-bottom: 40px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-      }
-
-      div {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 30px;
-      }
-
-      div > div {
-        width: 340px;
+      .render-div {
+        width: 380px;
         background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(15px);
+        backdrop-filter: blur(20px);
         border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 18px;
-        padding: 25px;
-        color: white;
+        border-radius: 20px;
+        padding: 30px;
+        color: #fff;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
         transition: 0.4s ease;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
       }
 
-      div > div:hover {
-        transform: translateY(-10px) scale(1.03);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
-        border-color: #38bdf8;
+      .render-div:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
       }
 
-      h1,
-      h2,
-      h3 {
-        margin-bottom: 12px;
+      .render-div h1,
+      .render-div h2,
+      .render-div h3 {
+        margin: 16px 0;
+        font-weight: 500;
+        line-height: 1.5;
+        word-break: break-word;
       }
 
-      div > div h1 {
-        color: #38bdf8;
-        font-size: 1.5rem;
+      .render-div h1 {
+        font-size: 1.7rem;
+        color: #fff;
         border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-        padding-bottom: 10px;
-        margin-bottom: 18px;
+        padding-bottom: 12px;
       }
 
-      div > div h2 {
-        color: #facc15;
-        font-size: 1.1rem;
+      .render-div h2 {
+        font-size: 1.2rem;
       }
 
-      div > div h3 {
-        font-size: 0.95rem;
-        color: #e2e8f0;
-        line-height: 1.6;
-        font-weight: 400;
+      .render-div h3 {
+        font-size: 1rem;
+        color: #d1d5db;
+      }
+
+      .render-div span {
+        color: #38bdf8;
+        font-weight: 700;
+      }
+
+      button {
+        width: 100%;
+        margin-top: 25px;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #06b6d4, #2563eb);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        letter-spacing: 0.5px;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+      }
+
+      button:active {
+        transform: scale(0.98);
       }
 
       @media (max-width: 768px) {
@@ -92,19 +106,93 @@
           width: 100%;
         }
       }
+      .btn-group {
+        display: flex;
+        gap: 15px;
+        margin-top: 25px;
+      }
+
+      .back-btn,
+      .details-btn {
+        flex: 1;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      /* Back Button */
+      .back-btn {
+        background: transparent;
+        color: #fff;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+      }
+
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: #38bdf8;
+        color: #38bdf8;
+        transform: translateY(-3px);
+      }
+
+      /* See Details Button */
+      .details-btn {
+        background: linear-gradient(135deg, #06b6d4, #2563eb);
+        color: #fff;
+      }
+
+      .details-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 25px rgba(37, 99, 235, 0.45);
+      }
+
+      .back-btn:active,
+      .details-btn:active {
+        transform: scale(0.97);
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 30px;
+        padding: 40px;
+      }
+      .nonactive {
+        display: none;
+      }
+      .loading{
+        display: none;
+      }
+
+      .loading.active{
+        display: block;
+      }
     </style>
   </head>
-
   <body>
-    <h1>Product Lists</h1>
-    <div></div>
+    <div class="container"></div>
+    <div class="details"></div>
+    <div class="loading">
+      <h1>
+        loading ...
+      </h1>
+    </div>
   </body>
 
   <script>
-    let divTag = document.querySelector("div");
-    let dataArray = [];
+    let divTag = document.querySelector(".container");
+    let detailDiv = document.querySelector(".details");
+    let loadingDiv  = document.querySelector('.loading')
+
+    let singleProduct;
+    let data;
+
     async function getUser() {
       try {
+        loadingDiv.classList.add('active')
+
         const response = await fetch("https://dummyjson.com/products");
 
         console.log("Status code:", response.status);
@@ -113,8 +201,7 @@
           throw new Error(`Request failed with status ${response.status}`);
         }
 
-        const data = await response.json();
-        dataArray.push(data);
+        data = await response.json();
 
         render();
 
@@ -123,24 +210,80 @@
         divTag.innerHTML = `"Something went wrong:", ${error.message}`;
       } finally {
         console.log("async/await: finished (finally block)");
+        loadingDiv.classList.remove('active')
+
       }
     }
 
     getUser();
     function render() {
-      dataArray[0].products.forEach((ele, idx) => {
-        console.log(ele);
+      data.products.forEach((ele, idx) => {
+        divTag.innerHTML += ` <div class="render-div">
 
-        divTag.innerHTML = ` <div>
-        <h1>Title:${ele.title}</h1>
-        <h2>id:${ele.id}</h2>
-        <h3>description:${ele.description}</h3>
-        <h3>Category:${ele.category}</h3>
-        <h3>Price:${ele.price}</h3>
-        <h3>Status:${ele.availabilityStatus}</h3>
+              <h1><span>Title </span>: ${ele.title}</h1>
+              <h2><span>Id </span>: ${ele.id}</h2>
+              <h3><span>Description </span>: ${ele.description}</h3>
+              <h3><span>Category </span>: ${ele.category}</h3>
+              <h3><span>Price </span>: $ ${ele.price}</h3>
+              <h3><span>Status </span>: ${ele.availabilityStatus}</h3>
+              <button onclick="product(${ele.id})">See details</button>
 
-    </div>`;
+              </div>`;
       });
+    }
+    async function product(id) {
+      try {
+      divTag.classList.add("nonactive");
+      detailDiv.classList.remove("nonactive")
+        loadingDiv.classList.add('active')
+
+
+        let response = await fetch(`https://dummyjson.com/product/${id}`);
+
+        console.log("Status code:", response.status);
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        singleProduct = await response.json();
+        console.log(singleProduct);
+
+        
+        spRender();
+        return data;
+      } catch (error) {
+        divTag.innerHTML = `"Something went wrong:", ${error.message}`;
+      } finally {
+        console.log("abc");
+        loadingDiv.classList.remove('active')
+
+      }
+    }
+    function spRender() {
+      detailDiv.innerHTML = ` <div class="render-div">
+       <div class="btn-group">
+        <button onclick="Back()" class="back-btn">← Back</button>
+        </div>      
+        <h1><span>Title </span>: ${singleProduct.title}</h1>
+              <h2><span>Id </span>: ${singleProduct.id}</h2>
+              <h3><span>Description </span>: ${singleProduct.description}</h3>
+              <h3><span>Category </span>: ${singleProduct.category}</h3>
+              <h3><span>Price </span>: $ ${singleProduct.price}</h3>
+              <h3><span>Status </span>: ${singleProduct.availabilityStatus}</h3>
+              <h3><span>Brand </span>: ${singleProduct.brand}</h3>
+              <h3><span>Rating </span>: ${singleProduct.rating}</h3>
+              <h3><span>Width </span>: ${singleProduct.dimensions.width}</h3>
+              <h3><span>height </span>: ${singleProduct.dimensions.height}</h3>
+              <h3><span>depth </span>: ${singleProduct.dimensions.depth}</h3>
+              <h3><span>return policy </span>: ${singleProduct.returnPolicy}</h3>
+              <h3><span>Stock </span>: ${singleProduct.stock}</h3>
+
+              </div>`;
+    }
+    function Back() {
+      detailDiv.classList.add("nonactive");
+      divTag.classList.remove("nonactive");
     }
   </script>
 </html>

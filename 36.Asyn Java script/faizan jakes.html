@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Faizan given task</h1>
+    <h3>jokes</h3>
+    <p></p>
+  </body>
+  <script>
+    let data ;
+    let pTag = document.querySelector("p");
+    async function jokes() {
+      try {
+        let jokes = await fetch(
+          "https://official-joke-api.appspot.com/random_ten",
+        );
+        if (!jokes.ok) {
+          throw new Error(`Request failed with status ${jokes.status}`);
+        }
+        data = await jokes.json();
+      } catch (error) {
+        pTag.innerHTML = `something went wrong ${error}`;
+      } finally {x  
+        console.log(data);
+      }
+      data.forEach((ele) => {
+          pTag.innerHTML += ` <div>${ele.setup} ${ele.punchline}</div>`;
+      });
+    }
+    jokes();
+
+  </script>
+</html>
