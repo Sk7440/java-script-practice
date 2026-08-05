@@ -3,7 +3,250 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>weather api</title>
+    <title>Weather API</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(
+          135deg,
+          #0f172a,
+          #1e3a8a,
+          #2563eb,
+          #38bdf8
+        );
+        background-size: 400% 400%;
+        animation: bgMove 12s ease infinite;
+        overflow: hidden;
+      }
+
+      @keyframes bgMove {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      section {
+        width: 420px;
+        padding: 35px;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255,255,255,.25);
+        box-shadow: 0 25px 60px rgba(0,0,0,.35);
+        transition: .4s;
+      }
+
+      section:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 35px 70px rgba(0,0,0,.45);
+      }
+
+      #cities {
+        width: 100%;
+        padding: 16px;
+        border-radius: 15px;
+        border: none;
+        outline: none;
+        font-size: 17px;
+        font-weight: 600;
+        background: rgba(255,255,255,.18);
+        color: white;
+        cursor: pointer;
+        transition: .35s;
+      }
+
+      #cities option {
+        color: black;
+      }
+
+      #cities:hover {
+        background: rgba(255,255,255,.28);
+      }
+
+      .report {
+        margin-top: 30px;
+      }
+
+      .report div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        color: white;
+        animation: fade .6s ease;
+      }
+
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .report h1:first-child {
+        font-size: 30px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+
+      .report img {
+        width: 130px;
+        height: 130px;
+        filter: drop-shadow(0 0 20px rgba(255,255,255,.6));
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      .report h1:nth-of-type(2) {
+        font-size: 60px;
+        font-weight: 700;
+        background: linear-gradient(#fff,#dbeafe);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .report span {
+        display: inline-block;
+        padding: 12px 22px;
+        border-radius: 30px;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.25);
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      @media(max-width:480px){
+
+        section{
+          width:95%;
+          padding:25px;
+        }
+
+        .report h1:first-child{
+          font-size:24px;
+        }
+
+        .report h1:nth-of-type(2){
+          font-size:48px;
+        }
+
+        .report img{
+          width:100px;
+          height:100px;
+        }
+      }
+    </style>
   </head>
-  <body></body>
+
+  <body>
+    <section>
+      <div>
+        <select id="cities">
+          <option hidden value="">Select a City</option>
+        </select>
+      </div>
+
+      <div class="report"></div>
+    </section>
+  </body>
+
+  <script>
+    let cityWeather;
+    let city;
+    let select = document.querySelector("#cities");
+    let weatherReport = document.querySelector(".report");
+    let citiesData;
+
+    select.addEventListener("change", (e) => {
+      report(select.value);
+    });
+
+    async function weather() {
+      try {
+        let response = await fetch(
+          "https://gist.githubusercontent.com/immujahidkhan/014fb1629ddc931e6f6d4a3a4d31abaa/raw/8f5cc4f88b9dc4efc5058c5354b9f955e4bda16f/cities.json",
+        );
+
+        console.log(response.status);
+
+        citiesData = await response.json();
+
+        citiesData.forEach((ele) => {
+          select.innerHTML += `
+            <option value="${ele.name}">${ele.name}</option>
+          `;
+        });
+
+        console.log(select);
+      } catch (error) {} finally {
+      }
+    }
+
+    weather();
+
+    let img;
+
+    async function report(city) {
+      try {
+        let reportResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=f65e32faa80c40a876bd4112cd36e525`,
+        );
+
+        cityWeather = await reportResponse.json();
+
+        img = cityWeather.weather[0].icon;
+
+        weatherReport.innerHTML = `
+          <div>
+            <h1>Weather in ${cityWeather.name}</h1>
+
+            <img src="https://openweathermap.org/img/wn/${img}@2x.png" alt="">
+
+            <h1>${Number(cityWeather.main.temp - 273.15).toFixed(2)}°C</h1>
+
+            <span>Wind Speed: ${cityWeather.wind.speed} Km/h</span>
+          </div>
+        `;
+      } catch {} finally {
+      }
+    }
+  </script>
 </html>
