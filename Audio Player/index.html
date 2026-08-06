@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+  </head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial;
+    }
+
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .player {
+      width: 350px;
+      background: #222;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .progress-container {
+      height: 8px;
+      background: #555;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #00c6ff;
+      border-radius: 50px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    button {
+      padding: 12px 18px;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button:hover {
+      background: #00c6ff;
+      color: white;
+    }
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 15px;
+      text-align: left;
+    }
+    #pause {
+      display: none;
+    }
+    #pause.active {
+      display: flex;
+    }
+    .nonactive {
+      display: none;
+    }
+  </style>
+
+  <body>
+    <div class="player">
+      <img
+        id="cover"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1R6AEGwy2SeGyQTFzTU7puXwkOg_ZVhgdLK41au11Mg&s=10"
+      />
+
+      <h2 id="title">Song Title</h2>
+      <p id="artist">Artist Name</p>
+
+      <audio id="audio"></audio>
+
+      <div class="progress-container" id="progress-container">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <div class="time">
+        <span id="current">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+
+      <div class="controls">
+        <button id="prev">⏮</button>
+        <button id="play">▶</button>
+        <button id="pause">||</button>
+        <button id="next">⏭</button>
+      </div>
+
+      <h3>Playlist</h3>
+
+      <ul id="playlist"></ul>
+    </div>
+  </body>
+  <script>
+    let playBtn = document.querySelector("#play");
+    let pauseBtn = document.querySelector("#pause");
+    let nextBtn=document.querySelector("#next")
+    let prevBtn=document.querySelector("#prev")
+let count=0
+    let isPlaying = true;
+    let songsdata = [
+      {
+        title: "landan jafri remix",
+        artist: "main nai bataon ga",
+        src: "./Laddan jafri Funny remix main nahi bataunga song Laddan Jaffri Bol news interview DJ remix - News In Motion (128k).mp3",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyg-JenMgG0j5tfvVH59WC0gah6KwzbqqcLXFj_eU8Bg&s=10",
+      },
+      {
+        title: "famous meme",
+        artist: "moota kadoo",
+        src: "./German Meme song - Gut Genug (Good Enough) by KitschKrieg, Blumengarten, and Shirin David. #german - Rhythmic sphere (128k).mp3",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjKdyFz5BgyIwaEol3qVkdReYpOXWs6VNryqL1hxQ_Qg&s",
+      },
+      {
+        title: "bilawal remix",
+        artist: "bhuutoo",
+        src: "./Baarish aata hai to paani aata hai Funny remix Bilawal bhutto funny remix meme song - Mustafa Nadeem (128k).mp3",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0S86msUu0yxIJmKulbctao9ZBl87h9SALRtGKFDTo7A&s=10",
+      },
+      {
+        title: "pawari ho rai h",
+        artist: "pata nai",
+        src: "./Pawri Hori Hai Yashraj Mukhate Dialogue With Beats - Yashraj Mukhate (128k).mp3",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrpe3XxCaB1N-A2r_IINyMQfS5JtcKc_rs0-N8RX5Aow&s=10",
+      },
+      {
+        title: "gham m sowyn hain",
+        artist: "babar azam",
+        src: "./babar azam funny dance memes - ABii Gaming (128k).mp3",
+        image:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz2WnKQXKHrSp-EvVShcZjCDxANkkIRxG6lDYvZggqaA&s=10",
+      },
+    ];
+    playBtn.addEventListener("click", () => {
+      console.log(isPlaying);
+      if (isPlaying) {
+        playBtn.classList.add("nonactive");
+        pauseBtn.classList.add("active");
+      }
+    });
+    pauseBtn.addEventListener("click",()=>{
+
+    })
+  </script>
+</html>
