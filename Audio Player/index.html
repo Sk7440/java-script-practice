@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Music Player</title>
   </head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+    integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
   <style>
     * {
       margin: 0;
@@ -85,12 +92,13 @@
       margin-top: 15px;
       text-align: left;
     }
-    #pause {
+    .ri-pause-line {
       display: none;
     }
-    #pause.active {
+    .ri-pause-line.active {
       display: flex;
     }
+
     .nonactive {
       display: none;
     }
@@ -98,16 +106,7 @@
 
   <body>
     <div class="player">
-      <img
-        id="cover"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1R6AEGwy2SeGyQTFzTU7puXwkOg_ZVhgdLK41au11Mg&s=10"
-      />
-
-      <h2 id="title">Song Title</h2>
-      <p id="artist">Artist Name</p>
-
-      <audio id="audio"></audio>
-
+      <div class="intro"></div>
       <div class="progress-container" id="progress-container">
         <div class="progress" id="progress"></div>
       </div>
@@ -119,23 +118,24 @@
 
       <div class="controls">
         <button id="prev">⏮</button>
-        <button id="play">▶</button>
-        <button id="pause">||</button>
+        <button id="play">
+          <i class="ri-play-line"></i><i class="ri-pause-line"></i>
+        </button>
         <button id="next">⏭</button>
       </div>
-
-      <h3>Playlist</h3>
-
-      <ul id="playlist"></ul>
     </div>
   </body>
   <script>
     let playBtn = document.querySelector("#play");
-    let pauseBtn = document.querySelector("#pause");
-    let nextBtn=document.querySelector("#next")
-    let prevBtn=document.querySelector("#prev")
-let count=0
-    let isPlaying = true;
+    let playIcon = document.querySelector(".ri-play-line");
+    let pauseIcon = document.querySelector(".ri-pause-line");
+    let nextBtn = document.querySelector("#next");
+    let prevBtn = document.querySelector("#prev");
+    let intro = document.querySelector(".intro");
+    let currentTime = document.querySelector("#current");
+    let duration = document.querySelector("#duration");
+
+    let isPlaying = false;
     let songsdata = [
       {
         title: "landan jafri remix",
@@ -147,7 +147,7 @@ let count=0
       {
         title: "famous meme",
         artist: "moota kadoo",
-        src: "./German Meme song - Gut Genug (Good Enough) by KitschKrieg, Blumengarten, and Shirin David. #german - Rhythmic sphere (128k).mp3",
+        src: "./German Meme song.mp3",
         image:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjKdyFz5BgyIwaEol3qVkdReYpOXWs6VNryqL1hxQ_Qg&s",
       },
@@ -173,15 +173,82 @@ let count=0
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz2WnKQXKHrSp-EvVShcZjCDxANkkIRxG6lDYvZggqaA&s=10",
       },
     ];
+
+    let count = 0;
+    let audio = new Audio(`${songsdata[count].src}`);
+
+    bydefault(count);
     playBtn.addEventListener("click", () => {
-      console.log(isPlaying);
-      if (isPlaying) {
-        playBtn.classList.add("nonactive");
-        pauseBtn.classList.add("active");
+      if (isPlaying == false) {
+        isPlaying = true;
+        truecondition();
+    } else {
+        isPlaying = false;
+        falsecondition();
       }
     });
-    pauseBtn.addEventListener("click",()=>{
+    function bydefault(count) {
+      intro.innerHTML += `<img
+        id="cover"
+        src=${songsdata[count].image}
+        />
+        
+        <h2 id="title">${songsdata[count].title}</h2>
+        <p id="artist">${songsdata[count].artist}</p>`;
+      currentTime.innerHTML = `${audio.currentTime}`;
+      duration.innerHTML = `${audio.duration}`;
+    }
+    nextBtn.addEventListener("click", () => {
+      if (count == 4) {
+        count = -1;
+      }
+      count++;
+      intro.innerHTML = `<img
+            id="cover"
+            src=${songsdata[count].image}
+            />
+            
+            
+            <h2 id="title">${songsdata[count].title}</h2>
+            <p id="artist">${songsdata[count].artist}</p>
+            `;
+      audio.src = songsdata[count].src;
+      truecondition();
+    });
+    prevBtn.addEventListener("click", () => {
+      console.log(count);
+      if (count <= 0) {
+        count = 5;
+      }
 
-    })
+      count--;
+      intro.innerHTML = `<img
+    id="cover"
+    src=${songsdata[count].image}
+    />
+    
+    <h2 id="title">${songsdata[count].title}</h2>
+    <p id="artist">${songsdata[count].artist}</p>
+    
+    `;
+      audio.src = songsdata[count].src;
+
+      truecondition();
+    });
+    function truecondition() {
+      playIcon.classList.add("nonactive");
+      pauseIcon.classList.add("active");
+      audio.play();
+      currentTime.innerHTML = `${audio.currentTime}`;
+      duration.innerHTML = `${audio.duration}`;
+    }
+    function falsecondition() {
+      playIcon.classList.remove("nonactive");
+      pauseIcon.classList.remove("active");
+      audio.pause();
+      currentTime.innerHTML = `${audio.currentTime}`;
+      duration.innerHTML = `${audio.duration}`;
+    }
+   
   </script>
 </html>
