@@ -107,9 +107,8 @@
   <body>
     <div class="player">
       <div class="intro"></div>
-      <div class="progress-container" id="progress-container">
-        <div class="progress" id="progress"></div>
-      </div>
+      <audio id="audio"></audio>
+      <input type="range" id="progress" min="0" max="100" value="0" />
 
       <div class="time">
         <span id="current">0:00</span>
@@ -134,7 +133,7 @@
     let intro = document.querySelector(".intro");
     let currentTime = document.querySelector("#current");
     let duration = document.querySelector("#duration");
-
+    let progress = document.querySelector("#progress");
     let isPlaying = false;
     let songsdata = [
       {
@@ -173,16 +172,38 @@
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz2WnKQXKHrSp-EvVShcZjCDxANkkIRxG6lDYvZggqaA&s=10",
       },
     ];
-
     let count = 0;
     let audio = new Audio(`${songsdata[count].src}`);
+    let inpRange = document.querySelector("input");
 
-    bydefault(count);
+    audio.addEventListener("timeupdate", () => {
+      progress.value = (audio.currentTime / audio.duration) * 100;
+      let totalSeconds = Math.floor(audio.currentTime);
+
+      let minutes = Math.floor(totalSeconds / 60);
+      let seconds = totalSeconds % 60;
+
+      currentTime.innerHTML = `
+    <span id="currenttimeIndex">${minutes}:</span>${seconds}
+  `;
+
+      let durationMinutes = Math.floor(audio.duration / 60);
+      let durationSeconds = Math.floor(audio.duration % 60);
+
+      duration.innerHTML = `${durationMinutes}:${durationSeconds}`;
+      progress.addEventListener("input", () => {
+        audio.currentTime = (progress.value / 100) * audio.duration;
+      });
+    });
+
+    setTimeout(() => {
+      bydefault(count);
+    }, 1000);
     playBtn.addEventListener("click", () => {
       if (isPlaying == false) {
         isPlaying = true;
         truecondition();
-    } else {
+      } else {
         isPlaying = false;
         falsecondition();
       }
@@ -195,8 +216,9 @@
         
         <h2 id="title">${songsdata[count].title}</h2>
         <p id="artist">${songsdata[count].artist}</p>`;
-      currentTime.innerHTML = `${audio.currentTime}`;
-      duration.innerHTML = `${audio.duration}`;
+      currentTime.textContent = audio.currentTime.toFixed(2);
+      duration.textContent = (audio.duration / 60).toFixed(2);
+      // console.log(audio.);
     }
     nextBtn.addEventListener("click", () => {
       if (count == 4) {
@@ -239,16 +261,11 @@
       playIcon.classList.add("nonactive");
       pauseIcon.classList.add("active");
       audio.play();
-      currentTime.innerHTML = `${audio.currentTime}`;
-      duration.innerHTML = `${audio.duration}`;
     }
     function falsecondition() {
       playIcon.classList.remove("nonactive");
       pauseIcon.classList.remove("active");
       audio.pause();
-      currentTime.innerHTML = `${audio.currentTime}`;
-      duration.innerHTML = `${audio.duration}`;
     }
-   
   </script>
 </html>
