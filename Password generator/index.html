@@ -286,44 +286,57 @@
     let upperCase = document.querySelector("#uppercase");
     let lowerCase = document.querySelector("#lowercase");
     let number = document.querySelector("#numbers");
-    let SpecialChracter = document.querySelector("#specialchracter");
+    let specialChracter = document.querySelector("#specialchracter");
     let generateBtn = document.querySelector("#generate");
     generateBtn.addEventListener("click", () => {
-      let character = "";
+      let lowerCharacter = "";
+      let upperCharacter = "";
+      let numberCharacter = "";
+      let specialCharacter = "";
       ////lower case
       if (lowerCase.checked) {
         for (let i = 97; i <= 122; i++) {
-          character += String.fromCharCode(i);
+          lowerCharacter += String.fromCharCode(i);
         }
       }
       //   upperCase
       if (upperCase.checked) {
         for (let i = 65; i < 90; i++) {
-          character += String.fromCharCode(i);
+          upperCharacter += String.fromCharCode(i);
         }
       }
       /////numbers
       if (number.checked) {
-        for ( let i = 48; i < 57; i++) {
-          character += String.fromCharCode(i);
+        for (let i = 48; i < 57; i++) {
+          numberCharacter += String.fromCharCode(i);
         }
       }
       /////Special chracter
-      if (SpecialChracter.checked) {
+      if (specialChracter.checked) {
         for (let i = 33; i < 38; i++) {
-          character += String.fromCharCode(i);
+          specialCharacter += String.fromCharCode(i);
         }
       }
-      if (character === "") {
+      if (
+        lowerCharacter === "" &&
+        upperCharacter === "" &&
+        numberCharacter === "" &&
+        specialCharacter === ""
+      ) {
         password.value = "Select an option";
         return;
-        console.log(password.value);
       }
       let generatedpassword = "";
       for (let i = 0; i < Number(length.value); i++) {
-        
-        let randomIndex = Math.floor(Math.random() * character.length);
-        generatedpassword += character[randomIndex];
+        let urandomIndex = Math.floor(Math.random() * upperCharacter.length);
+        let lrandomIndex = Math.floor(Math.random() * lowerCharacter.length);
+        let nrandomIndex = Math.floor(Math.random() * numberCharacter.length);
+        let srandomIndex = Math.floor(Math.random() * specialCharacter.length);
+        generatedpassword =
+          upperCharacter[urandomIndex] +
+          lowerCharacter[lrandomIndex] +
+          numberCharacter[nrandomIndex] +
+          specialCharacter[srandomIndex];
       }
       password.value = generatedpassword;
     });

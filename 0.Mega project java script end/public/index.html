@@ -1,0 +1,957 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Expenses Tracker</title>
+
+    <!-- =========================================
+         STYLES
+    ========================================== -->
+
+    <style>
+      /* =========================================
+         RESET
+      ========================================== */
+
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      /* =========================================
+         BODY
+      ========================================== */
+
+      body {
+        color: #bbbaa6;
+        background-color: #0e100f;
+        font-family: sans-serif;
+        font-weight: 400;
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.45;
+        overflow-x: hidden;
+      }
+
+      /* =========================================
+         NAVBAR
+      ========================================== */
+
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2000;
+
+        padding: 1.2rem 2rem;
+
+        background: rgba(14, 16, 15, 0.85);
+        backdrop-filter: blur(10px);
+
+        border-bottom: 1px solid rgba(187, 186, 166, 0.1);
+
+        display: flex;
+        align-items: center;
+      }
+
+      .docs-demo-html {
+        display: flex;
+        align-items: center;
+      }
+
+      /* =========================================
+         MOUSE FOLLOWER
+      ========================================== */
+
+      .circle {
+        width: 75px;
+        height: 75px;
+
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        text-align: center;
+
+        background-color: #0ae448;
+
+        font-weight: 600;
+        color: #0e100f;
+
+        line-height: 1.2;
+
+        will-change: transform;
+
+        position: fixed;
+
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 1000;
+
+        pointer-events: none;
+      }
+
+      /* =========================================
+         CENTER
+      ========================================== */
+
+      .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      /* =========================================
+         MAIN SECTION
+      ========================================== */
+
+      .main-section {
+        width: 100vw;
+        height: 100vh;
+
+        position: relative;
+
+        overflow: hidden;
+
+        background-color: #0e100f;
+
+        perspective: 1000px;
+      }
+
+      /* =========================================
+         SLIDES
+      ========================================== */
+
+      .slide {
+        width: 100%;
+        height: 100vh;
+
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 2rem;
+
+        color: #0e100f;
+
+        backface-visibility: hidden;
+        transform-style: preserve-3d;
+      }
+
+      /* =========================================
+         GRADIENTS
+      ========================================== */
+
+      .gradient-green {
+        background: linear-gradient(114.41deg, #0ae448 20.74%, #2e551b 65.5%);
+      }
+
+      .gradient-purple {
+        background: linear-gradient(153.58deg, #a267a3 32.25%, #2f3cc0 92.68%);
+      }
+
+      .gradient-blue {
+        background: linear-gradient(144.02deg, #00bae2 4.56%, #fec5fb 72.98%);
+      }
+
+      .gradient-orange {
+        background: linear-gradient(111.45deg, #ff8709 19.42%, #f7bdf8 73.08%);
+      }
+
+      .gradient-blue-dark {
+        background: linear-gradient(131.77deg, #0a157a 30.82%, #15bfe4 81.82%);
+
+        color: #fff;
+      }
+
+      .gradient-red {
+        background: linear-gradient(165.72deg, #f7bdf8 21.15%, #cd237f 81.93%);
+      }
+
+      /* =========================================
+         NAV TITLE
+      ========================================== */
+
+      .text-xl {
+        font-size: 1.5rem;
+
+        color: #0ae448;
+
+        letter-spacing: 0.06em;
+
+        font-weight: bold;
+
+        display: inline-block;
+      }
+
+      /* =========================================
+         BUTTON
+      ========================================== */
+
+      .action-btn {
+        padding: 0.8rem 2rem;
+
+        font-size: 1rem;
+
+        font-weight: 600;
+
+        color: #0e100f;
+
+        background-color: #ffffff;
+
+        border: none;
+
+        border-radius: 99px;
+
+        cursor: pointer;
+
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+
+        transition:
+          transform 0.2s ease,
+          background-color 0.2s ease;
+      }
+
+      .action-btn:hover {
+        background-color: #0e100f;
+
+        color: #0ae448;
+
+        transform: translateY(-2px);
+      }
+
+      /* =========================================
+         CONTENT CONTAINER
+      ========================================== */
+
+      .container {
+        position: relative;
+
+        width: min(90vw, 1100px);
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: space-evenly;
+
+        border-radius: 9px;
+      }
+
+      /* =========================================
+         DESCRIPTION
+      ========================================== */
+
+      .text {
+        color: #dfdcff;
+
+        font-size: clamp(1rem, 2.5vw, 2rem);
+
+        line-height: 1.2;
+
+        box-sizing: border-box;
+
+        padding: 5%;
+
+        width: 100%;
+
+        text-align: center;
+
+        /*
+          Important for SplitText.
+          The characters are animated individually.
+        */
+        overflow: hidden;
+      }
+
+      /* =========================================
+         SPLITTEXT CHARACTERS
+      ========================================== */
+
+      .text .char {
+        display: inline-block;
+
+        will-change: transform, opacity;
+
+        /*
+          Prevents transformed characters from
+          visually affecting surrounding text.
+        */
+        backface-visibility: hidden;
+      }
+
+      /* =========================================
+         SPLITTEXT WORDS
+      ========================================== */
+
+      .text .word {
+        display: inline-block;
+      }
+
+      /* =========================================
+         SPLITTEXT LINES
+      ========================================== */
+
+      .text .line {
+        display: block;
+      }
+
+      /* =========================================
+         BUTTON CONTAINER
+      ========================================== */
+
+      .btn-container {
+        position: absolute;
+        bottom: 30px;
+        z-index: 10;
+      }
+
+      /* =========================================
+         MOBILE
+      ========================================== */
+
+      @media (max-width: 768px) {
+        nav {
+          padding: 1rem 1.25rem;
+        }
+
+        .text-xl {
+          font-size: 1.25rem;
+        }
+
+        .circle {
+          width: 55px;
+          height: 55px;
+        }
+
+        .text {
+          font-size: clamp(1rem, 5vw, 1.5rem);
+          padding: 8%;
+        }
+
+        .action-btn {
+          padding: 0.7rem 1.5rem;
+        }
+      }
+
+      /* =========================================
+         REDUCED MOTION
+      ========================================== */
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+        }
+      }
+      .hover-text {
+        font-size: 56px;
+        line-height: 1.25;
+        max-width: 60vw;
+      }
+
+      .hover-text .word {
+        display: inline-block;
+        position: relative;
+      }
+
+      .hover-text .word .char {
+        transition: transform 0.33s ease-in-out;
+      }
+
+      .hover-text .word .before {
+        display: inline-block;
+        position: relative;
+      }
+
+      .hover-text .word .before .char {
+        transform: translateY(0);
+      }
+
+      .hover-text .word .after {
+        display: inline-block;
+        position: absolute;
+        top: 40;
+        left: 0;
+      }
+
+      .hover-text .word .after .char {
+        transform: translateY(-100%);
+      }
+
+      .hover-text .word .after .char:nth-child(even) {
+        transform: translateY(100%);
+      }
+
+      .hover-text .word:hover .before .char {
+        transform: translateY(100%);
+      }
+
+      .hover-text .word:hover .before .char:nth-child(even) {
+        transform: translateY(-100%);
+      }
+
+      .hover-text .word:hover .after .char {
+        transform: translateY(0);
+      }
+      .sr-only:not(:focus):not(:active) {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        height: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+      .contain {
+        position: relative;
+        width: 90vw;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 9px;
+        opacity: 0;
+      }
+
+      .animate-me {
+        color: #dfdcff;
+        font-size: 25px;
+        box-sizing: border-box;
+        padding: 5%;
+        width: 100%;
+        text-align: left;
+        perspective: 500px;
+      }
+
+      a {
+        color: var(--color-orangey);
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- =========================================
+         NAVBAR
+    ========================================== -->
+
+    <nav>
+      <div class="docs-demo-html">
+        <h2 class="text-xl">SPENDLY</h2>
+      </div>
+    </nav>
+
+    <!-- =========================================
+         MOUSE FOLLOWER
+    ========================================== -->
+
+    <div class="circle"></div>
+
+    <!-- =========================================
+         MAIN SECTION
+    ========================================== -->
+
+    <section class="main-section">
+      <div class="slide center gradient-green">
+        <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
+          <style>
+            .small {
+              font: italic 10px sans-serif;
+            }
+            .heavy {
+              font: bold 32px sans-serif;
+            }
+
+            .Rrrrr {
+              font: italic 40px serif;
+              fill: red;
+            }
+          </style>
+
+          <text x="20" y="50" class="small">Your</text>
+          <text x="40" y="50" class="heavy">Personal</text>
+          <text x="55" y="65" class="small">Finance</text>
+          <text x="90" y="78" class="Rrrrr">Sidekick!</text>
+        </svg>
+
+        <div class="container">
+          <!-- =====================================
+               DESCRIPTION
+          ====================================== -->
+
+          <div class="text">
+            Take control of your hard-earned money without the headache. Spendly
+            is designed to make budgeting effortless, intuitive, and actually
+            enjoyable. Whether you are saving for a dream vacation or just
+            trying to keep track of your daily coffee runs, we have got you
+            covered.
+          </div>
+        </div>
+
+        <!-- =====================================
+             BUTTON
+        ====================================== -->
+
+        <div class="btn-container">
+          <button class="action-btn">Get Started →</button>
+        </div>
+      </div>
+
+      <!-- =======================================
+           SLIDE 2
+      ======================================== -->
+
+      <div class="slide center gradient-purple">
+        <h1 class="hover-text">Why Manage Your Money with Spendly?</h1>
+        <div class="contain">
+          <div class="animate-me" aria-hidden="true">
+            Financial freedom starts with clarity.<a href="https://testlink.com"
+              >Spendly</a
+            >
+            cuts through the clutter of traditional spreadsheets and complex
+            banking apps. Get a bird’s-eye view of your cash flow, eliminate
+            unnecessary subscriptions, and watch your savings grow with
+            real-time insights tailored just for you.
+          </div>
+          <p class="sr-only">
+            From custom expense categories and visual spending charts to secure
+            data encryption and monthly financial reports,
+            <a href="https://testlink.com">Spendly</a> packs a punch. Every tool
+            you need to master your personal finances is right here in one
+            sleek, lightning-fast dashboard.
+          </p>
+        </div>
+        <div class="btn-container">
+          <button class="action-btn">Explore Features →</button>
+        </div>
+      </div>
+
+     
+    </section>
+
+    <!-- =========================================
+         GSAP
+    ========================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+
+    <!-- =========================================
+         ANIME.JS
+    ========================================== -->
+
+    <script type="module">
+      import { animate, stagger, splitText } from "https://esm.sh/animejs";
+
+      /* =========================================
+         ANIME.JS INITIALIZATION
+      ========================================== */
+
+      try {
+        const navTitle = document.querySelector(".text-xl");
+
+        if (navTitle) {
+          const { chars } = splitText(navTitle, {
+            words: false,
+            chars: true,
+          });
+
+          animate(chars, {
+            y: [
+              {
+                to: "-1rem",
+                ease: "outExpo",
+                duration: 600,
+              },
+
+              {
+                to: 0,
+                ease: "outBounce",
+                duration: 800,
+                delay: 100,
+              },
+            ],
+
+            rotate: {
+              from: "-0.2turn",
+              delay: 0,
+            },
+
+            delay: stagger(50),
+
+            ease: "inOutCirc",
+
+            loopDelay: 1000,
+
+            loop: true,
+          });
+        }
+      } catch (error) {
+        console.error("Anime.js initialization error:", error);
+      }
+    </script>
+
+    <!-- =========================================
+         GSAP MAIN SCRIPT
+    ========================================== -->
+
+    <script>
+      /* =========================================
+         REGISTER GSAP PLUGINS
+      ========================================== */
+
+      gsap.registerPlugin(ScrollTrigger, SplitText);
+
+      /* =========================================
+         DOM READY
+      ========================================== */
+
+      document.addEventListener("DOMContentLoaded", () => {
+        /* =======================================
+             MOUSE FOLLOWER
+          ======================================== */
+
+        const circleEl = document.querySelector(".circle");
+
+        if (circleEl) {
+          window.addEventListener("mousemove", (event) => {
+            const xPos = (event.clientX - window.innerWidth / 2) * 0.4;
+
+            const yPos = (event.clientY - window.innerHeight / 2) * 0.4;
+
+            /* ---------------------------------
+                   RED COLOR
+                --------------------------------- */
+
+            const redVal = Math.round(
+              gsap.utils.mapRange(
+                -window.innerWidth / 2,
+                window.innerWidth / 2,
+                0,
+                164,
+                xPos,
+              ),
+            );
+
+            /* ---------------------------------
+                   BLUE COLOR
+                --------------------------------- */
+
+            const blueVal = Math.round(
+              gsap.utils.mapRange(
+                -window.innerWidth / 2,
+                window.innerWidth / 2,
+                79,
+                255,
+                xPos,
+              ),
+            );
+
+            /* ---------------------------------
+                   MOVE CIRCLE
+                --------------------------------- */
+
+            gsap.to(circleEl, {
+              x: xPos,
+
+              y: yPos,
+
+              backgroundColor: `rgb(${redVal}, 255, ${blueVal})`,
+
+              duration: 0.4,
+
+              ease: "power2.out",
+            });
+          });
+        }
+
+        /* =======================================
+             GET ALL SLIDES
+          ======================================== */
+
+        const slides = gsap.utils.toArray(".slide");
+
+        if (!slides.length) {
+          console.warn("No slides found.");
+          return;
+        }
+
+        /* =======================================
+             INITIAL SLIDE POSITION
+          ======================================== */
+
+        gsap.set(slides, {
+          rotationX: (index) => (index ? -90 : 0),
+
+          transformOrigin: "center center -150px",
+        });
+
+        /* =======================================
+             MAIN SCROLL TIMELINE
+          ======================================== */
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: ".main-section",
+
+            start: "top top",
+
+            end: "+=4000",
+
+            pin: true,
+
+            scrub: 1,
+
+            markers: false,
+          },
+        });
+
+        /* =======================================
+             SLIDE ANIMATION
+          ======================================== */
+
+        slides.forEach((slide, index) => {
+          const nextSlide = slides[index + 1];
+
+          if (!nextSlide) {
+            return;
+          }
+
+          tl.to(slide, {
+            rotationX: 90,
+
+            ease: "power1.inOut",
+          });
+
+          tl.to(
+            nextSlide,
+            {
+              rotationX: 0,
+
+              ease: "power1.inOut",
+            },
+            "<",
+          );
+        });
+
+        /* =======================================
+             SPLITTEXT
+          ======================================== */
+
+        const textElement = document.querySelector(".text");
+
+        if (!textElement) {
+          console.warn("SplitText target .text was not found.");
+        } else {
+          /* -------------------------------------
+               CREATE SPLITTEXT
+            ------------------------------------- */
+
+          const split = new SplitText(textElement, {
+            type: "chars,words,lines",
+
+            charsClass: "char",
+
+            wordsClass: "word",
+
+            linesClass: "line",
+          });
+
+          /* -------------------------------------
+               CHECK CHARACTERS
+            ------------------------------------- */
+
+          if (!split.chars || !split.chars.length) {
+            console.warn("SplitText did not create characters.");
+          } else {
+            /* -----------------------------------
+                 INITIAL CHARACTER STATE
+              ----------------------------------- */
+
+            gsap.set(split.chars, {
+              yPercent: () => gsap.utils.random(-100, 100),
+
+              rotation: () => gsap.utils.random(-30, 30),
+
+              autoAlpha: 0,
+            });
+
+            /* -----------------------------------
+                 CHARACTER ANIMATION
+              ----------------------------------- */
+
+            gsap.to(split.chars, {
+              yPercent: 0,
+
+              rotation: 0,
+
+              autoAlpha: 1,
+
+              duration: 0.3,
+
+              ease: "back.out(1.7)",
+
+              stagger: {
+                each: 0.025,
+
+                from: "random",
+              },
+            });
+          }
+        }
+
+        /* =======================================
+             BUTTON ANIMATION
+          ======================================== */
+
+        const button = document.querySelector(".action-btn");
+
+        if (button) {
+          gsap.from(button, {
+            opacity: 0,
+
+            y: 25,
+
+            scale: 0.9,
+
+            duration: 0.8,
+
+            delay: 1.2,
+
+            ease: "back.out(1.7)",
+          });
+
+          /* -------------------------------------
+               BUTTON HOVER IN
+            ------------------------------------- */
+
+          button.addEventListener("mouseenter", () => {
+            gsap.to(button, {
+              scale: 1.05,
+
+              duration: 0.25,
+
+              ease: "power2.out",
+            });
+          });
+
+          /* -------------------------------------
+               BUTTON HOVER OUT
+            ------------------------------------- */
+
+          button.addEventListener("mouseleave", () => {
+            gsap.to(button, {
+              scale: 1,
+
+              duration: 0.25,
+
+              ease: "power2.out",
+            });
+          });
+        }
+
+        /* =======================================
+             REFRESH SCROLLTRIGGER
+          ======================================== */
+
+        ScrollTrigger.refresh();
+      });
+
+      /* =========================================
+         HANDLE RESIZE
+      ========================================== */
+
+      let resizeTimer;
+
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+
+        resizeTimer = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 250);
+      });
+      let words = gsap.utils.toArray("svg text"),
+        tl = gsap.timeline({
+          repeat:-1, 
+          delay: 0.5 }),
+        timePerCharacter = 0.2;
+
+      words.forEach((el) => {
+        tl.from(el, {
+          text: "",
+          duration: el.innerHTML.length * timePerCharacter,
+          ease: "none",
+        });
+      });
+      const text = document.querySelector(".hover-text");
+
+      const Split = SplitText.create(text, {
+        splitBy: "chars,words",
+        wordsClass: "word",
+        charsClass: "char",
+        mask: "words",
+        autoSplit: true,
+        onSplit: (self) => {
+          self.words.forEach((word) => {
+            // Get all the characters
+            const content = word.innerHTML;
+            word.innerHTML = "";
+            // Add the original characters back in
+            const chars = document.createElement("div");
+            chars.classList.add("before");
+            chars.innerHTML = content;
+            // Duplicate the characters with aria-hidden, so that screen-readers don't read duplicate content
+            const dupe = document.createElement("div");
+            dupe.classList.add("after");
+            dupe.innerHTML = content;
+
+            word.append(chars, dupe);
+          });
+        },
+      });
+      gsap.registerPlugin(SplitText);
+
+      document.fonts.ready.then(() => {
+        gsap.set(".contain", { opacity: 1 });
+        let split = SplitText.create(".animate-me", {
+          type: "words",
+          aria: "hidden",
+        });
+
+        gsap.from(split.words, {
+          repeat:2,
+          opacity: 0,
+          duration: 2,
+          ease: "sine.out",
+          stagger: 0.1,
+        });
+      });
+    </script>
+  </body>
+</html>

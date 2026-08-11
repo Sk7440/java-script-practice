@@ -1,0 +1,11 @@
+:root{
+    --bg: lightgray,
+    --text: black,
+}
+
+
+button{
+    background-color: var(--bg);
+    color: var(--text);
+}
+

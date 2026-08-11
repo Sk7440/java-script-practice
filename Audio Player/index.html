@@ -102,6 +102,9 @@
     .nonactive {
       display: none;
     }
+    input {
+      width: 100%;
+    }
   </style>
 
   <body>
@@ -194,6 +197,7 @@
       progress.addEventListener("input", () => {
         audio.currentTime = (progress.value / 100) * audio.duration;
       });
+      replay();
     });
 
     setTimeout(() => {
@@ -266,6 +270,11 @@
       playIcon.classList.remove("nonactive");
       pauseIcon.classList.remove("active");
       audio.pause();
+    }
+    function replay() {
+      if (audio.currentTime == audio.duration) {
+        audio.play();
+      }
     }
   </script>
 </html>
