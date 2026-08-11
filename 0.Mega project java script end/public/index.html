@@ -28,13 +28,17 @@
       ========================================== */
 
       body {
-        color: #bbbaa6;
-        background-color: #0e100f;
-        font-family: sans-serif;
+        color: #e2e8f0;
+        background-color: #07090e;
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          sans-serif;
         font-weight: 400;
         margin: 0;
         font-size: 16px;
-        line-height: 1.45;
+        line-height: 1.5;
         overflow-x: hidden;
       }
 
@@ -48,21 +52,21 @@
         left: 0;
         width: 100%;
         z-index: 2000;
-
-        padding: 1.2rem 2rem;
-
-        background: rgba(14, 16, 15, 0.85);
-        backdrop-filter: blur(10px);
-
-        border-bottom: 1px solid rgba(187, 186, 166, 0.1);
-
+        padding: 1.2rem 2.5rem;
+        background: rgba(7, 9, 14, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         display: flex;
         align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
       }
 
       .docs-demo-html {
         display: flex;
         align-items: center;
+        margin-right: auto;
       }
 
       /* =========================================
@@ -70,35 +74,24 @@
       ========================================== */
 
       .circle {
-        width: 75px;
-        height: 75px;
-
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         text-align: center;
-
-        background-color: #0ae448;
-
+        background: radial-gradient(circle, #22c55e 0%, #10b981 100%);
+        box-shadow: 0 0 25px rgba(34, 197, 94, 0.4);
         font-weight: 600;
-        color: #0e100f;
-
+        color: #07090e;
         line-height: 1.2;
-
         will-change: transform;
-
         position: fixed;
-
         top: 50%;
         left: 50%;
-
         transform: translate(-50%, -50%);
-
         z-index: 1000;
-
         pointer-events: none;
       }
 
@@ -120,13 +113,9 @@
       .main-section {
         width: 100vw;
         height: 100vh;
-
         position: relative;
-
         overflow: hidden;
-
-        background-color: #0e100f;
-
+        background-color: #07090e;
         perspective: 1000px;
       }
 
@@ -137,52 +126,63 @@
       .slide {
         width: 100%;
         height: 100vh;
-
         position: absolute;
-
         top: 0;
         left: 0;
-
         display: flex;
         align-items: center;
         justify-content: center;
-
         font-size: 2rem;
-
-        color: #0e100f;
-
+        color: #ffffff;
         backface-visibility: hidden;
         transform-style: preserve-3d;
       }
 
       /* =========================================
-         GRADIENTS
+         GRADIENTS (High Contrast & Rich FinTech Theme)
       ========================================== */
 
       .gradient-green {
-        background: linear-gradient(114.41deg, #0ae448 20.74%, #2e551b 65.5%);
+        background: radial-gradient(
+          circle at 20% 30%,
+          #064e3b 0%,
+          #022c22 50%,
+          #07090e 100%
+        );
       }
 
       .gradient-purple {
-        background: linear-gradient(153.58deg, #a267a3 32.25%, #2f3cc0 92.68%);
+        background: radial-gradient(
+          circle at 80% 70%,
+          #3b0764 0%,
+          #1e1b4b 50%,
+          #07090e 100%
+        );
       }
 
       .gradient-blue {
-        background: linear-gradient(144.02deg, #00bae2 4.56%, #fec5fb 72.98%);
+        background: radial-gradient(
+          circle at 50% 50%,
+          #0f172a 0%,
+          #0284c7 100%
+        );
       }
 
       .gradient-orange {
-        background: linear-gradient(111.45deg, #ff8709 19.42%, #f7bdf8 73.08%);
+        background: radial-gradient(
+          circle at 50% 50%,
+          #7c2d12 0%,
+          #431407 100%
+        );
       }
 
       .gradient-blue-dark {
-        background: linear-gradient(131.77deg, #0a157a 30.82%, #15bfe4 81.82%);
-
+        background: linear-gradient(135deg, #090d16 0%, #0f172a 100%);
         color: #fff;
       }
 
       .gradient-red {
-        background: linear-gradient(165.72deg, #f7bdf8 21.15%, #cd237f 81.93%);
+        background: linear-gradient(165deg, #4c0519 0%, #881337 100%);
       }
 
       /* =========================================
@@ -191,13 +191,10 @@
 
       .text-xl {
         font-size: 1.5rem;
-
-        color: #0ae448;
-
-        letter-spacing: 0.06em;
-
-        font-weight: bold;
-
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+        letter-spacing: 0.08em;
+        font-weight: 800;
         display: inline-block;
       }
 
@@ -206,35 +203,25 @@
       ========================================== */
 
       .action-btn {
-        padding: 0.8rem 2rem;
-
+        padding: 0.9rem 2.2rem;
         font-size: 1rem;
-
         font-weight: 600;
-
-        color: #0e100f;
-
-        background-color: #ffffff;
-
+        color: #07090e;
+        background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
         border: none;
-
         border-radius: 99px;
-
         cursor: pointer;
-
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-
+        box-shadow: 0 10px 25px -5px rgba(34, 197, 94, 0.4);
         transition:
-          transform 0.2s ease,
-          background-color 0.2s ease;
+          transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.25s ease;
       }
 
       .action-btn:hover {
-        background-color: #0e100f;
-
-        color: #0ae448;
-
-        transform: translateY(-2px);
+        background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+        color: #07090e;
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px -5px rgba(34, 197, 94, 0.6);
       }
 
       /* =========================================
@@ -243,18 +230,16 @@
 
       .container {
         position: relative;
-
-        width: min(90vw, 1100px);
-
+        width: min(90vw, 1000px);
         display: flex;
-
         flex-direction: column;
-
         align-items: center;
-
-        justify-content: space-evenly;
-
-        border-radius: 9px;
+        justify-content: center;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(12px);
+        padding: 3rem 2rem 4rem 2rem;
       }
 
       /* =========================================
@@ -262,54 +247,25 @@
       ========================================== */
 
       .text {
-        color: #dfdcff;
-
-        font-size: clamp(1rem, 2.5vw, 2rem);
-
-        line-height: 1.2;
-
+        color: #94a3b8;
+        font-size: clamp(1rem, 2vw, 1.35rem);
+        line-height: 1.6;
         box-sizing: border-box;
-
-        padding: 5%;
-
+        padding: 2%;
         width: 100%;
-
         text-align: center;
-
-        /*
-          Important for SplitText.
-          The characters are animated individually.
-        */
         overflow: hidden;
       }
 
-      /* =========================================
-         SPLITTEXT CHARACTERS
-      ========================================== */
-
       .text .char {
         display: inline-block;
-
         will-change: transform, opacity;
-
-        /*
-          Prevents transformed characters from
-          visually affecting surrounding text.
-        */
         backface-visibility: hidden;
       }
-
-      /* =========================================
-         SPLITTEXT WORDS
-      ========================================== */
 
       .text .word {
         display: inline-block;
       }
-
-      /* =========================================
-         SPLITTEXT LINES
-      ========================================== */
 
       .text .line {
         display: block;
@@ -318,10 +274,9 @@
       /* =========================================
          BUTTON CONTAINER
       ========================================== */
-
       .btn-container {
         position: absolute;
-        bottom: 30px;
+        bottom: 20px;
         z-index: 10;
       }
 
@@ -339,23 +294,19 @@
         }
 
         .circle {
-          width: 55px;
-          height: 55px;
+          width: 45px;
+          height: 45px;
         }
 
         .text {
-          font-size: clamp(1rem, 5vw, 1.5rem);
-          padding: 8%;
+          font-size: clamp(0.9rem, 4vw, 1.2rem);
+          padding: 4%;
         }
 
         .action-btn {
           padding: 0.7rem 1.5rem;
         }
       }
-
-      /* =========================================
-         REDUCED MOTION
-      ========================================== */
 
       @media (prefers-reduced-motion: reduce) {
         *,
@@ -364,10 +315,15 @@
           scroll-behavior: auto !important;
         }
       }
+
       .hover-text {
-        font-size: 56px;
-        line-height: 1.25;
-        max-width: 60vw;
+        margin-top: 60px;
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        line-height: 1.2;
+        max-width: 75vw;
+        font-weight: 700;
+        color: #f8fafc;
+        text-align: center;
       }
 
       .hover-text .word {
@@ -391,7 +347,7 @@
       .hover-text .word .after {
         display: inline-block;
         position: absolute;
-        top: 40;
+        top: 0;
         left: 0;
       }
 
@@ -414,39 +370,103 @@
       .hover-text .word:hover .after .char {
         transform: translateY(0);
       }
-      .sr-only:not(:focus):not(:active) {
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        height: 1px;
-        overflow: hidden;
-        position: absolute;
-        white-space: nowrap;
-        width: 1px;
-      }
+
       .contain {
         position: relative;
-        width: 90vw;
-        height: 90vh;
+        width: min(90vw, 1000px);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
-        border-radius: 9px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        backdrop-filter: blur(12px);
+        padding: 2rem;
         opacity: 0;
       }
 
       .animate-me {
-        color: #dfdcff;
-        font-size: 25px;
+        color: #94a3b8;
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        line-height: 1.6;
         box-sizing: border-box;
-        padding: 5%;
+        padding: 2%;
         width: 100%;
         text-align: left;
         perspective: 500px;
       }
 
       a {
-        color: var(--color-orangey);
+        color: #4ade80;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      #load {
+        font-family: inherit;
+        color: #07090e;
+        background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+        font-weight: 600;
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        height: 40px;
+        outline: none;
+        border: none;
+        border-radius: 99px;
+        padding: 0 28px;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      #load:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5);
+      }
+
+      .anim-overlay {
+        position: fixed;
+        left: 0;
+        width: 100%;
+        height: 50vh;
+        z-index: 9999;
+        pointer-events: none;
+      }
+
+      .top-div {
+        top: -50vh;
+
+        background-color: #064e3b;
+      }
+
+      .bottom-div {
+        bottom: -50vh;
+        background-color: #3b0764;
+      }
+
+      nav a button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #cbd5e1;
+        padding: 0.5rem 1.2rem;
+        border-radius: 99px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s ease;
+      }
+
+      nav a button:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #ffffff;
+        border-color: rgba(255, 255, 255, 0.2);
       }
     </style>
   </head>
@@ -455,11 +475,16 @@
     <!-- =========================================
          NAVBAR
     ========================================== -->
+    <div class="anim-overlay top-div"></div>
+    <div class="anim-overlay bottom-div"></div>
 
     <nav>
       <div class="docs-demo-html">
         <h2 class="text-xl">SPENDLY</h2>
       </div>
+      <a href="#info"><button>Info</button></a>
+      <a href="#more"><button>More</button></a>
+      <button id="load">Explore Spendly</button>
     </nav>
 
     <!-- =========================================
@@ -473,33 +498,29 @@
     ========================================== -->
 
     <section class="main-section">
-      <div class="slide center gradient-green">
+      <div id="info" class="slide center gradient-green">
         <svg viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
           <style>
             .small {
               font: italic 10px sans-serif;
+              color: #fff;
             }
             .heavy {
               font: bold 32px sans-serif;
             }
-
             .Rrrrr {
               font: italic 40px serif;
               fill: red;
             }
           </style>
 
-          <text x="20" y="50" class="small">Your</text>
-          <text x="40" y="50" class="heavy">Personal</text>
-          <text x="55" y="65" class="small">Finance</text>
-          <text x="90" y="78" class="Rrrrr">Sidekick!</text>
+          <text x="20" y="48" class="small">Your</text>
+          <text x="40" y="48" class="heavy">Personal</text>
+          <text x="55" y="63" class="small">Finance</text>
+          <text x="90" y="75" class="Rrrrr">Sidekick!</text>
         </svg>
 
         <div class="container">
-          <!-- =====================================
-               DESCRIPTION
-          ====================================== -->
-
           <div class="text">
             Take control of your hard-earned money without the headache. Spendly
             is designed to make budgeting effortless, intuitive, and actually
@@ -508,10 +529,6 @@
             covered.
           </div>
         </div>
-
-        <!-- =====================================
-             BUTTON
-        ====================================== -->
 
         <div class="btn-container">
           <button class="action-btn">Get Started →</button>
@@ -526,6 +543,7 @@
         <h1 class="hover-text">Why Manage Your Money with Spendly?</h1>
         <div class="contain">
           <div class="animate-me" aria-hidden="true">
+            <div style="position: relative;" id="more"></div>
             Financial freedom starts with clarity.<a href="https://testlink.com"
               >Spendly</a
             >
@@ -534,44 +552,27 @@
             unnecessary subscriptions, and watch your savings grow with
             real-time insights tailored just for you.
           </div>
-          <p class="sr-only">
-            From custom expense categories and visual spending charts to secure
-            data encryption and monthly financial reports,
-            <a href="https://testlink.com">Spendly</a> packs a punch. Every tool
-            you need to master your personal finances is right here in one
-            sleek, lightning-fast dashboard.
-          </p>
         </div>
         <div class="btn-container">
           <button class="action-btn">Explore Features →</button>
         </div>
       </div>
-
-     
     </section>
 
     <!-- =========================================
-         GSAP
+         GSAP SCRIPTS
     ========================================== -->
-
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/TextPlugin.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollToPlugin.min.js"></script>
 
     <!-- =========================================
          ANIME.JS
     ========================================== -->
-
     <script type="module">
       import { animate, stagger, splitText } from "https://esm.sh/animejs";
-
-      /* =========================================
-         ANIME.JS INITIALIZATION
-      ========================================== */
 
       try {
         const navTitle = document.querySelector(".text-xl");
@@ -584,31 +585,13 @@
 
           animate(chars, {
             y: [
-              {
-                to: "-1rem",
-                ease: "outExpo",
-                duration: 600,
-              },
-
-              {
-                to: 0,
-                ease: "outBounce",
-                duration: 800,
-                delay: 100,
-              },
+              { to: "-1rem", ease: "outExpo", duration: 600 },
+              { to: 0, ease: "outBounce", duration: 800, delay: 100 },
             ],
-
-            rotate: {
-              from: "-0.2turn",
-              delay: 0,
-            },
-
+            rotate: { from: "-0.2turn", delay: 0 },
             delay: stagger(50),
-
             ease: "inOutCirc",
-
             loopDelay: 1000,
-
             loop: true,
           });
         }
@@ -620,34 +603,19 @@
     <!-- =========================================
          GSAP MAIN SCRIPT
     ========================================== -->
-
     <script>
-      /* =========================================
-         REGISTER GSAP PLUGINS
-      ========================================== */
-
-      gsap.registerPlugin(ScrollTrigger, SplitText);
-
-      /* =========================================
-         DOM READY
-      ========================================== */
+      gsap.registerPlugin(ScrollTrigger, SplitText, ScrollToPlugin, TextPlugin);
 
       document.addEventListener("DOMContentLoaded", () => {
         /* =======================================
              MOUSE FOLLOWER
           ======================================== */
-
         const circleEl = document.querySelector(".circle");
 
         if (circleEl) {
           window.addEventListener("mousemove", (event) => {
             const xPos = (event.clientX - window.innerWidth / 2) * 0.4;
-
             const yPos = (event.clientY - window.innerHeight / 2) * 0.4;
-
-            /* ---------------------------------
-                   RED COLOR
-                --------------------------------- */
 
             const redVal = Math.round(
               gsap.utils.mapRange(
@@ -658,11 +626,6 @@
                 xPos,
               ),
             );
-
-            /* ---------------------------------
-                   BLUE COLOR
-                --------------------------------- */
-
             const blueVal = Math.round(
               gsap.utils.mapRange(
                 -window.innerWidth / 2,
@@ -673,28 +636,19 @@
               ),
             );
 
-            /* ---------------------------------
-                   MOVE CIRCLE
-                --------------------------------- */
-
             gsap.to(circleEl, {
               x: xPos,
-
               y: yPos,
-
               backgroundColor: `rgb(${redVal}, 255, ${blueVal})`,
-
               duration: 0.4,
-
               ease: "power2.out",
             });
           });
         }
 
         /* =======================================
-             GET ALL SLIDES
+             SLIDES & TIMELINE
           ======================================== */
-
         const slides = gsap.utils.toArray(".slide");
 
         if (!slides.length) {
@@ -702,240 +656,150 @@
           return;
         }
 
-        /* =======================================
-             INITIAL SLIDE POSITION
-          ======================================== */
-
         gsap.set(slides, {
           rotationX: (index) => (index ? -90 : 0),
-
           transformOrigin: "center center -150px",
         });
-
-        /* =======================================
-             MAIN SCROLL TIMELINE
-          ======================================== */
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: ".main-section",
-
             start: "top top",
-
             end: "+=4000",
-
             pin: true,
-
             scrub: 1,
-
             markers: false,
           },
         });
 
-        /* =======================================
-             SLIDE ANIMATION
-          ======================================== */
-
         slides.forEach((slide, index) => {
           const nextSlide = slides[index + 1];
+          if (!nextSlide) return;
 
-          if (!nextSlide) {
-            return;
-          }
-
-          tl.to(slide, {
-            rotationX: 90,
-
-            ease: "power1.inOut",
-          });
-
-          tl.to(
-            nextSlide,
-            {
-              rotationX: 0,
-
-              ease: "power1.inOut",
-            },
-            "<",
-          );
+          tl.to(slide, { rotationX: 90, ease: "power1.inOut" });
+          tl.to(nextSlide, { rotationX: 0, ease: "power1.inOut" }, "<");
         });
 
         /* =======================================
-             SPLITTEXT
+             NAVBAR SMOOTH SCROLLING
           ======================================== */
+        document.querySelectorAll("nav a").forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href");
+            const st = tl.scrollTrigger;
 
+            if (targetId === "#info") {
+              gsap.to(window, {
+                scrollTo: st.start,
+                duration: 1,
+                ease: "power2.inOut",
+              });
+            } else if (targetId === "#more") {
+              gsap.to(window, {
+                scrollTo: st.start + (st.end - st.start) * 0.5,
+                duration: 1,
+                ease: "power2.inOut",
+              });
+            }
+          });
+        });
+
+        /* =======================================
+             SPLITTEXT & ANIMATIONS
+          ======================================== */
         const textElement = document.querySelector(".text");
-
-        if (!textElement) {
-          console.warn("SplitText target .text was not found.");
-        } else {
-          /* -------------------------------------
-               CREATE SPLITTEXT
-            ------------------------------------- */
-
+        if (textElement) {
           const split = new SplitText(textElement, {
             type: "chars,words,lines",
-
             charsClass: "char",
-
             wordsClass: "word",
-
             linesClass: "line",
           });
 
-          /* -------------------------------------
-               CHECK CHARACTERS
-            ------------------------------------- */
-
-          if (!split.chars || !split.chars.length) {
-            console.warn("SplitText did not create characters.");
-          } else {
-            /* -----------------------------------
-                 INITIAL CHARACTER STATE
-              ----------------------------------- */
-
+          if (split.chars && split.chars.length) {
             gsap.set(split.chars, {
               yPercent: () => gsap.utils.random(-100, 100),
-
               rotation: () => gsap.utils.random(-30, 30),
-
               autoAlpha: 0,
             });
 
-            /* -----------------------------------
-                 CHARACTER ANIMATION
-              ----------------------------------- */
-
             gsap.to(split.chars, {
               yPercent: 0,
-
               rotation: 0,
-
               autoAlpha: 1,
-
               duration: 0.3,
-
               ease: "back.out(1.7)",
-
-              stagger: {
-                each: 0.025,
-
-                from: "random",
-              },
+              stagger: { each: 0.025, from: "random" },
             });
           }
         }
 
-        /* =======================================
-             BUTTON ANIMATION
-          ======================================== */
-
         const button = document.querySelector(".action-btn");
-
         if (button) {
           gsap.from(button, {
             opacity: 0,
-
             y: 25,
-
             scale: 0.9,
-
             duration: 0.8,
-
             delay: 1.2,
-
             ease: "back.out(1.7)",
           });
-
-          /* -------------------------------------
-               BUTTON HOVER IN
-            ------------------------------------- */
 
           button.addEventListener("mouseenter", () => {
             gsap.to(button, {
               scale: 1.05,
-
               duration: 0.25,
-
               ease: "power2.out",
             });
           });
-
-          /* -------------------------------------
-               BUTTON HOVER OUT
-            ------------------------------------- */
 
           button.addEventListener("mouseleave", () => {
-            gsap.to(button, {
-              scale: 1,
-
-              duration: 0.25,
-
-              ease: "power2.out",
-            });
+            gsap.to(button, { scale: 1, duration: 0.25, ease: "power2.out" });
           });
         }
-
-        /* =======================================
-             REFRESH SCROLLTRIGGER
-          ======================================== */
 
         ScrollTrigger.refresh();
       });
 
-      /* =========================================
-         HANDLE RESIZE
-      ========================================== */
-
-      let resizeTimer;
-
-      window.addEventListener("resize", () => {
-        clearTimeout(resizeTimer);
-
-        resizeTimer = setTimeout(() => {
-          ScrollTrigger.refresh();
-        }, 250);
-      });
+      /* =======================================
+           SVG & HOVER TEXT ANIMATIONS
+        ======================================== */
       let words = gsap.utils.toArray("svg text"),
-        tl = gsap.timeline({
-          repeat:-1, 
-          delay: 0.5 }),
+        tlSVGs = gsap.timeline({ repeat: -1, delay: 0.5 }),
         timePerCharacter = 0.2;
 
       words.forEach((el) => {
-        tl.from(el, {
+        tlSVGs.from(el, {
           text: "",
           duration: el.innerHTML.length * timePerCharacter,
           ease: "none",
         });
       });
+
       const text = document.querySelector(".hover-text");
-
-      const Split = SplitText.create(text, {
-        splitBy: "chars,words",
-        wordsClass: "word",
-        charsClass: "char",
-        mask: "words",
-        autoSplit: true,
-        onSplit: (self) => {
-          self.words.forEach((word) => {
-            // Get all the characters
-            const content = word.innerHTML;
-            word.innerHTML = "";
-            // Add the original characters back in
-            const chars = document.createElement("div");
-            chars.classList.add("before");
-            chars.innerHTML = content;
-            // Duplicate the characters with aria-hidden, so that screen-readers don't read duplicate content
-            const dupe = document.createElement("div");
-            dupe.classList.add("after");
-            dupe.innerHTML = content;
-
-            word.append(chars, dupe);
-          });
-        },
-      });
-      gsap.registerPlugin(SplitText);
+      if (text) {
+        SplitText.create(text, {
+          splitBy: "chars,words",
+          wordsClass: "word",
+          charsClass: "char",
+          mask: "words",
+          autoSplit: true,
+          onSplit: (self) => {
+            self.words.forEach((word) => {
+              const content = word.innerHTML;
+              word.innerHTML = "";
+              const chars = document.createElement("div");
+              chars.classList.add("before");
+              chars.innerHTML = content;
+              const dupe = document.createElement("div");
+              dupe.classList.add("after");
+              dupe.innerHTML = content;
+              word.append(chars, dupe);
+            });
+          },
+        });
+      }
 
       document.fonts.ready.then(() => {
         gsap.set(".contain", { opacity: 1 });
@@ -945,12 +809,70 @@
         });
 
         gsap.from(split.words, {
-          repeat:2,
+          repeat: 2,
           opacity: 0,
           duration: 2,
           ease: "sine.out",
           stagger: 0.1,
         });
+      });
+
+      const btn = document.querySelector("#load");
+      if (btn) {
+        const btnTL = gsap
+          .timeline({ paused: true })
+          .to(btn, {
+            duration: 1,
+            text: { value: "Loading...", type: "diff" },
+            ease: "sine.in",
+          })
+          .to(btn, {
+            duration: 0.6,
+            text: { value: "loading", type: "diff" },
+            ease: "sine.inOut",
+            repeat: 4,
+            yoyo: true,
+          })
+          .to(btn, { text: "Welcome!", ease: "none" }, "+=0.5");
+
+        btn.addEventListener("pointerup", () => btnTL.play(0));
+      }
+
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          ScrollTrigger.refresh();
+        }, 150);
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        /* =======================================
+             ANIMATION OVERLAYS LOGIC
+        ======================================== */
+        const topDiv = document.querySelector(".top-div");
+        const bottomDiv = document.querySelector(".bottom-div");
+
+        const playTransition = () => {
+          const tl = gsap.timeline({
+            onComplete: () => {
+              document.body.style.display = "none";
+            },
+          });
+
+          tl.to(topDiv, { top: 0, duration: 0.8, ease: "power2.inOut" }).to(
+            bottomDiv,
+            { bottom: 0, duration: 0.8, ease: "power2.inOut" },
+            "<",
+          );
+        };
+
+        const btn1 = document.querySelector("#load");
+        const btns2and3 = document.querySelectorAll(".action-btn");
+
+        if (btn1) btn1.addEventListener("click", playTransition);
+        btns2and3.forEach((btn) =>
+          btn.addEventListener("click", playTransition),
+        );
       });
     </script>
   </body>
