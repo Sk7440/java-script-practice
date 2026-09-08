@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+
+        font-family: Arial, Helvetica, sans-serif;
+        background:
+          radial-gradient(circle at 20% 20%, #26335f 0, transparent 30%),
+          radial-gradient(circle at 80% 80%, #3c174f 0, transparent 30%),
+          #090b13;
+
+        color: #fff;
+      }
+
+      body > div {
+        width: 100%;
+        max-width: 470px;
+        padding: 38px;
+
+        position: relative;
+        overflow: hidden;
+
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 28px;
+
+        background: rgba(18, 21, 34, 0.82);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+
+        box-shadow:
+          0 30px 80px rgba(0, 0, 0, 0.55),
+          inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      }
+
+      body > div::before {
+        content: "";
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        top: -100px;
+        right: -70px;
+
+        border-radius: 50%;
+        background: #7c5cff;
+        filter: blur(70px);
+        opacity: 0.35;
+      }
+
+      h1 {
+        margin-bottom: 28px;
+
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -1.5px;
+
+        background: linear-gradient(90deg, #ffffff, #9d8cff);
+        background-clip: text;
+
+        -webkit-text-fill-color: transparent;
+      }
+
+      #password {
+        width: 100%;
+        height: 58px;
+        margin-bottom: 25px;
+        padding: 0 18px;
+
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        outline: none;
+
+        color: #fff;
+        background: rgba(255, 255, 255, 0.055);
+
+        font-size: 17px;
+        letter-spacing: 1px;
+
+        box-shadow:
+          inset 0 0 20px rgba(0, 0, 0, 0.15),
+          0 0 0 1px rgba(255, 255, 255, 0.02);
+      }
+
+      #password:focus {
+        border-color: #806bff;
+        box-shadow:
+          0 0 0 3px rgba(128, 107, 255, 0.12),
+          0 0 25px rgba(128, 107, 255, 0.12);
+      }
+
+      label {
+        min-height: 52px;
+        margin-bottom: 10px;
+        padding: 0 16px;
+
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 14px;
+
+        color: #c9cad4;
+        background: rgba(255, 255, 255, 0.035);
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: 0.25s ease;
+      }
+
+      label:hover {
+        border-color: rgba(128, 107, 255, 0.35);
+        background: rgba(128, 107, 255, 0.07);
+        transform: translateX(3px);
+      }
+
+      label:first-of-type {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #length {
+        width: 80px;
+        height: 36px;
+        padding: 0 10px;
+
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 9px;
+        outline: none;
+
+        color: #fff;
+        background: #171a29;
+
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      #length:focus {
+        border-color: #806bff;
+      }
+
+      input[type="checkbox"] {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+
+        position: relative;
+
+        border: 1px solid #555a70;
+        border-radius: 6px;
+
+        background: #11131e;
+        cursor: pointer;
+
+        transition: 0.2s ease;
+      }
+
+      input[type="checkbox"]:checked {
+        border-color: #806bff;
+        background: #806bff;
+        box-shadow: 0 0 15px rgba(128, 107, 255, 0.35);
+      }
+
+      input[type="checkbox"]:checked::after {
+        content: "✓";
+
+        position: absolute;
+        left: 50%;
+        top: 50%;
+
+        transform: translate(-50%, -53%);
+
+        color: #fff;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      button {
+        width: 100%;
+        height: 58px;
+        margin-top: 20px;
+
+        border: none;
+        border-radius: 15px;
+
+        color: #fff;
+        background: linear-gradient(135deg, #806bff, #a855f7);
+
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+
+        cursor: pointer;
+
+        box-shadow:
+          0 12px 30px rgba(128, 107, 255, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.2);
+
+        transition: 0.25s ease;
+      }
+
+      button:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+          0 18px 35px rgba(128, 107, 255, 0.35),
+          inset 0 1px 0 rgba(255, 255, 255, 0.25);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 500px) {
+        body {
+          padding: 18px;
+        }
+
+        body > div {
+          padding: 26px 20px;
+          border-radius: 22px;
+        }
+
+        h1 {
+          font-size: 27px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <h1>Password generator</h1>
+
+      <input type="text" id="password" readonly />
+
+      <label for="">
+        Password Length
+        <input type="number" id="length" max="10" min="1" />
+      </label>
+
+      <label for="">
+        <input type="checkbox" id="lowercase" checked />
+        Lowercase
+      </label>
+
+      <label for="">
+        <input type="checkbox" id="uppercase" checked />
+        Upper case
+      </label>
+
+      <label for="">
+        <input type="checkbox" id="numbers" checked />
+        Numbers
+      </label>
+
+      <label for="">
+        <input type="checkbox" id="specialchracter" checked />
+        Special Chracter
+      </label>
+
+      <button id="generate">Generate password</button>
+    </div>
+  </body>
+  <script>
+    let password = document.querySelector("#password");
+
+    let length = document.querySelector("#length");
+    let upperCase = document.querySelector("#uppercase");
+    let lowerCase = document.querySelector("#lowercase");
+    let number = document.querySelector("#numbers");
+    let specialChracter = document.querySelector("#specialchracter");
+
+    let generateBtn = document.querySelector("#generate");
+    generateBtn.addEventListener("click", () => {
+      let lowerCharacter = "";
+      let upperCharacter = "";
+      let numberCharacter = "";
+      let specialCharacter = "";
+      ////lower case
+      if (lowerCase.checked) {
+        for (let i = 97; i <= 122; i++) {
+          lowerCharacter += String.fromCharCode(i);
+        }
+      }
+      //   upperCase
+      if (upperCase.checked) {
+        for (let i = 65; i < 90; i++) {
+          upperCharacter += String.fromCharCode(i);
+        }
+      }
+      /////numbers
+      if (number.checked) {
+        for (let i = 48; i < 57; i++) {
+          numberCharacter += String.fromCharCode(i);
+        }
+      }
+      /////Special chracter
+      if (specialChracter.checked) {
+        for (let i = 33; i < 38; i++) {
+          specialCharacter += String.fromCharCode(i);
+        }
+      }
+      if (
+        lowerCharacter === "" &&
+        upperCharacter === "" &&
+        numberCharacter === "" &&
+        specialCharacter === ""
+      ) {
+        password.value = "Select an option";
+        return;
+      }
+      let generatedpassword = "";
+      let finalPassword = "";
+      for (let i = 0; i < Number(length.value); i++) {
+        let urandomIndex = Math.floor(Math.random() * upperCharacter.length);
+        let lrandomIndex = Math.floor(Math.random() * lowerCharacter.length);
+        let nrandomIndex = Math.floor(Math.random() * numberCharacter.length);
+        let srandomIndex = Math.floor(Math.random() * specialCharacter.length);
+        let frandomIndex = Math.floor(Math.random() * generatedpassword.length);
+
+        if (upperCase.checked) {
+          generatedpassword += upperCharacter[urandomIndex];
+        }
+        if (lowerCase.checked) {
+          generatedpassword += lowerCharacter[lrandomIndex];
+        }
+        if (number.checked) {
+          generatedpassword += numberCharacter[nrandomIndex];
+        }
+        if (specialChracter.checked) {
+          generatedpassword += specialCharacter[srandomIndex];
+          console.log(specialChracter);
+        }
+        finalPassword += generatedpassword[frandomIndex];
+      }
+
+      password.value = finalPassword;
+    });
+  </script>
+</html>
